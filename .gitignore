@@ -20,3 +20,4 @@ pkg
 spec.opts
 
 ## PROJECT::SPECIFIC
+features/support/harvest_credentials.yml
