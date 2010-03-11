@@ -6,8 +6,12 @@ require "builder"
 require "harvest/credentials"
 require "harvest/errors"
 require "harvest/request"
+require "harvest/base"
 require "harvest/clients"
+require "harvest/contacts"
+require "harvest/models/base"
 require "harvest/models/client"
+require "harvest/models/contact"
 
 class Harvest
   def initialize(subdomain, username, password, options = {})
@@ -17,7 +21,11 @@ class Harvest
   end
   
   def clients
-    @_harvest_clients ||= Harvest::Clients.new(credentials)
+    @clients ||= Harvest::Clients.new(credentials)
+  end
+  
+  def contacts
+    @contacts ||= Harvest::Contacts.new(credentials)
   end
   
   private

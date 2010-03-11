@@ -1,9 +1,5 @@
 class Harvest
-  class Clients
-    def initialize(credentials)
-      @credentials = credentials
-    end
-    
+  class Clients < Base
     def all
       response = Request.perform(:get, credentials, "/clients")
       Harvest::Models::Client.parse(response.body)
@@ -59,8 +55,5 @@ class Harvest
       end
       client
     end
-    
-    private
-      def credentials; @credentials; end
   end
 end

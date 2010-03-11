@@ -1,8 +1,8 @@
 class Harvest
   module Models
-    class Client
+    class Client < Base
       include HappyMapper
-  
+      
       element :id, Integer
       element :active, Boolean
       element :name, String
@@ -13,10 +13,6 @@ class Harvest
       element :updated_at, Time, :tag => "updated-at"
       
       alias_method :active?, :active
-      
-      def ==(other)
-        id == other.id
-      end
     end
   end
 end
