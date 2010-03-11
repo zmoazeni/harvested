@@ -12,6 +12,8 @@ class Harvest
       element :cache_version, Integer, :tag => "cache-version"
       element :updated_at, Time, :tag => "updated-at"
       
+      alias_method :active?, :active
+      
       def ==(other)
         id == other.id
       end

@@ -4,13 +4,13 @@ class Harvest
       @credentials = credentials
     end
     
-    def all(id = nil)
-      response = if id
-        Request.perform_http(:get, credentials, "/clients/#{id}")
-      else
-        Request.perform_http(:get, credentials, "/clients")
-      end
-      
+    def all
+      response = Request.perform(:get, credentials, "/clients")
+      Harvest::Models::Client.parse(response.body)
+    end
+    
+    def find(id)
+      response = Request.perform(:get, credentials, "/clients/#{id}")
       Harvest::Models::Client.parse(response.body)
     end
     
@@ -21,7 +21,9 @@ class Harvest
         c.details(params["details"]) if params["details"]
       end
       
-      Request.perform_http(:post, credentials, "/clients", nil, xml)
+      response = Request.perform(:post, credentials, "/clients", nil, xml)
+      id = response.headers_hash["Location"].match(/\/clients\/(\d+)/)[1]
+      find(id)
     end
     
     def update(id, params)
@@ -31,11 +33,31 @@ class Harvest
         c.details(params["details"]) if params["details"]
       end
       
-      Request.perform_http(:put, credentials, "/clients/#{id}", nil, xml)
+      Request.perform(:put, credentials, "/clients/#{id}", nil, xml)
+      find(id)
     end
     
     def delete(id)
-      Request.perform_http(:delete, credentials, "/clients/#{id}")
+      Request.perform(:delete, credentials, "/clients/#{id}")
+      id
+    end
+    
+    def deactivate(id)
+      client = find(id)
+      if client.active?
+        Request.perform(:post, credentials, "/clients/#{id}/toggle")
+        client.active = false
+      end
+      client
+    end
+    
+    def activate(id)
+      client = find(id)
+      if !client.active?
+        Request.perform(:post, credentials, "/clients/#{id}/toggle")
+        client.active = true
+      end
+      client
     end
     
     private
