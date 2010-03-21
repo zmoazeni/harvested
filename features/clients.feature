@@ -7,10 +7,13 @@ Feature: Managing Clients
     | details | Building API Widgets across the country |
     Then there should be a client with the name "API Widgets Inc."
     And I should be able to retrieve the client named "API Widgets Inc." by id
-    When I update the client named "API Widgets Inc." with the following details "Building API Widgets in the Midwest"
-    Then the details of "API Widgets Inc." should be "Building API Widgets in the Midwest"
-    When I delete the client named "API Widgets Inc."
-    Then there should not be a client with the name "API Widgets Inc."
+    When I update the client named "API Widgets Inc." with the following:
+    | name    | API Widgets 2000                    |
+    | details | Building API Widgets in the Midwest |
+    Then the client named "API Widgets 2000" should have the following attributes:
+    | details | Building API Widgets in the Midwest |
+    When I delete the client named "API Widgets 2000"
+    Then there should not be a client with the name "API Widgets 2000"
 
 
   Scenario: Activating and Deactivating a Client

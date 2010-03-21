@@ -20,15 +20,17 @@ Then 'I should be able to retrieve the client named "$1" by id' do |name|
   harvest_api.clients.find(client.id).should == client
 end
 
-When 'I update the client named "$1" with the following details "$2"' do |name, details|
+When 'I update the client named "$1" with the following:' do |name, table|
   client = Then %Q{there should be a client with the name "#{name}"}
-  client.details = details
+  client.attributes = table.rows_hash
   harvest_api.clients.update(client)
 end
 
-Then 'the details of "$1" should be "$2"' do |name, details|
+Then 'the client named "$1" should have the following attributes:' do |name, table|
   client = Then %Q{there should be a client with the name "#{name}"}
-  client.details.should == details
+  table.rows_hash.each do |key, value|
+    client.send(key).should == value
+  end
 end
 
 When 'I delete the client named "$1"' do |name|
