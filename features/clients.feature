@@ -16,7 +16,7 @@ Feature: Managing Clients
   Scenario: Activating and Deactivating a Client
     Given I am using the credentials from "./support/harvest_credentials.yml"
     When I create a client with the following:
-    | name        | API Widgets Inc.                        |
+    | name    | API Widgets Inc.                        |
     | details | Building API Widgets across the country |
     Then the client named "API Widgets Inc." should be activated
     When I deactivate the client named "API Widgets Inc."

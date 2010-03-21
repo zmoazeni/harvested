@@ -1,6 +1,6 @@
 When 'I create a client with the following:' do |table|
-  client = harvest_api.clients.create(table.rows_hash)
-  client.name.should == table.rows_hash["name"]
+  client = Harvest::Client.new(table.rows_hash)
+  harvest_api.clients.create(client)
 end
 
 Then 'there should be a client with the name "$1"' do |name|
@@ -22,8 +22,8 @@ end
 
 When 'I update the client named "$1" with the following details "$2"' do |name, details|
   client = Then %Q{there should be a client with the name "#{name}"}
-  updated_client = harvest_api.clients.update(client.id, "details" => details)
-  updated_client.name.should == name
+  client.details = details
+  harvest_api.clients.update(client)
 end
 
 Then 'the details of "$1" should be "$2"' do |name, details|
@@ -33,30 +33,26 @@ end
 
 When 'I delete the client named "$1"' do |name|
   client = Then %Q{there should be a client with the name "#{name}"}
-  id = harvest_api.clients.delete(client.id)
+  id = harvest_api.clients.delete(client)
   id.should == client.id
 end
 
-Then /^the client named "([^\"]*)" should be activated$/ do |name|
-  clients = harvest_api.clients.all
-  clients.detect {|c| c.name == name}.should be_active
+Then 'the client named "$1" should be activated' do |name|
+  client = Then %Q{there should be a client with the name "#{name}"}
+  client.should be_active
 end
 
-Then /^the client named "([^\"]*)" should be deactivated$/ do |name|
-  clients = harvest_api.clients.all
-  clients.detect {|c| c.name == name}.should_not be_active
+Then 'the client named "$1" should be deactivated' do |name|
+  client = Then %Q{there should be a client with the name "#{name}"}
+  client.should_not be_active
 end
 
-When /^I deactivate the client named "([^\"]*)"$/ do |name|
-  clients = harvest_api.clients.all
-  client = clients.detect {|c| c.name == name}
-  updated_client = harvest_api.clients.deactivate(client.id)
-  updated_client.should_not be_active
+When 'I deactivate the client named "$1"' do |name|
+  client = Then %Q{there should be a client with the name "#{name}"}
+  harvest_api.clients.deactivate(client)
 end
 
-When /^I activate the client named "([^\"]*)"$/ do |name|
-  clients = harvest_api.clients.all
-  client = clients.detect {|c| c.name == name}
-  updated_client = harvest_api.clients.activate(client.id)
-  updated_client.should be_active
+When 'I activate the client named "$1"' do |name|
+  client = Then %Q{there should be a client with the name "#{name}"}
+  harvest_api.clients.activate(client)
 end

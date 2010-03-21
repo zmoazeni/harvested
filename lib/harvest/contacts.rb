@@ -1,5 +1,5 @@
 class Harvest
-  class Contacts < Base
+  class Contacts < BaseApi
     
     def all(client_id = nil)
       response = if client_id

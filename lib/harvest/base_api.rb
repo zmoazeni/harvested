@@ -1,5 +1,5 @@
 class Harvest
-  class Base
+  class BaseApi
     def initialize(credentials)
       @credentials = credentials
     end

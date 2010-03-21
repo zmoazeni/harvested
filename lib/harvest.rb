@@ -6,12 +6,12 @@ require "builder"
 require "harvest/credentials"
 require "harvest/errors"
 require "harvest/request"
-require "harvest/base"
+require "harvest/base_api"
 require "harvest/clients"
 require "harvest/contacts"
-require "harvest/models/base"
-require "harvest/models/client"
-require "harvest/models/contact"
+require "harvest/base_model"
+require "harvest/client"
+require "harvest/contact"
 
 class Harvest
   def initialize(subdomain, username, password, options = {})

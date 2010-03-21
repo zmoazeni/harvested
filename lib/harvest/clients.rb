@@ -1,56 +1,54 @@
 class Harvest
-  class Clients < Base
+  class Clients < BaseApi
     def all
       response = Request.perform(:get, credentials, "/clients")
-      Harvest::Models::Client.parse(response.body)
+      Harvest::Client.parse(response.body)
     end
     
     def find(id)
       response = Request.perform(:get, credentials, "/clients/#{id}")
-      Harvest::Models::Client.parse(response.body)
+      Harvest::Client.parse(response.body)
     end
     
-    def create(params)
+    def create(client)
       builder = Builder::XmlMarkup.new
       xml = builder.client do |c|
-        c.name(params["name"])
-        c.details(params["details"]) if params["details"]
+        c.name(client.name)
+        c.details(client.details) if client.details
       end
       
       response = Request.perform(:post, credentials, "/clients", nil, xml)
       id = response.headers_hash["Location"].match(/\/clients\/(\d+)/)[1]
-      find(id)
+      find(client.id)
     end
     
-    def update(id, params)
+    def update(client)
       builder = Builder::XmlMarkup.new
       xml = builder.client do |c|
-        c.name(params["name"]) if params["name"]
-        c.details(params["details"]) if params["details"]
+        c.name(client.name) if client.name
+        c.details(client.details) if client.details
       end
       
-      Request.perform(:put, credentials, "/clients/#{id}", nil, xml)
-      find(id)
+      Request.perform(:put, credentials, "/clients/#{client.id}", nil, xml)
+      find(client.id)
     end
     
-    def delete(id)
-      Request.perform(:delete, credentials, "/clients/#{id}")
-      id
+    def delete(client)
+      Request.perform(:delete, credentials, "/clients/#{client.id}")
+      client.id
     end
     
-    def deactivate(id)
-      client = find(id)
+    def deactivate(client)
       if client.active?
-        Request.perform(:post, credentials, "/clients/#{id}/toggle")
+        Request.perform(:post, credentials, "/clients/#{client.id}/toggle")
         client.active = false
       end
       client
     end
     
-    def activate(id)
-      client = find(id)
+    def activate(client)
       if !client.active?
-        Request.perform(:post, credentials, "/clients/#{id}/toggle")
+        Request.perform(:post, credentials, "/clients/#{client.id}/toggle")
         client.active = true
       end
       client
