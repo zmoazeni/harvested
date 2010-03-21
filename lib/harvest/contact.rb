@@ -2,6 +2,7 @@ class Harvest
   class Contact < BaseModel
     include HappyMapper
     
+    xml_name "contact"
     element :id, Integer
     element :client_id, Integer, :tag => "client-id"
     element :email, String

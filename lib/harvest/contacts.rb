@@ -8,29 +8,28 @@ class Harvest
         Request.perform(:get, credentials, "/contacts")
       end
       
-      Harvest::Models::Contact.parse(response.body)
+      Harvest::Contact.parse(response.body)
     end
     
     def find(id)
       response = Request.perform(:get, credentials, "/contacts/#{id}")
-      Harvest::Models::Contact.parse(response.body)
+      Harvest::Contact.parse(response.body)
     end
     
-    def create(params)
-      builder = Builder::XmlMarkup.new
-      xml = builder.contact do |c|
-        %w(client_id first_name last_name).each do |field|
-          mandatory_tag(c, dasherize(field), params[field])
-        end
-        
-        %w(email phone_office phone_mobile fax).each do |field|
-          optional_tag(c, dasherize(field), params[field])
-        end
-      end
-      puts xml
-      response = Request.perform(:post, credentials, "/contacts", nil, xml)
+    def create(contact)
+      response = Request.perform(:post, credentials, "/contacts", nil, contact.to_xml)
       id = response.headers_hash["Location"].match(/\/contacts\/(\d+)/)[1]
       find(id)
+    end
+    
+    def update(contact)
+      Request.perform(:put, credentials, "/contacts/#{contact.id}", nil, contact.to_xml)
+      find(contact.id)
+    end
+    
+    def delete(contact)
+      Request.perform(:delete, credentials, "/contacts/#{contact.id}")
+      contact.id
     end
   end
 end

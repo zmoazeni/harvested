@@ -11,25 +11,13 @@ class Harvest
     end
     
     def create(client)
-      builder = Builder::XmlMarkup.new
-      xml = builder.client do |c|
-        c.name(client.name)
-        c.details(client.details) if client.details
-      end
-      
-      response = Request.perform(:post, credentials, "/clients", nil, xml)
+      response = Request.perform(:post, credentials, "/clients", nil, client.to_xml)
       id = response.headers_hash["Location"].match(/\/clients\/(\d+)/)[1]
       find(client.id)
     end
     
     def update(client)
-      builder = Builder::XmlMarkup.new
-      xml = builder.client do |c|
-        c.name(client.name) if client.name
-        c.details(client.details) if client.details
-      end
-      
-      Request.perform(:put, credentials, "/clients/#{client.id}", nil, xml)
+      Request.perform(:put, credentials, "/clients/#{client.id}", nil, client.to_xml)
       find(client.id)
     end
     
