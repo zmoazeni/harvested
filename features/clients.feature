@@ -26,4 +26,5 @@ Feature: Managing Clients
     Then the client named "API Widgets Inc." should be deactivated
     When I activate the client named "API Widgets Inc."
     Then the client named "API Widgets Inc." should be activated
+    Then I delete the client named "API Widgets Inc."
     
