@@ -14,6 +14,8 @@ require "harvest/client"
 require "harvest/contact"
 
 class Harvest
+  attr_reader :request, :credentials
+  
   def initialize(subdomain, username, password, options = {})
     options[:ssl] = true if options[:ssl].nil?
     @credentials = Credentials.new(subdomain, username, password, options[:ssl])
@@ -27,7 +29,4 @@ class Harvest
   def contacts
     @contacts ||= Harvest::Contacts.new(credentials)
   end
-  
-  private
-    def credentials; @credentials; end
 end
