@@ -1,11 +1,10 @@
 require "happymapper"
-require "typhoeus"
+require "httparty"
 require "base64"
 require "builder"
 
 require "harvest/credentials"
 require "harvest/errors"
-require "harvest/request"
 require "harvest/base_api"
 require "harvest/clients"
 require "harvest/contacts"
