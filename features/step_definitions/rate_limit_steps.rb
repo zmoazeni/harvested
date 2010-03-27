@@ -16,3 +16,7 @@ Then 'I should be able to make a request again' do
   harvest_api.clients.all
   harvest_api.clients.all
 end
+
+Then 'a rate limiting error will be raised when I hit the rate limit' do
+  lambda { harvest_api.clients.all }.should raise_error(Harvest::RateLimited)
+end

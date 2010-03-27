@@ -17,8 +17,7 @@ class Harvest
   attr_reader :request, :credentials
   
   def initialize(subdomain, username, password, options = {})
-    options[:ssl] = true if options[:ssl].nil?
-    @credentials = Credentials.new(subdomain, username, password, options[:ssl])
+    @credentials = Credentials.new(subdomain, username, password, options)
     raise InvalidCredentials unless credentials.valid?
   end
   

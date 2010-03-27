@@ -19,7 +19,8 @@ begin
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
   Jeweler::GemcutterTasks.new
-rescue LoadError
+rescue LoadError => e
+  p e
   puts "Jeweler (or a dependency) not available. Install it with: gem install jeweler"
 end
 
