@@ -4,6 +4,7 @@ require "base64"
 require "builder"
 
 require "harvest/credentials"
+require "harvest/response_validator"
 require "harvest/errors"
 require "harvest/base_api"
 require "harvest/clients"

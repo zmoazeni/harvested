@@ -8,7 +8,13 @@ class Harvest
     
     protected
       def request(method, credentials, path, query = nil, body = nil)
-        HTTParty.send(method, "#{credentials.host}#{path}", :query => query, :body => body, :headers => {"Accept" => "application/xml", "Content-Type" => "application/xml; charset=utf-8", "Authorization" => "Basic #{credentials.basic_auth}"})
+        response = HTTParty.send(method, "#{credentials.host}#{path}", :query => query, :body => body, :headers => {"Accept" => "application/xml", "Content-Type" => "application/xml; charset=utf-8", "Authorization" => "Basic #{credentials.basic_auth}"})
+        validator = ResponseValidator.new(response)
+        if validator.valid?
+          validator.response
+        else
+          request(method, credentials, path, query, body)
+        end
       end
   end
 end
