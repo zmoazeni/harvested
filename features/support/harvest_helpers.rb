@@ -1,10 +1,10 @@
 module HarvestHelpers
   def standard_api
-    Harvest.new(@subdomain, @username, @password, :ssl => @ssl)
+    Harvest.client(@subdomain, @username, @password, :ssl => @ssl)
   end
   
   def harvest_api
-    Harvest::RobustClient.new(standard_api)
+    Harvest.robust_client(@subdomain, @username, @password, :ssl => @ssl)
   end
 end
 

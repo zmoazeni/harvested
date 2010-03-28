@@ -32,4 +32,15 @@ class Harvest
   def contacts
     @contacts ||= Harvest::Contacts.new(credentials)
   end
+  
+  class << self
+    def client(subdomain, username, password, options = {})
+      new(subdomain, username, password, options)
+    end
+    
+    def robust_client(subdomain, username, password, options = {})
+      instance = new(subdomain, username, password, options)
+      RobustClient.new(instance)
+    end
+  end
 end
