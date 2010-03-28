@@ -10,17 +10,19 @@ require 'harvest/base_api'
 require 'harvest/clients'
 require 'harvest/contacts'
 require 'harvest/projects'
+require 'harvest/tasks'
 require 'harvest/base_model'
 require 'harvest/client'
 require 'harvest/contact'
 require 'harvest/project'
+require 'harvest/task'
 require 'harvest/robust_client'
 
 class Harvest
   attr_reader :request, :credentials, :api_methods
   
   def initialize(subdomain, username, password, options = {})
-    @api_methods = %w(clients contacts)
+    @api_methods = %w(clients contacts projects tasks)
     
     options[:ssl] = true if options[:ssl].nil?
     @credentials = Credentials.new(subdomain, username, password, options[:ssl])
@@ -37,6 +39,10 @@ class Harvest
   
   def projects
     @projects ||= Harvest::Projects.new(credentials)
+  end
+  
+  def tasks
+    @tasks ||= Harvest::Tasks.new(credentials)
   end
   
   class << self

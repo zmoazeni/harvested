@@ -1,6 +1,6 @@
 class Harvest
   class Clients < BaseApi
-    api_methods %w(all find create update delete deactivate activate)
+    api_methods crud + activatable
     
     def all
       response = request(:get, credentials, "/clients")

@@ -15,6 +15,14 @@ class Harvest
           end
         END
       end
+      
+      def crud
+        %w(all find create update delete)
+      end
+      
+      def activatable
+        %w(deactivate activate)
+      end
     end
     
     protected
