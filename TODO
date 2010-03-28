@@ -1,3 +1,0 @@
-* Change Cucumber to use Typhoeus's stubbing with @offline tags
-* Only connect to the Harvest account with @online tags
-* Errors
