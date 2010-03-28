@@ -4,7 +4,7 @@ Feature: Managing Projects
   Scenario: Adding, Updating, and Removing a Project
     Given I am using the credentials from "./support/harvest_credentials.yml"
     When I create a client with the following:
-    | name    | Client Projects                            |
+    | name    | Client Projects                         |
     | details | Building API Widgets across the country |
     When I create a project for the client "Client Projects" with the following:
     | name   | Test Project            |
@@ -27,7 +27,7 @@ Feature: Managing Projects
   Scenario: Activating and Deactivating a Project
     Given I am using the credentials from "./support/harvest_credentials.yml"
     And I create a client with the following:
-    | name    | Client Projects                            |
+    | name    | Client Projects                         |
     | details | Building API Widgets across the country |
     And I create a project for the client "Client Projects" with the following:
     | name   | Test Project            |
