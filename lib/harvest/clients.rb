@@ -1,5 +1,7 @@
 class Harvest
   class Clients < BaseApi
+    api_methods %w(all find create update delete deactivate activate)
+    
     def all
       response = request(:get, credentials, "/clients")
       Harvest::Client.parse(response.body)

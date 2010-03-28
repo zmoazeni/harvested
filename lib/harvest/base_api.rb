@@ -6,14 +6,25 @@ class Harvest
       @credentials = credentials
     end
     
+    
+    class << self
+      def api_methods(methods)
+        class_eval <<-END
+          def api_methods
+            #{methods.inspect}
+          end
+        END
+      end
+    end
+    
     protected
       def request(method, credentials, path, query = nil, body = nil)
         response = HTTParty.send(method, "#{credentials.host}#{path}", :query => query, :body => body, :headers => {"Accept" => "application/xml", "Content-Type" => "application/xml; charset=utf-8", "Authorization" => "Basic #{credentials.basic_auth}"})
-        validator = ResponseValidator.new(response, credentials.rate_limit_errors)
-        if validator.valid?
-          validator.response
+        case response.code
+        when 503
+          raise Harvest::RateLimited.new(response)
         else
-          request(method, credentials, path, query, body)
+          response
         end
       end
   end

@@ -1,5 +1,6 @@
 class Harvest
   class Contacts < BaseApi
+    api_methods %w(all find create update delete)
     
     def all(client_id = nil)
       response = if client_id
