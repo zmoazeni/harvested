@@ -4,9 +4,9 @@ Feature: Managing Client Contacts
   Scenario: Adding, Updating, and Removing a Contact
     Given I am using the credentials from "./support/harvest_credentials.yml"
     And I create a client with the following:
-    | name    | Client Contacts                        |
+    | name    | Client Contacts                         |
     | details | Building API Widgets across the country |
-    When I create a contact for the client named "Client Contacts" with the following:
+    When I create a contact for the client "Client Contacts" with the following:
     | email        | jane@doe.com |
     | first_name   | Jane         |
     | last_name    | Doe          |
@@ -14,7 +14,7 @@ Feature: Managing Client Contacts
     | phone_mobile | 555.333.1111 |
     | fax          | 555.222.1111 |
     Then there should be a contact "jane@doe.com"
-    And there should be a contact for the client named "Client Contacts" with an email address "jane@doe.com"
+    And there should be a contact "jane@doe.com" for the client "Client Contacts"
     When I update the contact "jane@doe.com" with the following:
     | last_name | Smith |
     Then the contact "jane@doe.com" should have the following attributes:

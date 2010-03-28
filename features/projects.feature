@@ -17,10 +17,9 @@ Feature: Managing Projects
     | bill_by     | Project         |
     | hourly_rate | 150             |
     Then the project "Updated Project" should have the following attributes:
-    | name        | Updated Project |
-    | code        | new-code        |
-    | bill_by     | Project         |
-    | hourly_rate | 150             |
+    | code        | new-code |
+    | bill_by     | Project  |
+    | hourly_rate | 150      |
     When I delete the project "Updated Project"
     Then there should not be a project "Updated Project"
     
