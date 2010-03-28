@@ -18,13 +18,13 @@ class Harvest
     end
     
     def create(contact)
-      response = request(:post, credentials, "/contacts", nil, contact.to_xml)
+      response = request(:post, credentials, "/contacts", :body => contact.to_xml)
       id = response.headers["location"].first.match(/\/contacts\/(\d+)/)[1]
       find(id)
     end
     
     def update(contact)
-      request(:put, credentials, "/contacts/#{contact.id}", nil, contact.to_xml)
+      request(:put, credentials, "/contacts/#{contact.id}", :body => contact.to_xml)
       find(contact.id)
     end
     

@@ -13,13 +13,13 @@ class Harvest
     end
     
     def create(client)
-      response = request(:post, credentials, "/clients", nil, client.to_xml)
+      response = request(:post, credentials, "/clients", :body => client.to_xml)
       id = response.headers["location"].first.match(/\/clients\/(\d+)/)[1]
       find(client.id)
     end
     
     def update(client)
-      request(:put, credentials, "/clients/#{client.id}", nil, client.to_xml)
+      request(:put, credentials, "/clients/#{client.id}", :body => client.to_xml)
       find(client.id)
     end
     
