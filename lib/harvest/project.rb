@@ -13,7 +13,7 @@ class Harvest
     element :billable, Boolean
     element :budget, String
     element :budget_by, Float, :tag => 'budget-by'
-    element :hourly_rate, Integer, :tag => 'hourly-rate'
+    element :hourly_rate, Float, :tag => 'hourly-rate'
     element :bill_by, String, :tag => 'bill-by'
     
     alias_method :active?, :active
