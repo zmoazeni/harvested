@@ -9,9 +9,11 @@ require 'harvest/errors'
 require 'harvest/base_api'
 require 'harvest/clients'
 require 'harvest/contacts'
+require 'harvest/projects'
 require 'harvest/base_model'
 require 'harvest/client'
 require 'harvest/contact'
+require 'harvest/project'
 require 'harvest/robust_client'
 
 class Harvest
@@ -31,6 +33,10 @@ class Harvest
   
   def contacts
     @contacts ||= Harvest::Contacts.new(credentials)
+  end
+  
+  def projects
+    @projects ||= Harvest::Projects.new(credentials)
   end
   
   class << self
