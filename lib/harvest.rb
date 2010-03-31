@@ -6,23 +6,20 @@ require 'delegate'
 
 require 'harvest/credentials'
 require 'harvest/errors'
-require 'harvest/base_api'
-require 'harvest/clients'
-require 'harvest/contacts'
-require 'harvest/projects'
-require 'harvest/tasks'
-require 'harvest/base_model'
-require 'harvest/client'
-require 'harvest/contact'
-require 'harvest/project'
-require 'harvest/task'
 require 'harvest/robust_client'
+
+require 'harvest/base_api'
+%w(clients contacts projects tasks people).each {|a| require "harvest/#{a}"}
+
+require 'harvest/base_model'
+%w(client contact project task person).each {|a| require "harvest/#{a}"}
+
 
 class Harvest
   attr_reader :request, :credentials, :api_methods
   
   def initialize(subdomain, username, password, options = {})
-    @api_methods = %w(clients contacts projects tasks)
+    @api_methods = %w(clients contacts projects tasks people)
     
     options[:ssl] = true if options[:ssl].nil?
     @credentials = Credentials.new(subdomain, username, password, options[:ssl])
@@ -43,6 +40,10 @@ class Harvest
   
   def tasks
     @tasks ||= Harvest::Tasks.new(credentials)
+  end
+  
+  def people
+    @people ||= Harvest::People.new(credentials)
   end
   
   class << self

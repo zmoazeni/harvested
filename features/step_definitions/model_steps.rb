@@ -1,4 +1,4 @@
-When /^I create a (client|task) with the following:$/ do |type, table|
+When /^I create a (client|task|person) with the following:$/ do |type, table|
   case type
   when "client"
     client = Harvest::Client.new(table.rows_hash)
@@ -6,6 +6,9 @@ When /^I create a (client|task) with the following:$/ do |type, table|
   when "task"
     task = Harvest::Task.new(table.rows_hash)
     harvest_api.tasks.create(task)
+  when "person"
+    person = Harvest::Person.new(table.rows_hash)
+    harvest_api.people.create(person)
   end
 end
 
@@ -23,22 +26,22 @@ When /^I create a (contact|project) for the client "([^\"]*)" with the following
   end
 end
 
-Then /^there should be a (contact|project|client|task) "([^\"]*)"$/ do |type, identifier|
-  collection = harvest_api.send("#{type}s").all
+Then /^there should be a (contact|project|client|task|person) "([^\"]*)"$/ do |type, identifier|
+  collection = harvest_api.send(pluralize(type)).all
   attribute = case type
-  when "contact" then "email"
-  when "project", "client", "task" then "name"
+  when 'contact', 'person' then 'email'
+  when 'project', 'client', 'task' then 'name'
   end
   item = collection.detect {|c| c.send(attribute) == identifier}
   item.should_not be_nil
   item
 end
 
-Then /^there should not be a (contact|project|client|task) "([^\"]*)"$/ do |type, identifier|
-  collection = harvest_api.send("#{type}s").all
+Then /^there should not be a (contact|project|client|task|person) "([^\"]*)"$/ do |type, identifier|
+  collection = harvest_api.send(pluralize(type)).all
   attribute = case type
-  when "contact" then "email"
-  when "project", "client", "task" then "name"
+  when 'contact', 'person' then 'email'
+  when 'project', 'client', 'task' then 'name'
   end
   item = collection.detect {|c| c.send(attribute) == identifier}
   item.should be_nil
@@ -47,7 +50,7 @@ end
 When /^I update the (contact|project|client|task) "([^\"]*)" with the following:$/ do |type, name, table|
   item = Then %Q{there should be a #{type} "#{name}"}
   item.attributes = table.rows_hash
-  harvest_api.send("#{type}s").update(item)
+  harvest_api.send(pluralize(type)).update(item)
 end
 
 Then /^the (contact|project|client|task) "([^\"]*)" should have the following attributes:$/ do |type, name, table|
@@ -57,9 +60,9 @@ Then /^the (contact|project|client|task) "([^\"]*)" should have the following at
   end
 end
 
-When /^I delete the (contact|project|client|task) "([^\"]*)"$/ do |type, name|
+When /^I delete the (contact|project|client|task|person) "([^\"]*)"$/ do |type, name|
   item = Then %Q{there should be a #{type} "#{name}"}
-  id = harvest_api.send("#{type}s").delete(item)
+  id = harvest_api.send(pluralize(type)).delete(item)
   id.should == item.id
 end
 
@@ -75,10 +78,10 @@ end
 
 When /^I deactivate the (client|project) "([^\"]*)"$/ do |type, identifier|
   item = Then %Q{there should be a #{type} "#{identifier}"}
-  harvest_api.send("#{type}s").deactivate(item)
+  harvest_api.send(pluralize(type)).deactivate(item)
 end
 
 When /^I activate the (client|project) "([^\"]*)"$/ do |type, identifier|
   item = Then %Q{there should be a #{type} "#{identifier}"}
-  harvest_api.send("#{type}s").activate(item)
+  harvest_api.send(pluralize(type)).activate(item)
 end

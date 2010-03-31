@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<users>
+  <user>
+    <id type="integer">5000</id>
+    <first_name>Jonah</first_name>
+    <last_name>Tellis</last_name>
+    <email>jonah@example.com</email>
+    <has-access-to-all-future-projects type="boolean">false</has-access-to-all-future-projects>
+    <default-hourly-rate type="decimal">100</default-hourly-rate>
+    <is-active type="boolean">true</is-active>
+    <is-admin type="boolean">false</is-admin>
+    <is-contractor type="boolean">false</is-contractor>
+    <telephone>444-444</telephone>
+    <timezone>Central Time (US &amp; Canada)</timezone>
+  </user>
+</users>
