@@ -2,7 +2,6 @@ class Harvest
   class Project < BaseModel
     include HappyMapper
     
-    xml_name "project"
     element :id, Integer
     element :client_id, Integer, :tag => 'client-id'
     element :name, String

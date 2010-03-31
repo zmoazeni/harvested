@@ -2,7 +2,6 @@ class Harvest
   class Task < BaseModel
     include HappyMapper
     
-    xml_name "task"
     element :id, Integer
     element :name, String
     element :billable, Boolean, :tag => 'billable-by-default'
