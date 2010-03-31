@@ -20,5 +20,21 @@ class Harvest
     alias_method :active?, :active
     alias_method :admin?, :admin
     alias_method :contractor?, :contractor
+    
+    def timezone=(timezone)
+      tz = timezone.to_s.downcase
+      case tz
+      when 'cst', 'cdt' then self.timezone = 'america/chicago'
+      when 'est', 'edt' then self.timezone = 'america/new_york'
+      when 'mst', 'mdt' then self.timezone = 'america/denver'
+      when 'pst', 'pdt' then self.timezone = 'america/los_angeles'
+      else
+        if Harvest::Timezones::MAPPING[tz]
+          @timezone = Harvest::Timezones::MAPPING[tz]
+        else
+          @timezone = timezone
+        end
+      end
+    end
   end
 end

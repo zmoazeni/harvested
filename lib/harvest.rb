@@ -7,6 +7,7 @@ require 'delegate'
 require 'harvest/credentials'
 require 'harvest/errors'
 require 'harvest/robust_client'
+require 'harvest/timezones'
 
 require 'harvest/base_api'
 %w(clients contacts projects tasks people).each {|a| require "harvest/#{a}"}
