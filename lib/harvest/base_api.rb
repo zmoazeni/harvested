@@ -27,7 +27,7 @@ class Harvest
     
     protected
       def request(method, credentials, path, options = {})
-        response = HTTParty.send(method, "#{credentials.host}#{path}", :query => options[:query], :body => options[:body], :headers => {"Accept" => "application/xml", "Content-Type" => "application/xml; charset=utf-8", "Authorization" => "Basic #{credentials.basic_auth}"}.update(options[:headers] || {}))
+        response = HTTParty.send(method, "#{credentials.host}#{path}", :query => options[:query], :body => options[:body], :headers => {"Accept" => "application/xml", "Content-Type" => "application/xml; charset=utf-8", "Authorization" => "Basic #{credentials.basic_auth}"}.update(options[:headers] || {}), :format => :plain)
         case response.code
         when 503
           raise Harvest::RateLimited.new(response)
