@@ -47,13 +47,13 @@ Then /^there should not be a (contact|project|client|task|person) "([^\"]*)"$/ d
   item.should be_nil
 end
 
-When /^I update the (contact|project|client|task) "([^\"]*)" with the following:$/ do |type, name, table|
+When /^I update the (contact|project|client|task|person) "([^\"]*)" with the following:$/ do |type, name, table|
   item = Then %Q{there should be a #{type} "#{name}"}
   item.attributes = table.rows_hash
   harvest_api.send(pluralize(type)).update(item)
 end
 
-Then /^the (contact|project|client|task) "([^\"]*)" should have the following attributes:$/ do |type, name, table|
+Then /^the (contact|project|client|task|person) "([^\"]*)" should have the following attributes:$/ do |type, name, table|
   item = Then %Q{there should be a #{type} "#{name}"}
   table.rows_hash.each do |key, value|
     item.send(key).to_s.should == value
