@@ -1,6 +1,8 @@
-class Harvest
+module Harvest
   class Task < BaseModel
     include HappyMapper
+    
+    api_path '/tasks'
     
     element :id, Integer
     element :name, String

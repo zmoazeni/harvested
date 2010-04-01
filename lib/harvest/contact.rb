@@ -1,4 +1,4 @@
-class Harvest
+module Harvest
   class Contact < BaseModel
     include HappyMapper
     

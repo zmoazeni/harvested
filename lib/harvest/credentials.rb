@@ -1,4 +1,4 @@
-class Harvest
+module Harvest
   class Credentials
     attr_accessor :subdomain, :username, :password, :ssl
     

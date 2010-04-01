@@ -1,4 +1,4 @@
-class Harvest
+module Harvest
   class RobustClient < Delegator
     def initialize(client)
       super(@client)

@@ -1,4 +1,4 @@
-class Harvest
+module Harvest
   class Contacts < BaseApi
     api_methods crud
     

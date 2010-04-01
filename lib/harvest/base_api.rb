@@ -1,4 +1,4 @@
-class Harvest
+module Harvest
   class BaseApi
     attr_reader :credentials
     
@@ -6,12 +6,19 @@ class Harvest
       @credentials = credentials
     end
     
-    
     class << self
       def api_methods(methods)
         class_eval <<-END
           def api_methods
             #{methods.inspect}
+          end
+        END
+      end
+      
+      def api_model(klass)
+        class_eval <<-END
+          def api_model
+            #{klass}
           end
         END
       end

@@ -1,4 +1,4 @@
-class Harvest
+module Harvest
   class InvalidCredentials < StandardError; end
   class RateLimited < StandardError;
     attr_reader :response

@@ -1,7 +1,8 @@
-class Harvest
+module Harvest
   class Person < BaseModel
     include HappyMapper
     
+    api_path '/people'
     tag "user"
     element :id, Integer
     element :email, String
