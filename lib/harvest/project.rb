@@ -2,7 +2,7 @@ module Harvest
   class Project < BaseModel
     include HappyMapper
   
-    api_path '/clients'
+    api_path '/projects'
   
     element :id, Integer
     element :client_id, Integer, :tag => 'client-id'
