@@ -1,9 +1,9 @@
 module Harvest
   class Project < BaseModel
     include HappyMapper
-    
+  
     api_path '/clients'
-    
+  
     element :id, Integer
     element :client_id, Integer, :tag => 'client-id'
     element :name, String
@@ -16,7 +16,7 @@ module Harvest
     element :budget_by, Float, :tag => 'budget-by'
     element :hourly_rate, Float, :tag => 'hourly-rate'
     element :bill_by, String, :tag => 'bill-by'
-    
+  
     alias_method :active?, :active
   end
 end

@@ -9,15 +9,11 @@ require 'harvest/errors'
 require 'harvest/robust_client'
 require 'harvest/timezones'
 
-require 'harvest/crud'
-require 'harvest/activatable'
 require 'harvest/base'
 
-require 'harvest/base_model'
-%w(client contact project task person).each {|a| require "harvest/#{a}"}
-
-require 'harvest/base_api'
-%w(clients contacts projects tasks people).each {|a| require "harvest/#{a}"}
+%w(crud activatable).each {|a| require "harvest/behavior/#{a}"}
+%w(base_model client contact project task person).each {|a| require "harvest/#{a}"}
+%w(base clients contacts projects tasks people).each {|a| require "harvest/api/#{a}"}
 
 module Harvest
   class << self

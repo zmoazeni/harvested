@@ -11,23 +11,23 @@ module Harvest
     end
   
     def clients
-      @clients ||= Harvest::Clients.new(credentials)
+      @clients ||= Harvest::API::Clients.new(credentials)
     end
   
     def contacts
-      @contacts ||= Harvest::Contacts.new(credentials)
+      @contacts ||= Harvest::API::Contacts.new(credentials)
     end
   
     def projects
-      @projects ||= Harvest::Projects.new(credentials)
+      @projects ||= Harvest::API::Projects.new(credentials)
     end
   
     def tasks
-      @tasks ||= Harvest::Tasks.new(credentials)
+      @tasks ||= Harvest::API::Tasks.new(credentials)
     end
   
     def people
-      @people ||= Harvest::People.new(credentials)
+      @people ||= Harvest::API::People.new(credentials)
     end
   end
 end

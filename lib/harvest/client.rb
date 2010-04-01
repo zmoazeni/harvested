@@ -1,9 +1,9 @@
 module Harvest
   class Client < BaseModel
     include HappyMapper
-    
+  
     api_path '/clients'
-    
+  
     element :id, Integer
     element :active, Boolean
     element :name, String
@@ -12,7 +12,7 @@ module Harvest
     element :currency_symbol, String, :tag => "currency-symbol"
     element :cache_version, Integer, :tag => "cache-version"
     element :updated_at, Time, :tag => "updated-at"
-    
+  
     alias_method :active?, :active
   end
 end

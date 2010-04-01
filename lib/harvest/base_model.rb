@@ -1,22 +1,21 @@
 module Harvest
   class BaseModel
-    
     def initialize(attributes = {})
       self.attributes = attributes
     end
-    
+  
     def attributes=(attributes)
       attributes.each {|k,v| send("#{k}=", v)}
     end
-    
+  
     def ==(other)
       id == other.id
     end
-    
+  
     def to_i
       id
     end
-    
+  
     def to_xml
       builder = Builder::XmlMarkup.new
       builder.tag!(self.class.tag_name) do |c|
@@ -25,7 +24,7 @@ module Harvest
         end
       end
     end
-    
+  
     class << self
       def api_path(path = nil)
         @path ||= path

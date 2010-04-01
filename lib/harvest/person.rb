@@ -1,7 +1,7 @@
 module Harvest
   class Person < BaseModel
     include HappyMapper
-    
+  
     api_path '/people'
     tag "user"
     element :id, Integer
@@ -17,11 +17,11 @@ module Harvest
     element :timezone, String
     element :password, String
     element :password_confirmation, String, :tag => 'password-confirmation'
-    
+  
     alias_method :active?, :active
     alias_method :admin?, :admin
     alias_method :contractor?, :contractor
-    
+  
     def timezone=(timezone)
       tz = timezone.to_s.downcase
       case tz
