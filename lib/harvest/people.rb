@@ -43,5 +43,10 @@ class Harvest
       end
       person
     end
+    
+    def reset_password(person)
+      request(:post, credentials, "/people/#{person.id}/reset_password")
+      person
+    end
   end
 end

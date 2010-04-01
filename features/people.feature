@@ -22,10 +22,8 @@ Feature: Managing People
     When I delete the person "edgar@ruth.com"
     Then there should not be a person "edgar@ruth.com"
     
-  @wip
   Scenario: Activating and Deactivating a Person
     Given I am using the credentials from "./support/harvest_credentials.yml"
-    And I use local person API
     Then I create a person with the following:
     | first_name            | Edgar          |
     | last_name             | Ruth           |
@@ -41,11 +39,9 @@ Feature: Managing People
     When I activate the person "edgar@ruth.com"
     Then the person "edgar@ruth.com" should be activated
     Then I delete the person "edgar@ruth.com"
-
-  @wip
+  
   Scenario: Resetting a Person's password
     Given I am using the credentials from "./support/harvest_credentials.yml"
-    And I use local person API
     Then I create a person with the following:
     | first_name            | Edgar          |
     | last_name             | Ruth           |

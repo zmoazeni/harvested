@@ -66,22 +66,22 @@ When /^I delete the (contact|project|client|task|person) "([^\"]*)"$/ do |type, 
   id.should == item.id
 end
 
-Then /^the (client|project) "([^\"]*)" should be activated$/ do |type, identifier|
+Then /^the (client|project|person) "([^\"]*)" should be activated$/ do |type, identifier|
   item = Then %Q{there should be a #{type} "#{identifier}"}
   item.should be_active
 end
 
-Then /^the (client|project) "([^\"]*)" should be deactivated$/ do |type, identifier|
+Then /^the (client|project|person) "([^\"]*)" should be deactivated$/ do |type, identifier|
   item = Then %Q{there should be a #{type} "#{identifier}"}
   item.should_not be_active
 end
 
-When /^I deactivate the (client|project) "([^\"]*)"$/ do |type, identifier|
+When /^I deactivate the (client|project|person) "([^\"]*)"$/ do |type, identifier|
   item = Then %Q{there should be a #{type} "#{identifier}"}
   harvest_api.send(pluralize(type)).deactivate(item)
 end
 
-When /^I activate the (client|project) "([^\"]*)"$/ do |type, identifier|
+When /^I activate the (client|project|person) "([^\"]*)"$/ do |type, identifier|
   item = Then %Q{there should be a #{type} "#{identifier}"}
   harvest_api.send(pluralize(type)).activate(item)
 end
