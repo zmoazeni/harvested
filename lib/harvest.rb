@@ -22,7 +22,8 @@ module Harvest
     end
     
     def robust_client(subdomain, username, password, options = {})
-      Harvest::RobustClient.new(client(subdomain, username, password, options))
+      retries = options.delete(:retry)
+      Harvest::RobustClient.new(client(subdomain, username, password, options), (retries || 5))
     end
   end
 end

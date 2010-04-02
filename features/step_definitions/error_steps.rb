@@ -1,6 +1,6 @@
 Given /^the next request will receive a (bad request|not found|bad gateway|server error|rate limit) response$/ do |type|
   statuses = {
-    'bad request' => ['400', 'Bad Request'], 
+    'bad request' => ['400', 'Bad Request'],
     'not found' => ['404', 'Not Found'],
     'bad gateway' => ['502', 'Bad Gateway'],
     'server error' => ['500', 'Server Error'],
@@ -21,18 +21,30 @@ Given /^the next request will receive a rate limit response with a refresh in (\
   ])
 end
 
+Given 'the next request will receive a rate limit response without a refresh set' do
+  FakeWeb.register_uri(:get, /\/clients/, [
+    {:status => ['503', 'Rake Limited']},
+    {:body => File.read(File.dirname(__FILE__) + '/../support/fixtures/empty_clients.xml')}
+  ])
+end
+
 When 'I make a request with the standard client' do
-  @time = Time.now
-  begin
+  set_time_and_return_and_error do
     standard_api.clients.all
-  rescue => e
-    @error = e
   end
 end
 
 When 'I make a request with the robust client' do
-  @time = Time.now
-  harvest_api.clients.all
+  set_time_and_return_and_error do
+    harvest_api.clients.all
+  end
+end
+
+When /^I make a request with the robust client with (\d+) max retries$/ do |times|
+  set_time_and_return_and_error do
+    api = Harvest.robust_client(@subdomain, @username, @password, :ssl => @ssl, :retry => times.to_i)
+    api.clients.all
+  end
 end
 
 Then /a (\d+) error should be raised/ do |code|
@@ -59,4 +71,30 @@ end
 Then 'I should be able to make a request again' do
   harvest_api.clients.all
   harvest_api.clients.all
+end
+
+Given /^the next (\d+) requests will receive a bad gateway response$/ do |times|
+  FakeWeb.register_uri(:get, /\/clients/, [
+    {:status => ['502', 'Bad Gateway'], :times => times.to_i},
+    {:body => File.read(File.dirname(__FILE__) + '/../support/fixtures/empty_clients.xml')}
+  ])
+end
+
+Given /^the next (\d+) requests will receive a server error response$/ do |times|
+  FakeWeb.register_uri(:get, /\/clients/, [
+    {:status => ['500', 'Server Error'], :times => times.to_i},
+    {:body => File.read(File.dirname(__FILE__) + '/../support/fixtures/empty_clients.xml')}
+  ])
+end
+
+Given /^the next (\d+) requests will receive an HTTP Error$/ do |times|
+  FakeWeb.register_uri(:get, /\/clients/, [
+    {:exception => Net::HTTPError, :times => times.to_i},
+    {:body => File.read(File.dirname(__FILE__) + '/../support/fixtures/empty_clients.xml')}
+  ])
+end
+
+Then 'no errors should be raised' do
+  @error.should be_nil
+  @clients.should == []
 end
