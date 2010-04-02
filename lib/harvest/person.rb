@@ -3,7 +3,7 @@ module Harvest
     include HappyMapper
   
     api_path '/people'
-    tag "user"
+    tag 'user'
     element :id, Integer
     element :email, String
     element :first_name, String, :tag => 'first-name'
