@@ -14,6 +14,7 @@ begin
     gem.add_development_dependency "cucumber", ">= 0"
     gem.add_development_dependency "ruby-debug", ">= 0"
     gem.add_development_dependency "artifice", ">= 0"
+    gem.add_development_dependency "fakeweb", ">= 0"
     gem.add_dependency "httparty", ">= 0"
     gem.add_dependency "happymapper", ">= 0"
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings

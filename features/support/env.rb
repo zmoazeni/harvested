@@ -1,13 +1,9 @@
 $LOAD_PATH.unshift(File.dirname(__FILE__) + '/../../lib')
 require 'harvest'
 require 'ruby-debug'
-require 'artifice'
+require 'fakeweb'
 
 require 'spec/expectations'
-
-After do
-  Artifice.deactivate
-end
 
 Before('@clean') do
   credentials = YAML.load_file("#{File.dirname(__FILE__)}/harvest_credentials.yml")
@@ -23,4 +19,12 @@ Before('@clean') do
     rescue Harvest::BadRequest
     end
   end
+end
+
+Before('@disconnected') do
+  FakeWeb.allow_net_connect = false
+end
+
+After do
+  FakeWeb.allow_net_connect = true
 end
