@@ -12,8 +12,8 @@ require 'harvest/timezones'
 require 'harvest/base'
 
 %w(crud activatable).each {|a| require "harvest/behavior/#{a}"}
-%w(base_model client contact project task person).each {|a| require "harvest/#{a}"}
-%w(base clients contacts projects tasks people).each {|a| require "harvest/api/#{a}"}
+%w(base_model client contact project task person rate_limit_status).each {|a| require "harvest/#{a}"}
+%w(base account clients contacts projects tasks people).each {|a| require "harvest/api/#{a}"}
 
 module Harvest
   class << self

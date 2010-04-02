@@ -3,13 +3,17 @@ module Harvest
     attr_reader :request, :credentials, :api_methods
   
     def initialize(subdomain, username, password, options = {})
-      @api_methods = %w(clients contacts projects tasks people)
+      @api_methods = %w(account clients contacts projects tasks people)
     
       options[:ssl] = true if options[:ssl].nil?
       @credentials = Credentials.new(subdomain, username, password, options[:ssl])
       raise InvalidCredentials unless credentials.valid?
     end
   
+    def account
+      @account ||= Harvest::API::Account.new(credentials)
+    end
+    
     def clients
       @clients ||= Harvest::API::Clients.new(credentials)
     end
