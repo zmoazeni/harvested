@@ -8,7 +8,10 @@ Given /^the next request will receive a (bad request|not found|bad gateway|serve
   }
   
   if status = statuses[type]
-    FakeWeb.register_uri(:get, /\/clients/, :status => status)
+    FakeWeb.register_uri(:get, /\/clients/, [
+      {:status => status, :times => 1},
+      {:body => File.read(File.dirname(__FILE__) + '/../support/fixtures/empty_clients.xml')}
+    ])
   else
     pending
   end
@@ -97,4 +100,14 @@ end
 Then 'no errors should be raised' do
   @error.should be_nil
   @clients.should == []
+end
+
+Given 'the rate limit status indicates I\'m over my limit' do
+  over_limit_response = File.read(File.dirname(__FILE__) + '/../support/fixtures/over_limit.xml')
+  FakeWeb.register_uri(:get, /\/account\/rate_limit_status/, :body => over_limit_response)
+end
+
+Given 'the rate limit status indicates I\'m under my limit' do
+  over_limit_response = File.read(File.dirname(__FILE__) + '/../support/fixtures/under_limit.xml')
+  FakeWeb.register_uri(:get, /\/account\/rate_limit_status/, :body => over_limit_response)
 end

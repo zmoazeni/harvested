@@ -5,7 +5,12 @@ module ErrorHelpers
     begin
       @clients = yield
     rescue => e
-      @error = e
+      case e
+      when Harvest::BadRequest, Harvest::NotFound, Harvest::RateLimited, Harvest::Unavailable, Harvest::InformHarvest, Net::HTTPError, Net::HTTPFatalError
+        @error = e
+      else
+        raise e
+      end
     end
   end
 end

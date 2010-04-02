@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hash>
+  <last-access-at type="datetime">2010-04-02T01:34:59+00:00</last-access-at>
+  <count type="integer">41</count>
+  <timeframe-limit type="integer">15</timeframe-limit>
+  <max-calls type="integer">40</max-calls>
+  <lockout-seconds type="integer">5</lockout-seconds>
+</hash>

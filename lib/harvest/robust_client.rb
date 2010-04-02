@@ -19,13 +19,15 @@ module Harvest
     def __setobj__(obj); @_sd_obj = obj; end
     
     def wrap_collection
-      RobustCollection.new(yield, @max_retries)
+      collection = yield
+      RobustCollection.new(collection, self, @max_retries)
     end
     
     class RobustCollection < Delegator
-      def initialize(collection, max_retries)
+      def initialize(collection, client, max_retries)
         super(@collection)
         @_sd_obj = @collection = collection
+        @client = client
         @max_retries = max_retries
         @collection.api_methods.each do |name|
           instance_eval <<-END
@@ -56,8 +58,6 @@ module Harvest
         begin
           yield
         rescue Harvest::RateLimited => e
-          p e.response.code
-          p e.response.headers
           seconds = if e.response.headers["retry-after"]
             e.response.headers["retry-after"].first.to_i
           else
@@ -66,9 +66,9 @@ module Harvest
           sleep(seconds)
           retry
         rescue Harvest::Unavailable, Harvest::InformHarvest => e
-          p e.response.code
-          p e.response.headers
-          retry if retry_func.call(e)
+          would_retry = retry_func.call(e)
+          sleep(16) if @client.account.rate_limit_status.over_limit?
+          retry if would_retry
         rescue Net::HTTPError, Net::HTTPFatalError => e
           retry if retry_func.call(e)
         rescue SystemCallError => e
