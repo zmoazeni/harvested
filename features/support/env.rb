@@ -5,6 +5,15 @@ require 'fakeweb'
 
 require 'spec/expectations'
 
+Before do
+  FakeWeb.clean_registry
+  FakeWeb.allow_net_connect = true
+end
+
+Before('@disconnected') do
+  FakeWeb.allow_net_connect = false
+end
+
 Before('@clean') do
   credentials = YAML.load_file("#{File.dirname(__FILE__)}/harvest_credentials.yml")
   api = Harvest.robust_client(credentials["subdomain"], credentials["username"], credentials["password"], :ssl => credentials["ssl"])
@@ -19,12 +28,4 @@ Before('@clean') do
     rescue Harvest::BadRequest
     end
   end
-end
-
-Before('@disconnected') do
-  FakeWeb.allow_net_connect = false
-end
-
-After do
-  FakeWeb.allow_net_connect = true
 end
