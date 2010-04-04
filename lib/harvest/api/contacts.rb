@@ -1,7 +1,6 @@
 module Harvest
   module API
     class Contacts < Base
-      api_methods crud
       api_model Harvest::Contact
     
       include Harvest::Behavior::Crud

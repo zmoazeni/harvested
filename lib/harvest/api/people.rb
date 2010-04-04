@@ -1,7 +1,6 @@
 module Harvest
   module API
     class People < Base
-      api_methods crud + activatable + %w(reset_password)
       api_model Harvest::Person
     
       include Harvest::Behavior::Crud

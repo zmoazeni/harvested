@@ -1,7 +1,6 @@
 module Harvest
   module API
     class Projects < Base
-      api_methods crud + activatable + %w(create_task)
       api_model Harvest::Project
       
       include Harvest::Behavior::Crud

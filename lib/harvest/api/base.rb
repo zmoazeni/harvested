@@ -8,28 +8,12 @@ module Harvest
       end
     
       class << self
-        def api_methods(methods)
-          class_eval <<-END
-            def api_methods
-              #{methods.inspect}
-            end
-          END
-        end
-      
         def api_model(klass)
           class_eval <<-END
             def api_model
               #{klass}
             end
           END
-        end
-      
-        def crud
-          %w(all find create update delete)
-        end
-      
-        def activatable
-          %w(deactivate activate)
         end
       end
     

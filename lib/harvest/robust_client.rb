@@ -1,10 +1,10 @@
 module Harvest
   class RobustClient < Delegator
     def initialize(client, max_retries)
-      super(@client)
+      super(client)
       @_sd_obj = @client = client
       @max_retries = max_retries
-      @client.api_methods.each do |name|
+      (@client.public_methods - Object.public_instance_methods).each do |name|
         instance_eval <<-END
           def #{name}(*args)
             wrap_collection do
@@ -25,11 +25,11 @@ module Harvest
     
     class RobustCollection < Delegator
       def initialize(collection, client, max_retries)
-        super(@collection)
+        super(collection)
         @_sd_obj = @collection = collection
         @client = client
         @max_retries = max_retries
-        @collection.api_methods.each do |name|
+        (@collection.public_methods - Object.public_instance_methods).each do |name|
           instance_eval <<-END
             def #{name}(*args)
               retry_rate_limits do

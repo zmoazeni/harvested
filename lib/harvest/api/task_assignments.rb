@@ -1,7 +1,6 @@
 module Harvest
   module API
     class TaskAssignments < Base
-      api_methods crud
       
       def all(project)
         response = request(:get, credentials, "/projects/#{project.to_i}/task_assignments")
