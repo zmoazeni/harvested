@@ -35,5 +35,9 @@ module Harvest
     def task_assignments
       @task_assignments ||= Harvest::API::TaskAssignments.new(credentials)
     end
+    
+    def people_assignments
+      @people_assignments ||= Harvest::API::PeopleAssignments.new(credentials)
+    end
   end
 end
