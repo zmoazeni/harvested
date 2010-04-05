@@ -19,7 +19,7 @@ module Harvest
       end
       
       def update(task_assignment)
-        request(:put, credentials, "/projects/#{task_assignment.project_id}", :body => task_assignment.to_xml)
+        request(:put, credentials, "/projects/#{task_assignment.project_id}/task_assignments/#{task_assignment.to_i}", :body => task_assignment.to_xml)
         find(task_assignment.project_id, task_assignment.id)
       end
       

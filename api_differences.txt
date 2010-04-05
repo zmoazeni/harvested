@@ -1,2 +1,1 @@
 - Throttle 503 headers aren't set. 502s are sent back
-- Can't set hourly-rate or budget on TaskAssignments

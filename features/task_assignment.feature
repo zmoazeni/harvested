@@ -20,10 +20,12 @@ Feature: Task Assignments
     When I assign the task "Test Task" to the project "Test Project"
     Then the task "Test Task" should be assigned to the project "Test Project"
     When I update the task "Test Task" for the project "Test Project" with the following:
-    | billable | true |
+    | hourly_rate | 75    |
+    | billable    | false |
     Then the task "Test Task" for the project "Test Project" should have the following attributes:
-    | billable? | true |
-    | active?   | true |
+    | hourly_rate | 75.0  |
+    | billable?   | false |
+    | active?     | true  |
   
   Scenario: Removing Tasks on a project
     Given I am using the credentials from "./support/harvest_credentials.yml"
