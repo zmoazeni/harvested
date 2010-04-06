@@ -27,3 +27,7 @@ Feature: User Assignments
     | active?         | true |
     | hourly_rate     | 50.0 |
     | project_manager | true |
+    When I remove the person "edgar@ruth.com" from the project "Test Project"
+    Then the person "edgar@ruth.com" should not be assigned to the project "Test Project"
+      
+  Scenario: Removing a user from a project that has recorded hours

@@ -23,10 +23,10 @@ module Harvest
         find(person_assignment.project_id, person_assignment.id)
       end
       
-      # def delete(person_assignment)
-      #   request(:delete, credentials, "/projects/#{person_assignment.project_id}/person_assignments/#{person_assignment.to_i}")
-      #   person_assignment.id
-      # end
+      def delete(person_assignment)
+        request(:delete, credentials, "/projects/#{person_assignment.project_id}/user_assignments/#{person_assignment.to_i}")
+        person_assignment.id
+      end
     end
   end
 end

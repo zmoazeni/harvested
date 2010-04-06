@@ -63,6 +63,12 @@ When 'I assign the person "$1" to the project "$2"' do |email, project_name|
   harvest_api.people_assignments.create(assignment)
 end
 
+When 'I remove the person "$1" from the project "$2"' do |email, project_name|
+  assignment = Then %Q{the person "#{email}" should be assigned to the project "#{project_name}"}
+  id = harvest_api.people_assignments.delete(assignment)
+  id.should == assignment.id
+end
+
 Then 'the person "$1" should be assigned to the project "$2"' do |email, project_name|
   person = Then %Q{there should be a person "#{email}"}
   project = Then %Q{there should be a project "#{project_name}"}
@@ -70,6 +76,14 @@ Then 'the person "$1" should be assigned to the project "$2"' do |email, project
   assignment = assignments.detect {|a| a.project_id == project.to_i && a.person_id == person.to_i }
   assignment.should_not be_nil
   assignment
+end
+
+Then 'the person "$1" should not be assigned to the project "$2"' do |email, project_name|
+  person = Then %Q{there should be a person "#{email}"}
+  project = Then %Q{there should be a project "#{project_name}"}
+  assignments = harvest_api.people_assignments.all(project)
+  assignment = assignments.detect {|a| a.project_id == project.to_i && a.person_id == person.to_i }
+  assignment.should be_nil
 end
 
 When 'I update the person "$1" on the project "$2" with the following:' do |email, project_name, table|
