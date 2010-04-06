@@ -28,16 +28,16 @@ module Harvest
       @tasks ||= Harvest::API::Tasks.new(credentials)
     end
     
-    def people
-      @people ||= Harvest::API::People.new(credentials)
+    def users
+      @users ||= Harvest::API::Users.new(credentials)
     end
     
     def task_assignments
       @task_assignments ||= Harvest::API::TaskAssignments.new(credentials)
     end
     
-    def people_assignments
-      @people_assignments ||= Harvest::API::PeopleAssignments.new(credentials)
+    def user_assignments
+      @user_assignments ||= Harvest::API::UserAssignments.new(credentials)
     end
   end
 end

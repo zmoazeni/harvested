@@ -1,9 +1,9 @@
 @clean
 Feature: Managing People
 
-  Scenario: Adding and Removing a Person
+  Scenario: Adding and Removing a User
     Given I am using the credentials from "./support/harvest_credentials.yml"
-    When I create a person with the following:
+    When I create a user with the following:
     | first_name            | Edgar          |
     | last_name             | Ruth           |
     | email                 | edgar@ruth.com |
@@ -12,19 +12,19 @@ Feature: Managing People
     | timezone              | cst            |
     | admin                 | false          |
     | telephone             | 444-4444       |
-    Then there should be a person "edgar@ruth.com"
-    When I update the person "edgar@ruth.com" with the following:
+    Then there should be a user "edgar@ruth.com"
+    When I update the user "edgar@ruth.com" with the following:
     | first_name | Jonah |
     | timezone   | pst   |
-    Then the person "edgar@ruth.com" should have the following attributes:
+    Then the user "edgar@ruth.com" should have the following attributes:
     | first_name | Jonah                      |
     | timezone   | Pacific Time (US & Canada) |
-    When I delete the person "edgar@ruth.com"
-    Then there should not be a person "edgar@ruth.com"
+    When I delete the user "edgar@ruth.com"
+    Then there should not be a user "edgar@ruth.com"
     
-  Scenario: Activating and Deactivating a Person
+  Scenario: Activating and Deactivating a User
     Given I am using the credentials from "./support/harvest_credentials.yml"
-    Then I create a person with the following:
+    Then I create a user with the following:
     | first_name            | Edgar          |
     | last_name             | Ruth           |
     | email                 | edgar@ruth.com |
@@ -33,16 +33,16 @@ Feature: Managing People
     | timezone              | cst            |
     | admin                 | false          |
     | telephone             | 444-4444       |
-    Then the person "edgar@ruth.com" should be activated
-    When I deactivate the person "edgar@ruth.com"
-    Then the person "edgar@ruth.com" should be deactivated
-    When I activate the person "edgar@ruth.com"
-    Then the person "edgar@ruth.com" should be activated
-    Then I delete the person "edgar@ruth.com"
+    Then the user "edgar@ruth.com" should be activated
+    When I deactivate the user "edgar@ruth.com"
+    Then the user "edgar@ruth.com" should be deactivated
+    When I activate the user "edgar@ruth.com"
+    Then the user "edgar@ruth.com" should be activated
+    Then I delete the user "edgar@ruth.com"
   
-  Scenario: Resetting a Person's password
+  Scenario: Resetting a User's password
     Given I am using the credentials from "./support/harvest_credentials.yml"
-    Then I create a person with the following:
+    Then I create a user with the following:
     | first_name            | Edgar          |
     | last_name             | Ruth           |
     | email                 | edgar@ruth.com |
@@ -51,5 +51,5 @@ Feature: Managing People
     | timezone              | cst            |
     | admin                 | false          |
     | telephone             | 444-4444       |
-    Then there should be a person "edgar@ruth.com"
+    Then there should be a user "edgar@ruth.com"
     Then I reset the password of "edgar@ruth.com"

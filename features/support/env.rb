@@ -22,9 +22,9 @@ Before('@clean') do
     api.send(collection).all.each {|m| api.send(collection).delete(m) }
   end
   
-  api.people.all.each do |p|
+  api.users.all.each do |p|
     begin
-      api.people.delete(p)
+      api.users.delete(p)
     rescue Harvest::BadRequest
     end
   end

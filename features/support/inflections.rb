@@ -1,9 +1,6 @@
 module Inflections
   def pluralize(string)
-    case string
-    when 'person' then 'people'
-    else "#{string}s"
-    end
+    "#{string}s"
   end
 end
 

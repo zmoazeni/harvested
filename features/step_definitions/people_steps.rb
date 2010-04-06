@@ -1,4 +1,4 @@
 Then 'I reset the password of "$1"' do |email|
-  person = Then %Q{there should be a person "#{email}"}
-  harvest_api.people.reset_password(person)
+  user = Then %Q{there should be a user "#{email}"}
+  harvest_api.users.reset_password(user)
 end

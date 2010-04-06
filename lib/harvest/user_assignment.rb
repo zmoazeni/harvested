@@ -1,17 +1,17 @@
 module Harvest
-  class PersonAssignment < BaseModel
+  class UserAssignment < BaseModel
     include HappyMapper
     
     tag 'user-assignment'
     element :id, Integer
-    element :person_id, Integer, :tag => 'user-id'
+    element :user_id, Integer, :tag => 'user-id'
     element :project_id, Integer, :tag => 'project-id'
     element :deactivated, Boolean
     element :project_manager, Boolean, :tag => 'is-project-manager'
     element :hourly_rate, Float, :tag => 'hourly-rate'
     
-    def person=(person)
-      @person_id = person.to_i
+    def user=(user)
+      @user_id = user.to_i
     end
     
     def project=(project)
@@ -22,10 +22,10 @@ module Harvest
       !deactivated
     end
     
-    def person_xml
+    def user_xml
       builder = Builder::XmlMarkup.new
       builder.user do |t|
-        t.id(person_id)
+        t.id(user_id)
       end
     end
     
