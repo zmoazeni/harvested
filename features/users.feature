@@ -25,20 +25,20 @@ Feature: Managing People
   Scenario: Activating and Deactivating a User
     Given I am using the credentials from "./support/harvest_credentials.yml"
     Then I create a user with the following:
-    | first_name            | Edgar          |
-    | last_name             | Ruth           |
-    | email                 | edgar@ruth.com |
-    | password              | mypassword     |
-    | password_confirmation | mypassword     |
-    | timezone              | cst            |
-    | admin                 | false          |
-    | telephone             | 444-4444       |
-    Then the user "edgar@ruth.com" should be activated
-    When I deactivate the user "edgar@ruth.com"
-    Then the user "edgar@ruth.com" should be deactivated
-    When I activate the user "edgar@ruth.com"
-    Then the user "edgar@ruth.com" should be activated
-    Then I delete the user "edgar@ruth.com"
+    | first_name            | Simon           |
+    | last_name             | Steel           |
+    | email                 | simon@steel.com |
+    | password              | mypassword      |
+    | password_confirmation | mypassword      |
+    | timezone              | cst             |
+    | admin                 | false           |
+    | telephone             | 444-4444        |
+    Then the user "simon@steel.com" should be activated
+    When I deactivate the user "simon@steel.com"
+    Then the user "simon@steel.com" should be deactivated
+    When I activate the user "simon@steel.com"
+    Then the user "simon@steel.com" should be activated
+    Then I delete the user "simon@steel.com"
   
   Scenario: Resetting a User's password
     Given I am using the credentials from "./support/harvest_credentials.yml"
