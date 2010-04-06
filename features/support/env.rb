@@ -22,10 +22,7 @@ Before('@clean') do
     api.send(collection).all.each {|m| api.send(collection).delete(m) }
   end
   
-  api.users.all.each do |p|
-    begin
-      api.users.delete(p)
-    rescue Harvest::BadRequest
-    end
+  api.users.all.each do |u|
+    api.users.delete(u) if u.email != credentials["username"]
   end
 end
