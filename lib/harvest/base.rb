@@ -39,5 +39,9 @@ module Harvest
     def user_assignments
       @user_assignments ||= Harvest::API::UserAssignments.new(credentials)
     end
+    
+    def expense_categories
+      @expense_categories ||= Harvest::API::ExpenseCategories.new(credentials)
+    end
   end
 end

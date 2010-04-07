@@ -1,4 +1,4 @@
-When /^I create a (client|task|user) with the following:$/ do |type, table|
+When /^I create an? (client|task|user|expense category) with the following:$/ do |type, table|
   case type
   when "client"
     client = Harvest::Client.new(table.rows_hash)
@@ -9,7 +9,10 @@ When /^I create a (client|task|user) with the following:$/ do |type, table|
   when "user"
     user = Harvest::User.new(table.rows_hash)
     harvest_api.users.create(user)
-  end
+  when "expense category"
+    expense_cat = Harvest::ExpenseCategory.new(table.rows_hash)
+    harvest_api.expense_categories.create(expense_cat)
+  else pending end
 end
 
 When /^I create a (contact|project) for the client "([^\"]*)" with the following:$/ do |type, client_name, table|
@@ -23,44 +26,44 @@ When /^I create a (contact|project) for the client "([^\"]*)" with the following
   when "project"
     project = Harvest::Project.new(attributes)
     harvest_api.projects.create(project)
-  end
+  else pending end
 end
 
-Then /^there should be a (contact|project|client|task|user) "([^\"]*)"$/ do |type, identifier|
+Then /^there should be an? (contact|project|client|task|user|expense category) "([^\"]*)"$/ do |type, identifier|
   collection = harvest_api.send(pluralize(type)).all
   attribute = case type
   when 'contact', 'user' then 'email'
-  when 'project', 'client', 'task' then 'name'
-  end
+  when 'project', 'client', 'task', 'expense category' then 'name'
+  else pending end
   item = collection.detect {|c| c.send(attribute) == identifier}
   item.should_not be_nil
   item
 end
 
-Then /^there should not be a (contact|project|client|task|user) "([^\"]*)"$/ do |type, identifier|
+Then /^there should not be an? (contact|project|client|task|user|expense category) "([^\"]*)"$/ do |type, identifier|
   collection = harvest_api.send(pluralize(type)).all
   attribute = case type
   when 'contact', 'user' then 'email'
-  when 'project', 'client', 'task' then 'name'
-  end
+  when 'project', 'client', 'task', 'expense category' then 'name'
+  else pending end
   item = collection.detect {|c| c.send(attribute) == identifier}
   item.should be_nil
 end
 
-When /^I update the (contact|project|client|task|user) "([^\"]*)" with the following:$/ do |type, name, table|
+When /^I update the (contact|project|client|task|user|expense category) "([^\"]*)" with the following:$/ do |type, name, table|
   item = Then %Q{there should be a #{type} "#{name}"}
   item.attributes = table.rows_hash
   harvest_api.send(pluralize(type)).update(item)
 end
 
-Then /^the (contact|project|client|task|user) "([^\"]*)" should have the following attributes:$/ do |type, name, table|
+Then /^the (contact|project|client|task|user|expense category) "([^\"]*)" should have the following attributes:$/ do |type, name, table|
   item = Then %Q{there should be a #{type} "#{name}"}
   table.rows_hash.each do |key, value|
     item.send(key).to_s.should == value
   end
 end
 
-When /^I delete the (contact|project|client|task|user) "([^\"]*)"$/ do |type, name|
+When /^I delete the (contact|project|client|task|user|expense category) "([^\"]*)"$/ do |type, name|
   item = Then %Q{there should be a #{type} "#{name}"}
   id = harvest_api.send(pluralize(type)).delete(item)
   id.should == item.id
