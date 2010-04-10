@@ -18,7 +18,7 @@ Before('@clean') do
   credentials = YAML.load_file("#{File.dirname(__FILE__)}/harvest_credentials.yml")
   api = Harvest.robust_client(credentials["subdomain"], credentials["username"], credentials["password"], :ssl => credentials["ssl"])
   
-  %w(contacts projects clients tasks expense_categories).each do |collection|
+  %w(expenses expense_categories projects contacts clients tasks).each do |collection|
     api.send(collection).all.each {|m| api.send(collection).delete(m) }
   end
   

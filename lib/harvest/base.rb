@@ -43,5 +43,9 @@ module Harvest
     def expense_categories
       @expense_categories ||= Harvest::API::ExpenseCategories.new(credentials)
     end
+    
+    def expenses
+      @expenses ||= Harvest::API::Expenses.new(credentials)
+    end
   end
 end
