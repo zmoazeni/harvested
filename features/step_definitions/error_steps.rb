@@ -59,7 +59,7 @@ Then /a (\d+) error should be raised/ do |code|
   when '502'
     @error.should be_a(Harvest::Unavailable)
   when '500'
-    @error.should be_a(Harvest::InformHarvest)
+    @error.should be_a(Harvest::ServerError)
   when '503'
     @error.should be_a(Harvest::RateLimited)
   else

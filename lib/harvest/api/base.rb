@@ -27,6 +27,8 @@ module Harvest
             raise Harvest::BadRequest.new(response)
           when 404
             raise Harvest::NotFound.new(response)
+          when 500
+            raise Harvest::ServerError.new(response)
           when 502
             raise Harvest::Unavailable.new(response)
           when 503

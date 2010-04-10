@@ -6,7 +6,7 @@ module ErrorHelpers
       @clients = yield
     rescue => e
       case e
-      when Harvest::BadRequest, Harvest::NotFound, Harvest::RateLimited, Harvest::Unavailable, Harvest::InformHarvest, Net::HTTPError, Net::HTTPFatalError
+      when Harvest::HTTPError, Net::HTTPError, Net::HTTPFatalError
         @error = e
       else
         raise e

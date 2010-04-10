@@ -19,4 +19,5 @@ module Harvest
   class Unavailable < HTTPError; end
   class InformHarvest < HTTPError; end
   class BadRequest < HTTPError; end
+  class ServerError < HTTPError; end
 end
