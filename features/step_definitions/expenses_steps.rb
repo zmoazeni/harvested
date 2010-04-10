@@ -38,3 +38,9 @@ When 'I update the expense "$1" on "$2" with the following:' do |notes, date, ta
   harvest_api.expenses.update(expense)
 end
 
+When 'I attach the receipt "$1" to the expense "$2" on "$3"' do |path, notes, date|
+  path = "#{File.dirname(__FILE__)}/../#{path}"
+  receipt = StringIO.new(File.read(path))
+  expense = Then %Q{there should be an expense "#{notes}" on "#{date}"}
+  harvest_api.expenses.attach(expense, "receipt.png", receipt)
+end
