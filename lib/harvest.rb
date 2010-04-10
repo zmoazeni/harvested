@@ -6,7 +6,7 @@ require 'delegate'
 
 require 'harvest/credentials'
 require 'harvest/errors'
-require 'harvest/robust_client'
+require 'harvest/hardy_client'
 require 'harvest/timezones'
 
 require 'harvest/base'
@@ -23,9 +23,9 @@ module Harvest
       Harvest::Base.new(subdomain, username, password, options)
     end
     
-    def robust_client(subdomain, username, password, options = {})
+    def hardy_client(subdomain, username, password, options = {})
       retries = options.delete(:retry)
-      Harvest::RobustClient.new(client(subdomain, username, password, options), (retries || 5))
+      Harvest::HardyClient.new(client(subdomain, username, password, options), (retries || 5))
     end
   end
 end

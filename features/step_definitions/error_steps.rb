@@ -37,15 +37,15 @@ When 'I make a request with the standard client' do
   end
 end
 
-When 'I make a request with the robust client' do
+When 'I make a request with the hardy client' do
   set_time_and_return_and_error do
     harvest_api.clients.all
   end
 end
 
-When /^I make a request with the robust client with (\d+) max retries$/ do |times|
+When /^I make a request with the hardy client with (\d+) max retries$/ do |times|
   set_time_and_return_and_error do
-    api = Harvest.robust_client(@subdomain, @username, @password, :ssl => @ssl, :retry => times.to_i)
+    api = Harvest.hardy_client(@subdomain, @username, @password, :ssl => @ssl, :retry => times.to_i)
     api.clients.all
   end
 end
@@ -67,7 +67,7 @@ Then /a (\d+) error should be raised/ do |code|
   end
 end
 
-Then /the robust client should wait (\d+) seconds for the rate limit to reset/ do |seconds|
+Then /the hardy client should wait (\d+) seconds for the rate limit to reset/ do |seconds|
   Time.now.should be_close(@time + seconds.to_i, 2)
 end
 

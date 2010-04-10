@@ -1,5 +1,5 @@
 module Harvest
-  class RobustClient < Delegator
+  class HardyClient < Delegator
     def initialize(client, max_retries)
       super(client)
       @_sd_obj = @client = client
@@ -20,10 +20,10 @@ module Harvest
     
     def wrap_collection
       collection = yield
-      RobustCollection.new(collection, self, @max_retries)
+      HardyCollection.new(collection, self, @max_retries)
     end
     
-    class RobustCollection < Delegator
+    class HardyCollection < Delegator
       def initialize(collection, client, max_retries)
         super(collection)
         @_sd_obj = @collection = collection

@@ -4,7 +4,7 @@ module HarvestHelpers
   end
   
   def harvest_api
-    Harvest.robust_client(@subdomain, @username, @password, :ssl => @ssl)
+    Harvest.hardy_client(@subdomain, @username, @password, :ssl => @ssl)
   end
 end
 
