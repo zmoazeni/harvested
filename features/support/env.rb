@@ -1,5 +1,5 @@
 $LOAD_PATH.unshift(File.dirname(__FILE__) + '/../../lib')
-require 'harvest'
+require 'harvested'
 require 'ruby-debug'
 require 'fakeweb'
 
