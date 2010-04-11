@@ -45,4 +45,4 @@ GET /people/#{user_id}/entries?from=YYYYMMDD&to=YYYYMMDD&project_id=#{project_id
     </day-entry>
   </day-entries>
   
-  
+- day_entry vs day-entry
