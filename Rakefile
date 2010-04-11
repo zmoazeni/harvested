@@ -4,20 +4,19 @@ require 'rake'
 begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
-    gem.name = "harvest"
-    gem.summary = %Q{TODO: one-line summary of your gem}
-    gem.description = %Q{TODO: longer description of your gem}
+    gem.name = "harvested"
+    gem.summary = %Q{A Ruby Wrapper for the Harvest API http://www.getharvest.com/}
+    gem.description = %Q{Harvested wraps the Harvest API concisely without the use of Rails dependencies. More information about the Harvest API can be found at http://www.getharvest.com/api}
     gem.email = "zach.moazeni@gmail.com"
-    gem.homepage = "http://github.com/zmoazeni/harvest"
+    gem.homepage = "http://github.com/zmoazeni/harvested"
     gem.authors = ["Zach Moazeni"]
     gem.add_development_dependency "rspec", ">= 1.2.9"
     gem.add_development_dependency "cucumber", ">= 0"
     gem.add_development_dependency "ruby-debug", ">= 0"
-    gem.add_development_dependency "artifice", ">= 0"
     gem.add_development_dependency "fakeweb", ">= 0"
     gem.add_dependency "httparty", ">= 0"
     gem.add_dependency "happymapper", ">= 0"
-    # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
+    gem.add_dependency "builder", ">= 0"
   end
   Jeweler::GemcutterTasks.new
 rescue LoadError => e
