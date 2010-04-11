@@ -1,0 +1,16 @@
+0.3.0 - April 11, 2010
+  * Added users
+  * Added clients
+  * Added contacts
+  * Added expense categories
+  * Added expenses
+  * Added projects
+  * Added tasks
+  * Added task assignments
+  * Added user assignments
+  * Added time tracking
+  * Added reporting
+  * Added account information
+  * Added common errors
+  * Added Harvest#hardy_client
+  
