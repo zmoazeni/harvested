@@ -1,2 +1,5 @@
 - Throttle 503 headers aren't set. 502s are sent back
 - No documentation for GET /expenses or /expenses/yday/year
+- Response on creation of a time entry:
+
+{"add"=>{"day_entry"=>{"task_id"=>"507641", "created_at"=>Sun Apr 11 03:47:13 UTC 2010, "project_id"=>"644261", "notes"=>"Test api support", "updated_at"=>Sun Apr 11 03:47:13 UTC 2010, "spent_at"=>#<Date: 4910387/2,0,2299161>, "id"=>22941435, "project"=>"Time Project", "user_id"=>123427, "client"=>"Time Client", "task"=>"Time Task", "hours"=>3.0}}}
