@@ -17,6 +17,8 @@ module Harvest
     element :created_at, Time
     element :updated_at, Time
     element :user_id, Integer
+    element :closed, Boolean, :tag => 'is-closed'
+    element :billed, Boolean, :tag => 'is-billed'
     
     def spent_at=(date)
       @spent_at = (String === date ? Time.parse(date) : date)
@@ -32,5 +34,8 @@ module Harvest
         r.tag!('spent_at', spent_at) if spent_at
       end
     end
+    
+    alias_method :closed?, :closed
+    alias_method :billed?, :billed
   end
 end

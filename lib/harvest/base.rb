@@ -51,5 +51,9 @@ module Harvest
     def time
       @time ||= Harvest::API::Time.new(credentials)
     end
+    
+    def reports
+      @reports ||= Harvest::API::Reports.new(credentials)
+    end
   end
 end
