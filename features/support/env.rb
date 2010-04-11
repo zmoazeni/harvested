@@ -23,8 +23,12 @@ Before('@clean') do
   end
   my_user = api.users.all.first
   
-  api.reports.by_user(my_user, Time.parse('01/01/2000'), Time.now).each do |time|
+  api.reports.time_by_user(my_user, Time.parse('01/01/2000'), Time.now).each do |time|
     api.time.delete(time)
+  end
+  
+  api.reports.expenses_by_user(my_user, Time.parse('01/01/2000'), Time.now).each do |time|
+    api.expenses.delete(time)
   end
   
   %w(expenses expense_categories projects contacts clients tasks).each do |collection|
