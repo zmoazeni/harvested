@@ -1,0 +1,36 @@
+module Harvest
+  class TimeEntry < BaseModel
+    include HappyMapper
+    
+    tag 'day_entry'
+    
+    element :id, Integer
+    element :client, String
+    element :project, String
+    element :task, String
+    element :hours, Float
+    element :notes, String
+    
+    element :project_id, Integer
+    element :task_id, Integer
+    element :spent_at, Time
+    element :created_at, Time
+    element :updated_at, Time
+    element :user_id, Integer
+    
+    def spent_at=(date)
+      @spent_at = (String === date ? Time.parse(date) : date)
+    end
+    
+    def to_xml
+      builder = Builder::XmlMarkup.new
+      builder.request do |r|
+        r.tag!('notes', notes) if notes
+        r.tag!('hours', hours) if hours
+        r.tag!('project_id', project_id) if project_id
+        r.tag!('task_id', task_id) if task_id
+        r.tag!('spent_at', spent_at) if spent_at
+      end
+    end
+  end
+end

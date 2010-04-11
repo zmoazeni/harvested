@@ -47,5 +47,9 @@ module Harvest
     def expenses
       @expenses ||= Harvest::API::Expenses.new(credentials)
     end
+    
+    def time
+      @time ||= Harvest::API::Time.new(credentials)
+    end
   end
 end
