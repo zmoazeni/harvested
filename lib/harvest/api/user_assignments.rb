@@ -9,7 +9,7 @@ module Harvest
       
       def find(project, id)
         response = request(:get, credentials, "/projects/#{project.to_i}/user_assignments/#{id}")
-        Harvest::UserAssignment.parse(response.body)
+        Harvest::UserAssignment.parse(response.body, :single => true)
       end
       
       def create(user_assignment)

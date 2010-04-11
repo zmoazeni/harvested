@@ -4,7 +4,7 @@ module Harvest
       
       def find(id)
         response = request(:get, credentials, "/daily/show/#{id}")
-        Harvest::TimeEntry.parse(response.body)
+        Harvest::TimeEntry.parse(response.body, :single => true)
       end
       
       def all(date = ::Time.now)

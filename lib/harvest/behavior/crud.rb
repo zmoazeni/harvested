@@ -8,13 +8,13 @@ module Harvest
       
       def find(id)
         response = request(:get, credentials, "#{api_model.api_path}/#{id}")
-        api_model.parse(response.body)
+        api_model.parse(response.body, :single => true)
       end
       
       def create(model)
         response = request(:post, credentials, "#{api_model.api_path}", :body => model.to_xml)
         id = response.headers["location"].first.match(/\/.*\/(\d+)/)[1]
-        find(model.id)
+        find(id)
       end
       
       def update(model)
