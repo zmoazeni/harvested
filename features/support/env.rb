@@ -18,11 +18,16 @@ Before('@clean') do
   credentials = YAML.load_file("#{File.dirname(__FILE__)}/harvest_credentials.yml")
   api = Harvest.hardy_client(credentials["subdomain"], credentials["username"], credentials["password"], :ssl => credentials["ssl"])
   
-  %w(expenses expense_categories projects contacts clients tasks).each do |collection|
-    api.send(collection).all.each {|m| api.send(collection).delete(m) }
-  end
-  
   api.users.all.each do |u|
     api.users.delete(u) if u.email != credentials["username"]
+  end
+  my_user = api.users.all.first
+  
+  api.reports.by_user(my_user, Time.parse('01/01/2000'), Time.now).each do |time|
+    api.time.delete(time)
+  end
+  
+  %w(expenses expense_categories projects contacts clients tasks).each do |collection|
+    api.send(collection).all.each {|m| api.send(collection).delete(m) }
   end
 end
