@@ -28,6 +28,7 @@ Using `Harvested#client` your code needs to handle all these situations. However
 
 ## Links
 
+* [Harvested Documentation](http://rdoc.info/projects/zmoazeni/harvested)
 * [Harvest API Documentation](http://www.getharvest.com/api)
 * [Source Code for Harvested](http://github.com/zmoazeni/harvested)
 * [Pivotal Tracker for Harvested](http://www.pivotaltracker.com/projects/63260)
