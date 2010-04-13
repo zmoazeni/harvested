@@ -18,6 +18,8 @@ coverage
 rdoc
 pkg
 spec.opts
+doc
+.yardoc
 
 ## PROJECT::SPECIFIC
 features/support/harvest_credentials.yml
