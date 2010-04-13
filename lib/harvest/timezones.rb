@@ -1,6 +1,5 @@
-# shamelessly ripped from Rails: http://github.com/rails/rails/blob/master/activesupport/lib/active_support/values/time_zone.rb
-
 module Harvest
+  # shamelessly ripped from Rails: http://github.com/rails/rails/blob/master/activesupport/lib/active_support/values/time_zone.rb
   module Timezones
     MAPPING = {
         "pacific/midway"                  =>   "International Date Line West",
