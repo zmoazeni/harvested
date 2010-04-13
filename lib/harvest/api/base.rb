@@ -2,11 +2,11 @@ module Harvest
   module API
     class Base
       attr_reader :credentials
-    
+      
       def initialize(credentials)
         @credentials = credentials
       end
-    
+      
       class << self
         def api_model(klass)
           class_eval <<-END
@@ -16,7 +16,7 @@ module Harvest
           END
         end
       end
-    
+      
       protected
         def request(method, credentials, path, options = {})
           response = HTTParty.send(method, "#{credentials.host}#{path}", :query => options[:query], :body => options[:body], :headers => {"Accept" => "application/xml", "Content-Type" => "application/xml; charset=utf-8", "Authorization" => "Basic #{credentials.basic_auth}", "User-Agent" => "Harvestable/#{Harvest::VERSION}"}.update(options[:headers] || {}), :format => :plain)
