@@ -11,7 +11,7 @@ module Harvest
         else
           request(:get, credentials, "/contacts")
         end
-      
+        
         api_model.parse(response.body)
       end
     end

@@ -12,6 +12,9 @@ module Harvest
     
     # All API actions surrounding accounts
     #
+    # == Examples
+    #   harvest.account.rate_limit_status # Returns a Harvest::RateLimitStatus
+    #
     # @return [Harvest::API::Account]
     def account
       @account ||= Harvest::API::Account.new(credentials)
@@ -45,6 +48,26 @@ module Harvest
       @clients ||= Harvest::API::Clients.new(credentials)
     end
     
+    # All API Actions surrounding Client Contacts
+    # 
+    # == Examples
+    #   harvest.contacts.all() # Returns all contacts in the system
+    #   harvest.contacts.all(10) # Returns all contacts for the client id=10 in the system
+    #   
+    #   harvest.contacts.find(100) # Returns the contact with id = 100
+    #   
+    #   contact = Harvest::Contact.new(:first_name => 'Jane', :last_name => 'Doe', :client_id => 10)
+    #   saved_contact = harvest.contacts.create(contact) # returns a saved version of Harvest::Contact
+    #
+    #   contact = harvest.contacts.find(205)
+    #   contact.first_name = 'Jilly'
+    #   updated_contact = harvest.contacts.update(contact) # returns an updated version of Harvest::Contact
+    #   
+    #   contact = harvest.contacts.find(205)
+    #   harvest.contacts.delete(contact) # returns 205
+    # 
+    # @see Harvest::Behavior::Crud
+    # @return [Harvest::API::Contacts]
     def contacts
       @contacts ||= Harvest::API::Contacts.new(credentials)
     end
