@@ -7,8 +7,9 @@ module Harvest
   # [+details+] the details of the client
   # [+currency+] what type of currency is associated with the client
   # [+currency_symbol+] what currency symbol is associated with the client
-  # [+update_at+] the last modification timestamp
   # [+active?+] true|false on whether the client is active
+  # [+highrise_id+] (READONLY) the highrise id associated with this client
+  # [+update_at+] (READONLY) the last modification timestamp
   class Client < BaseModel
     include HappyMapper
   
@@ -22,6 +23,7 @@ module Harvest
     element :currency_symbol, String, :tag => "currency-symbol"
     element :cache_version, Integer, :tag => "cache-version"
     element :updated_at, Time, :tag => "updated-at"
+    element :highrise_id, Integer, :tag => 'highrise-id'
     
     alias_method :active?, :active
   end
