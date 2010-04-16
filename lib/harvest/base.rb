@@ -72,6 +72,33 @@ module Harvest
       @contacts ||= Harvest::API::Contacts.new(credentials)
     end
     
+    # All API Actions surrounding Projects
+    # 
+    # == Examples
+    #   harvest.projects.all() # Returns all projects in the system
+    #   
+    #   harvest.projects.find(100) # Returns the project with id = 100
+    #   
+    #   project = Harvest::Project.new(:name => 'SuprGlu' :client_id => 10)
+    #   saved_project = harvest.projects.create(project) # returns a saved version of Harvest::Project
+    #
+    #   project = harvest.projects.find(205)
+    #   project.name = 'SuprSticky'
+    #   updated_project = harvest.projects.update(project) # returns an updated version of Harvest::Project
+    #   
+    #   project = harvest.project.find(205)
+    #   harvest.projects.delete(project) # returns 205
+    #
+    #   project = harvest.projects.find(301)
+    #   deactivated_project = harvest.projects.deactivate(project) # returns an updated deactivated project
+    #   activated_project = harvest.projects.activate(project) # returns an updated activated project
+    #
+    #  project = harvest.projects.find(401)
+    #  harvest.projects.create_task(project, 'Bottling Glue') # creates and assigns a task to the project
+    #
+    # @see Harvest::Behavior::Crud
+    # @see Harvest::Behavior::Activatable
+    # @return [Harvest::API::Projects]
     def projects
       @projects ||= Harvest::API::Projects.new(credentials)
     end

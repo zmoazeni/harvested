@@ -14,7 +14,7 @@ module Harvest
         end
         model
       end
-    
+      
       # Activates the item. Does nothing if the item is already activated
       # 
       # @param [Harvest::BaseModel] model the model you want to activate
