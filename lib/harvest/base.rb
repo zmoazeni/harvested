@@ -126,6 +126,33 @@ module Harvest
       @tasks ||= Harvest::API::Tasks.new(credentials)
     end
     
+    # All API Actions surrounding Users
+    # 
+    # == Examples
+    #   harvest.users.all() # Returns all users in the system
+    #   
+    #   harvest.users.find(100) # Returns the user with id = 100
+    #   
+    #   user = Harvest::User.new(:first_name => 'Edgar', :last_name => 'Ruth', :email => 'edgar@ruth.com', :password => 'mypassword', :password_confirmation => 'mypassword', :timezone => :cst, :admin => false, :telephone => '444-4444')
+    #   saved_user = harvest.users.create(user) # returns a saved version of Harvest::User
+    #
+    #   user = harvest.users.find(205)
+    #   user.email = 'edgar@ruth.com'
+    #   updated_user = harvest.users.update(user) # returns an updated version of Harvest::User
+    #   
+    #   user = harvest.users.find(205)
+    #   harvest.users.delete(user) # returns 205
+    #
+    #   user = harvest.users.find(301)
+    #   deactivated_user = harvest.users.deactivate(user) # returns an updated deactivated user
+    #   activated_user = harvest.users.activate(user) # returns an updated activated user
+    #   
+    #   user = harvest.users.find(401)
+    #   harvest.users.reset_password(user) # will trigger the reset password feature of harvest and shoot the user an email
+    #   
+    # @see Harvest::Behavior::Crud
+    # @see Harvest::Behavior::Activatable
+    # @return [Harvest::API::Users]
     def users
       @users ||= Harvest::API::Users.new(credentials)
     end
