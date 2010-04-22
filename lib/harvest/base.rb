@@ -103,6 +103,25 @@ module Harvest
       @projects ||= Harvest::API::Projects.new(credentials)
     end
     
+    # All API Actions surrounding Tasks
+    # 
+    # == Examples
+    #   harvest.tasks.all() # Returns all tasks in the system
+    #   
+    #   harvest.tasks.find(100) # Returns the task with id = 100
+    #   
+    #   task = Harvest::Task.new(:name => 'Server Administration' :default => true)
+    #   saved_task = harvest.tasks.create(task) # returns a saved version of Harvest::Task
+    #
+    #   task = harvest.tasks.find(205)
+    #   task.name = 'Server Administration'
+    #   updated_task = harvest.tasks.update(task) # returns an updated version of Harvest::Task
+    #   
+    #   task = harvest.task.find(205)
+    #   harvest.tasks.delete(task) # returns 205
+    #   
+    # @see Harvest::Behavior::Crud
+    # @return [Harvest::API::Tasks]
     def tasks
       @tasks ||= Harvest::API::Tasks.new(credentials)
     end
