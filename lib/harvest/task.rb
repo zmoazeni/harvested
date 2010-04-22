@@ -3,7 +3,7 @@ module Harvest
   # The model that contains information about a task
   #
   # == Fields
-  # [+id+] the id of the task
+  # [+id+] (READONLY) the id of the task
   # [+name+] (REQUIRED) the name of the task
   # [+billable+] whether the task is billable by default
   # [+deactivated+] whether the task is deactivated

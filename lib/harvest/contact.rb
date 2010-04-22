@@ -2,7 +2,7 @@ module Harvest
   # The model that contains information about a client contact
   #
   # == Fields
-  # [+id+] the id of the contact
+  # [+id+] (READONLY) the id of the contact
   # [+client_id+] (REQUIRED) the id of the client this contact is associated with
   # [+first_name+] (REQUIRED) the first name of the contact
   # [+last_name+] (REQUIRED) the last name of the contact

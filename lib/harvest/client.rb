@@ -2,7 +2,7 @@ module Harvest
   # The model that contains information about a client
   #
   # == Fields
-  # [+id+] the id of the client
+  # [+id+] (READONLY) the id of the client
   # [+name+] (REQUIRED) the name of the client
   # [+details+] the details of the client
   # [+currency+] what type of currency is associated with the client

@@ -3,7 +3,7 @@ module Harvest
   # The model that contains information about a project
   #
   # == Fields
-  # [+id+] the id of the project
+  # [+id+] (READONLY) the id of the project
   # [+name+] (REQUIRED) the name of the project
   # [+client_id+] (REQUIRED) the client id of the project
   # [+code+] the project code
