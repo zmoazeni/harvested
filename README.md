@@ -15,7 +15,7 @@ This is a Ruby wrapper for the [Harvest API](http://www.getharvest.com/).
     client = harvest.clients.create(client)
     harvest.clients.find(client.id) # returns a Harvest::Client
 
-You can find more examples in `/examples`
+You can find more examples in `/examples` and in the documentation for Harvest::Base
 
 ## Hardy Client
 
