@@ -6,7 +6,7 @@
 # username = 'yourusername'
 # password = 'yourpassword'
 # 
-# api = Harvest.hardy_client(subdomain, username, password, :ssl => false)
+# api = Harvest.hardy_client(subdomain, username, password)
 # 
 # raise "Are you sure you want to do this? (comment out this exception if so)"
 # 

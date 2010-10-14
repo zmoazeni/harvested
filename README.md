@@ -8,7 +8,7 @@ This is a Ruby wrapper for the [Harvest API](http://www.getharvest.com/).
 
 ## Examples
 
-    harvest = Harvest.client('yoursubdomain', 'yourusername', 'yourpassword', :ssl => false) # you can enable SSL if your account supports it
+    harvest = Harvest.client('yoursubdomain', 'yourusername', 'yourpassword')
     harvest.projects() # list out projects
     
     client = Harvest::Client.new(:name => "Billable Company LTD.")
@@ -23,7 +23,7 @@ The guys at Harvest built a great API, but there are always dangers in writing c
 
 Using `Harvested#client` your code needs to handle all these situations. However you can also use `Harvested#hardy_client` which will retry errors and wait for Rate Limit resets.
 
-    harvest = Harvest.hardy_client('yoursubdomain', 'yourusername', 'yourpassword', :ssl => false)
+    harvest = Harvest.hardy_client('yoursubdomain', 'yourusername', 'yourpassword')
     harvest.projects() # This will wait for the Rate Limit reset if you have gone over your limit
 
 ## Links

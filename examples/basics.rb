@@ -4,7 +4,7 @@ subdomain = 'yoursubdomain'
 username = 'yourusername'
 password = 'yourpassword'
 
-harvest = Harvest.hardy_client(subdomain, username, password, :ssl => false)
+harvest = Harvest.hardy_client(subdomain, username, password)
 
 # Print out all users, clients, and projects on the account
 puts "Users:"

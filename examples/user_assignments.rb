@@ -4,7 +4,7 @@ subdomain = 'yoursubdomain'
 username = 'userusername'
 password = 'yourpassword'
 
-harvest = Harvest.hardy_client(subdomain, username, password, :ssl => false)
+harvest = Harvest.hardy_client(subdomain, username, password)
 
 # Create a Client, Project, and a User then assign that User to that Project
 
