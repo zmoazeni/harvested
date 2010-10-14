@@ -5,18 +5,19 @@
 
 Gem::Specification.new do |s|
   s.name = %q{harvested}
-  s.version = "0.3.0"
+  s.version = "0.3.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Zach Moazeni"]
-  s.date = %q{2010-04-11}
-  s.description = %q{Harvested wraps the Harvest API concisely without the use of Rails dependencies. More information about the Harvest API can be found at http://www.getharvest.com/api}
+  s.date = %q{2010-10-14}
+  s.description = %q{Harvested wraps the Harvest API concisely without the use of Rails dependencies. More information about the Harvest API can be found on their website (http://www.getharvest.com/api). For support hit up the Mailing List (http://groups.google.com/group/harvested)}
   s.email = %q{zach.moazeni@gmail.com}
   s.extra_rdoc_files = [
     "README.md"
   ]
   s.files = [
-    ".gitignore",
+    ".document",
+     ".gitignore",
      "HISTORY",
      "MIT-LICENSE",
      "README.md",
@@ -60,6 +61,7 @@ Gem::Specification.new do |s|
      "features/time_tracking.feature",
      "features/user_assignments.feature",
      "features/users.feature",
+     "harvested.gemspec",
      "lib/harvest/api/account.rb",
      "lib/harvest/api/base.rb",
      "lib/harvest/api/clients.rb",
@@ -106,7 +108,7 @@ Gem::Specification.new do |s|
   s.homepage = %q{http://github.com/zmoazeni/harvested}
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
-  s.rubygems_version = %q{1.3.6}
+  s.rubygems_version = %q{1.3.7}
   s.summary = %q{A Ruby Wrapper for the Harvest API http://www.getharvest.com/}
   s.test_files = [
     "spec/harvest/base_spec.rb",
@@ -127,7 +129,7 @@ Gem::Specification.new do |s|
     current_version = Gem::Specification::CURRENT_SPECIFICATION_VERSION
     s.specification_version = 3
 
-    if Gem::Version.new(Gem::RubyGemsVersion) >= Gem::Version.new('1.2.0') then
+    if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
       s.add_development_dependency(%q<rspec>, [">= 1.2.9"])
       s.add_development_dependency(%q<cucumber>, [">= 0"])
       s.add_development_dependency(%q<ruby-debug>, [">= 0"])
