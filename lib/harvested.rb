@@ -16,7 +16,7 @@ require 'harvest/base'
 %w(base account clients contacts projects tasks users task_assignments user_assignments expense_categories expenses time reports).each {|a| require "harvest/api/#{a}"}
 
 module Harvest
-  VERSION = "0.3.0".freeze
+  VERSION = "0.3.1".freeze
   
   class << self
     
