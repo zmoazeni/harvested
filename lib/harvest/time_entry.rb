@@ -17,6 +17,7 @@ module Harvest
     element :created_at, Time
     element :updated_at, Time
     element :user_id, Integer
+    element :of_user, Integer
     element :closed, Boolean, :tag => 'is-closed'
     element :billed, Boolean, :tag => 'is-billed'
     element :of_user, Integer
