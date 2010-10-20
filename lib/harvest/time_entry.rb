@@ -17,6 +17,7 @@ module Harvest
     element :created_at, Time
     element :updated_at, Time
     element :user_id, Integer
+    element :of_user, Integer
     element :closed, Boolean, :tag => 'is-closed'
     element :billed, Boolean, :tag => 'is-billed'
     
@@ -32,6 +33,7 @@ module Harvest
         r.tag!('project_id', project_id) if project_id
         r.tag!('task_id', task_id) if task_id
         r.tag!('spent_at', spent_at) if spent_at
+        r.tag!('of_user', of_user) if of_user
       end
     end
     
