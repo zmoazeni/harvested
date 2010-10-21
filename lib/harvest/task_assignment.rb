@@ -9,6 +9,8 @@ module Harvest
     element :billable, Boolean
     element :deactivated, Boolean
     element :hourly_rate, Float, :tag => 'hourly-rate'
+    element :budget, Float
+    element :estimate, Float
     
     def task=(task)
       @task_id = task.to_i
