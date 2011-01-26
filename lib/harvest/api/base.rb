@@ -19,6 +19,11 @@ module Harvest
 
       protected
         def request(method, credentials, path, options = {})
+          params = {}
+          params[:path] = path
+          params[:options] = options
+          params[:method] = method
+
           response = HTTParty.send(method, "#{credentials.host}#{path}",
             :query => options[:query],
             :body => options[:body],
@@ -31,21 +36,23 @@ module Harvest
             }.update(options[:headers] || {})
           )
 
+          params[:response] = response.inspect.to_s
+
           case response.code
           when 200..201
             response
           when 400
-            raise Harvest::BadRequest.new(response)
+            raise Harvest::BadRequest.new(response, params)
           when 404
-            raise Harvest::NotFound.new(response)
+            raise Harvest::NotFound.new(response, params)
           when 500
-            raise Harvest::ServerError.new(response)
+            raise Harvest::ServerError.new(response, params)
           when 502
-            raise Harvest::Unavailable.new(response)
+            raise Harvest::Unavailable.new(response, params)
           when 503
-            raise Harvest::RateLimited.new(response)
+            raise Harvest::RateLimited.new(response, params)
           else
-            raise Harvest::InformHarvest.new(response)
+            raise Harvest::InformHarvest.new(response, params)
           end
         end
 

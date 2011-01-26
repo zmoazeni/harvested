@@ -3,9 +3,12 @@ module Harvest
   
   class HTTPError < StandardError
     attr_reader :response
-    def initialize(response)
+    attr_reader :params
+
+    def initialize(response, params = {})
       @response = response
-      super
+      @params = params
+      super(response)
     end
     
     def to_s
