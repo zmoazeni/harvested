@@ -19,6 +19,7 @@ module Harvest
     element :user_id, Integer
     element :closed, Boolean, :tag => 'is-closed'
     element :billed, Boolean, :tag => 'is-billed'
+    element :of_user, Integer
     
     def spent_at=(date)
       @spent_at = (String === date ? Time.parse(date) : date)
@@ -32,6 +33,7 @@ module Harvest
         r.tag!('project_id', project_id) if project_id
         r.tag!('task_id', task_id) if task_id
         r.tag!('spent_at', spent_at) if spent_at
+        r.tag!('of_user', of_user) if of_user
       end
     end
     
