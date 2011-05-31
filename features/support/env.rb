@@ -3,7 +3,7 @@ require 'harvested'
 require 'ruby-debug'
 require 'fakeweb'
 
-require 'spec/expectations'
+require 'rspec/expectations'
 
 Before do
   FakeWeb.clean_registry
