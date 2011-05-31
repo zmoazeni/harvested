@@ -14,7 +14,9 @@ module Harvest
       
       def create(task_assignment)
         response = request(:post, credentials, "/projects/#{task_assignment.project_id}/task_assignments", :body => task_assignment.task_xml)
-        id = response.headers["location"].first.match(/\/.*\/(\d+)\/.*\/(\d+)/)[2]
+        headers = response.headers["location"]
+        headers = headers.first if headers.respond_to? :first
+        id = headers.match(/\/.*\/(\d+)\/.*\/(\d+)/)[2]
         find(task_assignment.project_id, id)
       end
       

@@ -8,7 +8,7 @@ module Harvest
       end
       
       def all(date = ::Time.now)
-        date = ::Time.parse(date) if String === date
+        date = ::Time.strptime(date,'%m/%d/%Y') if String === date
         response = request(:get, credentials, "/daily/#{date.yday}/#{date.year}")
         Harvest::TimeEntry.parse(response.body)
       end

@@ -27,7 +27,9 @@ module Harvest
       # @return [Harvest::BaseModel] the created model depending on where you're calling it from (e.g. Harvest::Client from Harvest::Base#clients)
       def create(model)
         response = request(:post, credentials, "#{api_model.api_path}", :body => model.to_xml)
-        id = response.headers["location"].first.match(/\/.*\/(\d+)/)[1]
+        headers = response.headers["location"]
+        headers = headers.first if headers.respond_to? :first
+        id = headers.match(/\/.*\/(\d+)/)[1]
         find(id)
       end
       
