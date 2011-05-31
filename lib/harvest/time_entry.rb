@@ -23,7 +23,7 @@ module Harvest
     element :of_user, Integer
     
     def spent_at=(date)
-      @spent_at = (String === date ? Time.parse(date) : date)
+      @spent_at = (String === date ? Time.strptime(date,'%m/%d/%Y') : date)
     end
     
     def to_xml
