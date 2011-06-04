@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'harvest tasks', :clean => true do
+describe 'harvest tasks' do
   it 'allows adding, updating and removing tasks' do
     cassette('tasks') do
       task            = harvest.tasks.create(Harvest::Task.new(

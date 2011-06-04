@@ -16,7 +16,7 @@ project = harvest.projects.create(project)
 
 harvest.projects.create_task(project, 'Bottling Glue')
 
-user = Harvest::User.new(:first_name => 'Jane', :last_name => 'Doe', :email => 'jane@doe.com', :timezone => :est, :password => 'secure', :password_confirmation => 'secure')
+user = Harvest::User.new(:first_name => 'Jane', :last_name => 'Doe', :email => 'jane@doe.com', :timezone => :est, :password => 'secure')
 user = harvest.users.create(user)
 
 user_assignment = Harvest::UserAssignment.new(:user_id => user.id, :project_id => project.id)

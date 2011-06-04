@@ -133,7 +133,7 @@ module Harvest
     #  
     #  harvest.users.find(100) # Returns the user with id = 100
     #  
-    #  user = Harvest::User.new(:first_name => 'Edgar', :last_name => 'Ruth', :email => 'edgar@ruth.com', :password => 'mypassword', :password_confirmation => 'mypassword', :timezone => :cst, :admin => false, :telephone => '444-4444')
+    #  user = Harvest::User.new(:first_name => 'Edgar', :last_name => 'Ruth', :email => 'edgar@ruth.com', :password => 'mypassword', :timezone => :cst, :admin => false, :telephone => '444-4444')
     #  saved_user = harvest.users.create(user) # returns a saved version of Harvest::User
     #  
     #  user = harvest.users.find(205)

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'harvest projects', :clean => true do
+describe 'harvest projects' do
   it 'allows adding, updating and removing projects' do
     cassette('project1') do
       client      = harvest.clients.create(Harvest::Client.new(

@@ -9,7 +9,6 @@ module Harvest
   # [+last_name+] the last name for the user
   # [+telephone+] the telephone for the user
   # [+department] the department for the user
-  # [+password|password_confirmation+] the password for the user (only used on create.)
   # [+has_access_to_all_future_projects+] whether the user should be added to future projects by default
   # [+hourly_rate+] what the default hourly rate for the user is
   # [+admin?+] whether the user is an admin
@@ -33,7 +32,6 @@ module Harvest
     element :department, String
     element :timezone, String
     element :password, String
-    element :password_confirmation, String, :tag => 'password-confirmation'
     
     alias_method :active?, :active
     alias_method :admin?, :admin
