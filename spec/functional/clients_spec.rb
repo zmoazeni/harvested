@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe 'harvest clients', :clean => true do
   it 'allows adding, updating and removing clients' do
-    VCR.use_cassette("client") do
+    cassette("client") do
       client      = harvest.clients.create(Harvest::Client.new(
         "name"    => "Joe's Steam Cleaning", 
         "details" => "Building API Widgets across the country")
@@ -19,7 +19,7 @@ describe 'harvest clients', :clean => true do
   end
   
   it 'allows activating and deactivating clients' do
-    VCR.use_cassette("client2") do
+    cassette("client2") do
       client      = harvest.clients.create(Harvest::Client.new(
         "name"    => "Joe's Steam Cleaning",
         "details" => "Building API Widgets across the country"))
@@ -35,7 +35,7 @@ describe 'harvest clients', :clean => true do
   
   context "contacts" do
     it "allows adding, updating, and removing contacts" do
-      VCR.use_cassette("client3") do
+      cassette("client3") do
         client      = harvest.clients.create(Harvest::Client.new(
           "name"    => "Joe's Steam Cleaning",
           "details" => "Building API Widgets across the country")

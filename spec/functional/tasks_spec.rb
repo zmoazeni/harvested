@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe 'harvest tasks', :clean => true do
   it 'allows adding, updating and removing tasks' do
-    VCR.use_cassette('tasks') do
+    cassette('tasks') do
       task            = harvest.tasks.create(Harvest::Task.new(
         "name"        => "A billable task",
         "billable"    => true,
@@ -21,14 +21,14 @@ describe 'harvest tasks', :clean => true do
 
   context "task assignments" do
     it "allows adding, updating, and removing tasks from projects" do
-      VCR.use_cassette('tasks2') do
+      cassette('tasks2') do
         client      = harvest.clients.create(Harvest::Client.new(
           "name"    => "Joe's Steam Cleaning",
           "details" => "Building API Widgets across the country")
         )
 
         project       = harvest.projects.create(Harvest::Project.new(
-          "name"      => "Test Project",
+          "name"      => "Test Project2",
           "active"    => true,
           "notes"     => "project to test the api",
           "client_id" => client.id
@@ -66,14 +66,14 @@ describe 'harvest tasks', :clean => true do
     end
 
     it "allows creating and assigning the task at the same time" do
-      VCR.use_cassette('tasks3') do
+      cassette('tasks3') do
         client      = harvest.clients.create(Harvest::Client.new(
           "name"    => "Joe's Steam Cleaning 2",
           "details" => "Building API Widgets across the country")
         )
 
         project       = harvest.projects.create(Harvest::Project.new(
-          "name"      => "Test Project2",
+          "name"      => "Test Project3",
           "active"    => true,
           "notes"     => "project to test the api",
           "client_id" => client.id

@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe 'harvest projects', :clean => true do
   it 'allows adding, updating and removing projects' do
-    VCR.use_cassette('project1') do
+    cassette('project1') do
       client      = harvest.clients.create(Harvest::Client.new(
         "name"    => "Joe's Steam Cleaning", 
         "details" => "Building API Widgets across the country"
@@ -26,7 +26,7 @@ describe 'harvest projects', :clean => true do
   end
   
   it 'allows activating and deactivating clients' do
-    VCR.use_cassette('project2') do
+    cassette('project2') do
       client      = harvest.clients.create(Harvest::Client.new(
         "name"    => "Joe's Steam Cleaning",
         "details" => "Building API Widgets across the country"))
