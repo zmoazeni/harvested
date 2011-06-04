@@ -17,12 +17,14 @@ tmtags
 coverage
 rdoc
 pkg
-spec.opts
 doc
 .yardoc
 
 ## PROJECT::SPECIFIC
 features/support/harvest_credentials.yml
+spec/support/harvest_credentials.yml
+.cassettes
 
 ## RUBYGEMS
 *.gem
+Gemfile.lock
