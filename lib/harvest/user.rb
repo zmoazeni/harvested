@@ -15,27 +15,51 @@ module Harvest
   # [+contractor?+] whether the user is a contractor
   # [+contractor?+] whether the user is a contractor
   # [+timezone+] the timezone for the user.
-  class User < BaseModel
-    include HappyMapper
+  class User < Hashie::Dash
+    include Harvest::Model
     
     api_path '/people'
-    element :id, Integer
-    element :email, String
-    element :first_name, String, :tag => 'first-name'
-    element :last_name, String, :tag => 'last-name'
-    element :has_access_to_all_future_projects, Boolean, :tag => 'has-access-to-all-future-projects'
-    element :hourly_rate, Float, :tag => 'default-hourly-rate'
-    element :active, Boolean, :tag => 'is-active'
-    element :admin, Boolean, :tag => 'is-admin'
-    element :contractor, Boolean, :tag => 'is-contractor'
-    element :telephone, String
-    element :department, String
-    element :timezone, String
-    element :password, String
+    property :id
+    property :email
+    property :first_name
+    property :last_name
+    property :has_access_to_all_future_projects
+    property :default_hourly_rate
+    property :is_active
+    property :is_admin
+    property :is_contractor
+    property :telephone
+    property :department
+    property :timezone
+    property :password
+    property :first_timer
+    property :wants_newsletter
+    property :preferred_project_status_reports_screen
+    property :preferred_approval_screen
+    property :created_at
+    property :updated_at
+    property :twitter_username
+    property :preferred_entry_method
+    property :default_time_project_id
+    property :default_task_id
+    property :default_expense_category_id
+    property :opensocial_identifier
+    property :duplicate_timesheet_wants_notes
+    property :wants_timesheet_duplication
+    property :cache_version
+    property :email_after_submit
+    property :default_expense_project_id
+    property :identity_url
     
-    alias_method :active?, :active
-    alias_method :admin?, :admin
-    alias_method :contractor?, :contractor
+    alias_method :active?, :is_active
+    alias_method :admin?, :is_admin
+    alias_method :contractor?, :is_contractor
+    
+    def initialize(args = {})
+      args          = args.with_indifferent_access
+      self.timezone = args.delete(:timezone) if args[:timezone]
+      super
+    end
     
     # Sets the timezone for the user. This can be done in a variety of ways.
     # 
@@ -54,11 +78,16 @@ module Harvest
       when 'pst', 'pdt' then self.timezone = 'america/los_angeles'
       else
         if Harvest::Timezones::MAPPING[tz]
-          @timezone = Harvest::Timezones::MAPPING[tz]
+          self[:timezone] = Harvest::Timezones::MAPPING[tz]
         else
-          @timezone = timezone
+          self[:timezone] = timezone
         end
       end
+    end
+    
+    
+    def as_json(args = {})
+      super(args.update(:except => "cache_version"))
     end
   end
 end

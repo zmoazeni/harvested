@@ -1,26 +1,24 @@
 module Harvest
-  class TimeEntry < BaseModel
-    include HappyMapper
+  class TimeEntry < Hashie::Dash
+    include Harvest::Model
     
-    tag 'day_entry'
+    property :id
+    property :client
+    property :project
+    property :task
+    property :hours
+    property :notes
     
-    element :id, Integer
-    element :client, String
-    element :project, String
-    element :task, String
-    element :hours, Float
-    element :notes, String
-    
-    element :project_id, Integer
-    element :task_id, Integer
-    element :spent_at, Time
-    element :created_at, Time
-    element :updated_at, Time
-    element :user_id, Integer
-    element :of_user, Integer
-    element :closed, Boolean, :tag => 'is-closed'
-    element :billed, Boolean, :tag => 'is-billed'
-    element :of_user, Integer
+    property :project_id
+    property :task_id
+    property :spent_at
+    property :created_at
+    property :updated_at
+    property :user_id
+    property :of_user
+    property :closed
+    property :billed
+    property :of_user
     
     def spent_at=(date)
       @spent_at = (String === date ? Time.parse(date) : date)

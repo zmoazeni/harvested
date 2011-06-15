@@ -17,7 +17,7 @@ RSpec.configure do |config|
   config.include HarvestedHelpers
   
   config.before(:suite) do
-    if ENV["NO_CLEAN"] != "true"
+    unless ENV["CLEAN"] == "false"
       WebMock.allow_net_connect!
       cassette("clean", :record => :new_episodes) do
         HarvestedHelpers.clean_remote
@@ -30,7 +30,7 @@ RSpec.configure do |config|
   end
   
   def cassette(*args)
-    if ENV['NO_CACHE'] == "true"
+    if ENV['CACHE'] == "false"
       yield
     else
       VCR.use_cassette(*args) do

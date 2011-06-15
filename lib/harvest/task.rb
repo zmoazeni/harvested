@@ -1,5 +1,5 @@
 module Harvest
-  
+
   # The model that contains information about a task
   #
   # == Fields
@@ -9,22 +9,29 @@ module Harvest
   # [+deactivated+] whether the task is deactivated
   # [+hourly_rate+] what the default hourly rate for the task is
   # [+default?+] whether to add this task to new projects by default
-  class Task < BaseModel
-    include HappyMapper
-  
+  class Task < Hashie::Dash
+    include Harvest::Model
+
     api_path '/tasks'
-  
-    element :id, Integer
-    element :name, String
-    element :billable, Boolean, :tag => 'billable-by-default'
-    element :deactivated, Boolean, :tag => 'deactivated'
-    element :hourly_rate, Float, :tag => 'default-hourly-rate'
-    element :default, Boolean, :tag => 'is-default'
-  
+
+    property :id
+    property :name
+    property :billable_by_default
+    property :deactivated
+    property :default_hourly_rate
+    property :is_default
+    property :created_at
+    property :updated_at
+    property :cache_version
+    
+    def as_json(args = {})
+      super(args.update(:except => %w(cache_version)))
+    end
+    
     def active?
       !deactivated
     end
-  
-    alias_method :default?, :default
+
+    alias_method :default?, :is_default
   end
 end

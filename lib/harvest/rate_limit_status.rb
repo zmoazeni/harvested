@@ -8,15 +8,16 @@ module Harvest
   # [+timeframe_limit+] The amount of seconds before a rate limit refresh occurs
   # [+max_calls+] The number of requests you can make within the +timeframe_limit+
   # [+lockout_seconds+] If you exceed the rate limit, how long you will be locked out from Harvest
-  class RateLimitStatus < BaseModel
-    include HappyMapper
+  class RateLimitStatus < Hashie::Dash
+    include Harvest::Model
     
-    tag 'hash'
-    element :last_access_at, Time, :tag => 'last-access-at'
-    element :count, Integer
-    element :timeframe_limit, Integer, :tag => 'timeframe-limit'
-    element :max_calls, Integer, :tag => 'max-calls'
-    element :lockout_seconds, Integer, :tag => 'lockout-seconds'
+    skip_json_root true
+    
+    property :last_access_at
+    property :count
+    property :timeframe_limit
+    property :max_calls
+    property :lockout_seconds
     
     # Returns true if the user is over their rate limit
     # @return [Boolean]

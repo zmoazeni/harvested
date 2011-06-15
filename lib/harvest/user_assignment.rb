@@ -1,34 +1,41 @@
 module Harvest
-  class UserAssignment < BaseModel
-    include HappyMapper
+  class UserAssignment < Hashie::Dash
+    include Harvest::Model
     
-    tag 'user-assignment'
-    element :id, Integer
-    element :user_id, Integer, :tag => 'user-id'
-    element :project_id, Integer, :tag => 'project-id'
-    element :deactivated, Boolean
-    element :project_manager, Boolean, :tag => 'is-project-manager'
-    element :hourly_rate, Float, :tag => 'hourly-rate'
+    property :id
+    property :user_id
+    property :project_id
+    property :deactivated
+    property :is_project_manager
+    property :hourly_rate
+    property :created_at
+    property :updated_at
+    property :budget
+    property :estimate
+    
+    def initialize(args = {})
+      args = args.with_indifferent_access
+      self.user    = args.delete(:user) if args[:user]
+      self.project = args.delete(:project) if args[:project]
+      super
+    end
     
     def user=(user)
-      @user_id = user.to_i
+      self[:user_id] = user.to_i
     end
     
     def project=(project)
-      @project_id = project.to_i
+      self[:project_id] = project.to_i
     end
     
     def active?
       !deactivated
     end
     
-    def user_xml
-      builder = Builder::XmlMarkup.new
-      builder.user do |t|
-        t.id(user_id)
-      end
+    def user_as_json
+      {"user" => {"id" => user_id}}
     end
     
-    alias_method :project_manager?, :project_manager
+    alias_method :project_manager?, :is_project_manager
   end
 end

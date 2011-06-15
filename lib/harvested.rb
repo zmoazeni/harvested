@@ -1,7 +1,5 @@
-require 'happymapper'
 require 'httparty'
 require 'base64'
-require 'builder'
 require 'delegate'
 require 'hashie'
 require 'active_support'

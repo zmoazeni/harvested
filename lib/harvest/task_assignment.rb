@@ -1,36 +1,41 @@
 module Harvest
-  class TaskAssignment < BaseModel
-    include HappyMapper
+  class TaskAssignment < Hashie::Dash
+    include Harvest::Model
+
+    property :id
+    property :task_id
+    property :project_id
+    property :billable
+    property :deactivated
+    property :hourly_rate
+    property :budget
+    property :estimate
+    property :created_at
+    property :updated_at
     
-    tag 'task-assignment'
-    element :id, Integer
-    element :task_id, Integer, :tag => 'task-id'
-    element :project_id, Integer, :tag => 'project-id'
-    element :billable, Boolean
-    element :deactivated, Boolean
-    element :hourly_rate, Float, :tag => 'hourly-rate'
-    element :budget, Float
-    element :estimate, Float
+    def initialize(args = {})
+      args = args.with_indifferent_access
+      self.task    = args.delete(:task) if args[:task]
+      self.project = args.delete(:project) if args[:project]
+      super
+    end
     
     def task=(task)
-      @task_id = task.to_i
+      self[:task_id] = task.to_i
     end
-    
+
     def project=(project)
-      @project_id = project.to_i
+      self[:project_id] = project.to_i
     end
-    
+
     def active?
       !deactivated
     end
-    
-    def task_xml
-      builder = Builder::XmlMarkup.new
-      builder.task do |t|
-        t.id(task_id)
-      end
+
+    def task_as_json
+      {"task" => {"id" => task_id}}
     end
-    
+
     alias_method :billable?, :billable
   end
 end

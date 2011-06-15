@@ -1,6 +1,8 @@
 require 'spec_helper'
 
 describe Harvest::User do
+  it_behaves_like 'a json sanitizer', %w(cache_version)
+  
   describe "#timezone" do
     it "should convert friendly timezone setting" do
       p = Harvest::User.new(:timezone => :cst)

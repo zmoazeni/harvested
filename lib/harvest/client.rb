@@ -29,5 +29,6 @@ module Harvest
     property :default_invoice_timeframe
     
     alias_method :active?, :active
+    alias_method :is_active=, :active=
   end
 end

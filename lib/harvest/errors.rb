@@ -9,8 +9,7 @@ module Harvest
     end
     
     def to_s
-      hint = response.headers["hint"].nil? ? nil : response.headers["hint"].first
-      "#{self.class.to_s} : #{response.code}#{" - #{hint}" if hint}"
+      "#{self.class.to_s} : #{response.code} #{response.body}"
     end
   end
   

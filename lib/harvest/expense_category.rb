@@ -1,15 +1,13 @@
 module Harvest
-  class ExpenseCategory < BaseModel
-    include HappyMapper
-    
-    tag 'expense-category'
+  class ExpenseCategory < Hashie::Dash
+    include Harvest::Model
     api_path '/expense_categories'
     
-    element :id, Integer
-    element :name, String
-    element :unit_name, String, :tag => 'unit-name'
-    element :unit_price, Float, :tag => 'unit-price'
-    element :deactivated, Boolean
+    property :id
+    property :name
+    property :unit_name
+    property :unit_price
+    property :deactivated
     
     def active?
       !deactivated

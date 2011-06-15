@@ -9,17 +9,19 @@ module Harvest
       
       def find(project, id)
         response = request(:get, credentials, "/projects/#{project.to_i}/user_assignments/#{id}")
-        Harvest::UserAssignment.parse(response.body, :single => true)
+        Harvest::UserAssignment.parse(response.body).first
       end
       
       def create(user_assignment)
-        response = request(:post, credentials, "/projects/#{user_assignment.project_id}/user_assignments", :body => user_assignment.user_xml)
-        id = response.headers["location"].first.match(/\/.*\/(\d+)\/.*\/(\d+)/)[2]
+        user_assignment = Harvest::UserAssignment.wrap(user_assignment)
+        response = request(:post, credentials, "/projects/#{user_assignment.project_id}/user_assignments", :body => user_assignment.user_as_json.to_json)
+        id = response.headers["location"].match(/\/.*\/(\d+)\/.*\/(\d+)/)[2]
         find(user_assignment.project_id, id)
       end
       
       def update(user_assignment)
-        request(:put, credentials, "/projects/#{user_assignment.project_id}/user_assignments/#{user_assignment.id}", :body => user_assignment.to_xml)
+        user_assignment = Harvest::UserAssignment.wrap(user_assignment)
+        request(:put, credentials, "/projects/#{user_assignment.project_id}/user_assignments/#{user_assignment.id}", :body => user_assignment.to_json)
         find(user_assignment.project_id, user_assignment.id)
       end
       

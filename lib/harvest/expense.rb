@@ -1,17 +1,17 @@
 module Harvest
-  class Expense < BaseModel
-    include HappyMapper
-  
+  class Expense < Hashie::Dash
+    include Harvest::Model
+
     api_path '/expenses'
-  
-    element :id, Integer
-    element :notes, String
-    element :units, Integer
-    element :total_cost, Float, :tag => 'total-cost'
-    element :project_id, Integer, :tag => 'project-id'
-    element :expense_category_id, Integer, :tag => 'expense-category-id'
-    element :spent_at, Time, :tag => 'spent-at'
-    
+
+    property :id
+    property :notes
+    property :units
+    property :total_cost
+    property :project_id
+    property :expense_category_id
+    property :spent_at
+
     def spent_at=(date)
       @spent_at = (String === date ? Time.parse(date) : date)
     end

@@ -24,15 +24,16 @@ module HarvestedHelpers
     end
     my_user = harvest.users.all.first
 
-    harvest.reports.time_by_user(my_user, Time.parse('01/01/2000'), Time.now).each do |time|
-      harvest.time.delete(time)
-    end
+    # harvest.reports.time_by_user(my_user, Time.parse('01/01/2000'), Time.now).each do |time|
+    #   harvest.time.delete(time)
+    # end
 
-    harvest.reports.expenses_by_user(my_user, Time.parse('01/01/2000'), Time.now).each do |time|
-      harvest.expenses.delete(time)
-    end
+    # harvest.reports.expenses_by_user(my_user, Time.parse('01/01/2000'), Time.now).each do |time|
+    #   harvest.expenses.delete(time)
+    # end
 
-    %w(expenses expense_categories projects contacts clients tasks).each do |collection|
+    %w(projects contacts clients tasks).each do |collection|
+    # %w(expenses expense_categories projects contacts clients tasks).each do |collection|
       harvest.send(collection).all.each {|m| harvest.send(collection).delete(m) }
     end
   end

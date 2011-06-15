@@ -11,9 +11,6 @@ begin
     gem.email = "zach.moazeni@gmail.com"
     gem.homepage = "http://github.com/zmoazeni/harvested"
     gem.authors = ["Zach Moazeni"]
-    gem.add_dependency "httparty", ">= 0"
-    gem.add_dependency "happymapper", ">= 0"
-    gem.add_dependency "builder", ">= 0"
   end
   Jeweler::GemcutterTasks.new
 rescue LoadError => e

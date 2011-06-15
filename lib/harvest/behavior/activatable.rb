@@ -10,7 +10,7 @@ module Harvest
       def deactivate(model)
         if model.active?
           request(:post, credentials, "#{api_model.api_path}/#{model.to_i}/toggle")
-          model.active = false
+          model.is_active = false
         end
         model
       end
@@ -22,7 +22,7 @@ module Harvest
       def activate(model)
         if !model.active?
           request(:post, credentials, "#{api_model.api_path}/#{model.to_i}/toggle")
-          model.active = true
+          model.is_active = true
         end
         model
       end

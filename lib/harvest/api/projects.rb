@@ -13,8 +13,8 @@ module Harvest
       #
       # @return [Harvest::Project]
       def create_task(project, task_name)
-        response = request(:post, credentials, "/projects/#{project.to_i}/task_assignments/add_with_create_new_task", :body => task_xml(task_name))
-        id = response.headers["location"].first.match(/\/.*\/(\d+)\/.*\/(\d+)/)[1]
+        response = request(:post, credentials, "/projects/#{project.to_i}/task_assignments/add_with_create_new_task", :body => {"task" => {"name" => task_name}}.to_json)
+        id = response.headers["location"].match(/\/.*\/(\d+)\/.*\/(\d+)/)[1]
         find(id)
       end
       
@@ -41,14 +41,6 @@ module Harvest
         end
         project
       end
-      
-      private
-        def task_xml(name)
-          builder = Builder::XmlMarkup.new
-          builder.task do |t|
-            t.name(name)
-          end
-        end
     end
   end
 end

@@ -3,7 +3,7 @@ module Harvest
     extend ActiveSupport::Concern
     
     included do
-      cattr_accessor :stored_api_path
+      cattr_accessor :_api_path, :_skip_json_root
     end
     
     module InstanceMethods
@@ -12,33 +12,51 @@ module Harvest
       end
       
       def as_json(*)
-        { self.class.json_root => to_hash }
+        if self.class.skip_json_root?
+          super
+        else
+          { self.class.json_root => super }
+        end
       end
       
       def to_i; id; end
+      
+      def ==(other)
+        id == other.id
+      end
     end
     
     module ClassMethods
       # This sets the API path so the API collections can use them in an agnostic way
       # @return [void]
       def api_path(path = nil)
-        self.stored_api_path ||= path
+        self._api_path ||= path
+      end
+      
+      def skip_json_root(skip = nil)
+        self._skip_json_root ||= skip
+      end
+      
+      def skip_json_root?
+        _skip_json_root == true
       end
       
       def parse(json)
-        parsed = ActiveSupport::JSON.decode(json)
-        case parsed
-        when Hash
-          new(parsed[json_root])
-        when Array
-          parsed.map {|attrs| new(attrs[json_root])}
-        else
-          raise "Unknown json: #{json}"
-        end
+        parsed = String === json ? ActiveSupport::JSON.decode(json) : json
+        Array.wrap(parsed).map {|attrs| skip_json_root? ? new(attrs) : new(attrs[json_root])}
       end
       
       def json_root
         to_s.demodulize.underscore
+      end
+      
+      def wrap(model_or_attrs)
+        case model_or_attrs
+        when Hash
+          new(model_or_attrs)
+        else
+          model_or_attrs
+        end
       end
     end
   end
