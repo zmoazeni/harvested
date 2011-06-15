@@ -3,6 +3,9 @@ require 'httparty'
 require 'base64'
 require 'builder'
 require 'delegate'
+require 'hashie'
+require 'active_support'
+require 'active_support/all'
 
 require 'harvest/credentials'
 require 'harvest/errors'
@@ -10,6 +13,8 @@ require 'harvest/hardy_client'
 require 'harvest/timezones'
 
 require 'harvest/base'
+require 'harvest/model'
+
 
 %w(crud activatable).each {|a| require "harvest/behavior/#{a}"}
 %w(base_model client contact project task user rate_limit_status task_assignment user_assignment expense_category expense time_entry).each {|a| require "harvest/#{a}"}

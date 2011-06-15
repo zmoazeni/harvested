@@ -19,7 +19,18 @@ module Harvest
       
       protected
         def request(method, credentials, path, options = {})
-          response = HTTParty.send(method, "#{credentials.host}#{path}", :query => options[:query], :body => options[:body], :headers => {"Accept" => "application/xml", "Content-Type" => "application/xml; charset=utf-8", "Authorization" => "Basic #{credentials.basic_auth}", "User-Agent" => "Harvestable/#{Harvest::VERSION}"}.update(options[:headers] || {}), :format => :plain)
+          response = HTTParty.send(method, "#{credentials.host}#{path}", 
+            :query => options[:query], 
+            :body => options[:body], 
+            :headers => {
+              "Accept" => "application/json", 
+              "Content-Type" => "application/json; charset=utf-8", 
+              "Authorization" => "Basic #{credentials.basic_auth}", 
+              "User-Agent" => "Harvestable/#{Harvest::VERSION}"
+            }.update(options[:headers] || {}), 
+            :format => :plain
+          )
+          
           case response.code
           when 200..201
             response

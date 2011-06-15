@@ -19,15 +19,15 @@ module Harvest
       # @return [Harvest::BaseModel] the model depends on where you're calling it from (e.g. Harvest::Client from Harvest::Base#clients)
       def find(id)
         response = request(:get, credentials, "#{api_model.api_path}/#{id}")
-        api_model.parse(response.body, :single => true)
+        api_model.parse(response.body)
       end
       
       # Creates an item
       # @param [Harvest::BaseModel] model the item you want to create
       # @return [Harvest::BaseModel] the created model depending on where you're calling it from (e.g. Harvest::Client from Harvest::Base#clients)
       def create(model)
-        response = request(:post, credentials, "#{api_model.api_path}", :body => model.to_xml)
-        id = response.headers["location"].first.match(/\/.*\/(\d+)/)[1]
+        response = request(:post, credentials, "#{api_model.api_path}", :body => model.to_json)
+        id = response.headers["location"].match(/\/.*\/(\d+)/)[1]
         find(id)
       end
       
@@ -35,7 +35,7 @@ module Harvest
       # @param [Harvest::BaseModel] model the model you want to update
       # @return [Harvest::BaseModel] the created model depending on where you're calling it from (e.g. Harvest::Client from Harvest::Base#clients)
       def update(model)
-        request(:put, credentials, "#{api_model.api_path}/#{model.to_i}", :body => model.to_xml)
+        request(:put, credentials, "#{api_model.api_path}/#{model.to_i}", :body => model.to_json)
         find(model.id)
       end
       

@@ -8,4 +8,6 @@ gem  "webmock", ">= 0"
 gem  "vcr", ">= 0"
 gem 'jeweler', :require => false
 gem 'rcov'
-
+gem 'activesupport', '~> 3.0'
+gem 'hashie', '~> 1'
+gem 'i18n'

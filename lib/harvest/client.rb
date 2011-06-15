@@ -10,20 +10,23 @@ module Harvest
   # [+active?+] true|false on whether the client is active
   # [+highrise_id+] (READONLY) the highrise id associated with this client
   # [+update_at+] (READONLY) the last modification timestamp
-  class Client < BaseModel
-    include HappyMapper
-  
+  class Client < Hashie::Dash
+    include Harvest::Model
+    
     api_path '/clients'
-  
-    element :id, Integer
-    element :active, Boolean
-    element :name, String
-    element :details, String
-    element :currency, String
-    element :currency_symbol, String, :tag => "currency-symbol"
-    element :cache_version, Integer, :tag => "cache-version"
-    element :updated_at, Time, :tag => "updated-at"
-    element :highrise_id, Integer, :tag => 'highrise-id'
+    
+
+    property :id
+    property :active
+    property :name
+    property :details
+    property :currency
+    property :currency_symbol
+    property :cache_version
+    property :created_at
+    property :updated_at
+    property :highrise_id
+    property :default_invoice_timeframe
     
     alias_method :active?, :active
   end
