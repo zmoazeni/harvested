@@ -31,9 +31,11 @@ module HarvestedHelpers
     # harvest.reports.expenses_by_user(my_user, Time.parse('01/01/2000'), Time.now).each do |time|
     #   harvest.expenses.delete(time)
     # end
+    
+    # we store expenses on this date in the tests
+    harvest.expenses.all("12/28/2009").each {|e| harvest.expenses.delete(e) }
 
-    %w(projects contacts clients tasks).each do |collection|
-    # %w(expenses expense_categories projects contacts clients tasks).each do |collection|
+    %w(expense_categories projects contacts clients tasks).each do |collection|
       harvest.send(collection).all.each {|m| harvest.send(collection).delete(m) }
     end
   end

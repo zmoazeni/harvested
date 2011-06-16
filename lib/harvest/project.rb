@@ -65,7 +65,7 @@ module Harvest
     alias_method :show_budget_to_all?, :show_budget_to_all
     
     def as_json(args = {})
-      super(args.update(:except => %w(hint_earliest_record_at hint_latest_record_at cache_version)))
+      super(args.update(:except => %w(hint_earliest_record_at hint_latest_record_at)))
     end
     
     def self.parse(json)

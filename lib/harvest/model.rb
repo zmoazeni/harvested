@@ -11,11 +11,14 @@ module Harvest
         ActiveSupport::JSON.encode(as_json(*args))
       end
       
-      def as_json(*)
+      def as_json(args = {})
+        args = args.with_indifferent_access
+        args[:except] = args.fetch(:except, []) + %w(cache_version)
+        inner_json = super(args)
         if self.class.skip_json_root?
-          super
+          inner_json
         else
-          { self.class.json_root => super }
+          { self.class.json_root => inner_json }
         end
       end
       

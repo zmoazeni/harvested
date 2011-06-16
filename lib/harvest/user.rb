@@ -84,10 +84,5 @@ module Harvest
         end
       end
     end
-    
-    
-    def as_json(args = {})
-      super(args.update(:except => "cache_version"))
-    end
   end
 end

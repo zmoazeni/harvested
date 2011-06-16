@@ -24,10 +24,6 @@ module Harvest
     property :updated_at
     property :cache_version
     
-    def as_json(args = {})
-      super(args.update(:except => %w(cache_version)))
-    end
-    
     def active?
       !deactivated
     end

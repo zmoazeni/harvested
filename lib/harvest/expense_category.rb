@@ -8,6 +8,9 @@ module Harvest
     property :unit_name
     property :unit_price
     property :deactivated
+    property :created_at
+    property :updated_at
+    property :cache_version
     
     def active?
       !deactivated
