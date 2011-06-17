@@ -21,7 +21,7 @@ describe 'harvest projects' do
       project.name.should == "Updated Project"
 
       harvest.projects.delete(project)
-      harvest.projects.all.size.should == 0
+      harvest.projects.all.select {|p| p.name == "Updated Project"}.should == []
     end
   end
 

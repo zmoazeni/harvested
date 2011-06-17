@@ -18,21 +18,23 @@ module Harvest
     property :of_user
     property :closed
     property :billed
-    property :of_user
+    property :day_entries
     
-    def spent_at=(date)
-      @spent_at = (String === date ? Time.parse(date) : date)
+    skip_json_root true
+    
+    def initialize(args = {})
+      args = args.with_indifferent_access
+      self.spent_at = args.delete(:spent_at) if args[:spent_at]
+      super
     end
     
-    def to_xml
-      builder = Builder::XmlMarkup.new
-      builder.request do |r|
-        r.tag!('notes', notes) if notes
-        r.tag!('hours', hours) if hours
-        r.tag!('project_id', project_id) if project_id
-        r.tag!('task_id', task_id) if task_id
-        r.tag!('spent_at', spent_at) if spent_at
-        r.tag!('of_user', of_user) if of_user
+    def spent_at=(date)
+      self[:spent_at] = (String === date ? Time.parse(date) : date)
+    end
+    
+    def as_json(args = {})
+      super(args).with_indifferent_access.tap do |hash| 
+        hash.update("spent_at" => spent_at.try(:xmlschema))
       end
     end
     
