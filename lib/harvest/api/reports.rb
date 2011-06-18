@@ -26,16 +26,6 @@ module Harvest
         response = request(:get, credentials, "/people/#{user.to_i}/expenses", :query => query)
         Harvest::Expense.parse(response.body)
       end
-      
-      private
-        def massage_xml(original_xml)
-          # this needs to be done because of the differences in dashes and underscores in the harvest api
-          xml = original_xml
-          %w(day-entry adjustment-record created-at project-id spent-at task-id timer-started-at updated-at user-id).each do |dash_field|
-            xml = xml.gsub(dash_field, dash_field.gsub("-", "_"))
-          end
-          xml
-        end
     end
   end
 end

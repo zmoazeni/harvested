@@ -48,6 +48,10 @@ module Harvest
             raise Harvest::InformHarvest.new(response)
           end
         end
+        
+        def of_user_query(user)
+          query = user.nil? ? {} : {"of_user" => user.to_i}
+        end
     end
   end
 end

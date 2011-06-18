@@ -3,4 +3,5 @@
 * Rip out ActiveSupport
 * Test 1.8.7 & 1.9.2
 * Test w/o Rails, w/Rails2, and w/Rails3
-* Expenses test
+* Link Referral
+* Use httparty's json parsing
