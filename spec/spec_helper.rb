@@ -19,6 +19,10 @@ RSpec.configure do |config|
     end
   end
   
+  config.before(:each) do
+    WebMock.allow_net_connect!
+  end
+  
   def cassette(*args)
     if ENV['CACHE'] == "false"
       if args.last.is_a?(Hash)

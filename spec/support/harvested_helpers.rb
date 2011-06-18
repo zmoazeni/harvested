@@ -16,6 +16,10 @@ module HarvestedHelpers
   # def harvest; @harvest; end
   def harvest; @harvest ||= HarvestedHelpers.simple_harvest; end
   
+  def hardy_harvest
+    Harvest.hardy_client(credentials["subdomain"], credentials["username"], credentials["password"], :ssl => true)
+  end
+  
   def self.clean_remote
     harvest = simple_harvest
     harvest.users.all.each do |u|
