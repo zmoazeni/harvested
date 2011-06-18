@@ -14,7 +14,7 @@ describe 'harvest clients' do
       client.name.should == "Joe and Frank's Steam Cleaning"
 
       harvest.clients.delete(client)
-      harvest.clients.all.size.should == 0
+      harvest.clients.all.select {|p| p.name == "Joe and Frank's Steam Cleaning"}.should == []
     end
   end
 
@@ -51,7 +51,7 @@ describe 'harvest clients' do
         contact.email.should == "jane@doe.com"
 
         harvest.contacts.delete(contact)
-        harvest.contacts.all.size.should == 0
+        harvest.contacts.all.select {|e| e.email == "jane@doe.com" }.should == []
       end
     end
   end

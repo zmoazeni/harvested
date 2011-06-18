@@ -4,21 +4,22 @@ module Harvest
     
     property :id
     property :client
-    property :project
-    property :task
     property :hours
     property :notes
     
     property :project_id
     property :task_id
+    property :project
+    property :task
     property :spent_at
     property :created_at
     property :updated_at
     property :user_id
     property :of_user
-    property :closed
-    property :billed
-    property :day_entries
+    property :is_closed
+    property :is_billed
+    property :timer_started_at
+    property :adjustment_record
     
     skip_json_root true
     
@@ -38,7 +39,7 @@ module Harvest
       end
     end
     
-    alias_method :closed?, :closed
-    alias_method :billed?, :billed
+    alias_method :closed?, :is_closed
+    alias_method :billed?, :is_billed
   end
 end

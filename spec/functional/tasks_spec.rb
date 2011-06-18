@@ -4,7 +4,7 @@ describe 'harvest tasks' do
   it 'allows adding, updating and removing tasks' do
     cassette('tasks') do
       task            = harvest.tasks.create(
-        "name"        => "A billable task",
+        "name"        => "A crud task",
         "billable_by_default"    => true,
         "default_hourly_rate"    => 120
       )
@@ -15,7 +15,7 @@ describe 'harvest tasks' do
       task.default_hourly_rate.should == "140.0"
 
       harvest.tasks.delete(task)
-      harvest.tasks.all.size.should == 0
+      harvest.tasks.all.select {|t| t.name == "A crud task"}.should == []
     end
   end
 
@@ -35,14 +35,14 @@ describe 'harvest tasks' do
         )
 
         task1            = harvest.tasks.create(
-          "name"                => "A billable task",
+          "name"                => "A task for joe",
           "billable_by_default" => true,
           "default_hourly_rate" => 120
         )
         
         # need to keep at least one task on the project
         task2            = harvest.tasks.create(
-          "name"                => "A second billable",
+          "name"                => "A task for joe2",
           "billable_by_default" => true,
           "default_hourly_rate" => 100
         )
@@ -78,7 +78,7 @@ describe 'harvest tasks' do
           "client_id" => client.id
         )
 
-        project2 = harvest.projects.create_task(project, "A task")
+        project2 = harvest.projects.create_task(project, "A simple task")
         project2.should == project
 
         harvest.task_assignments.all(project).size.should == 1

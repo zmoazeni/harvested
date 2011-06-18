@@ -2,14 +2,16 @@ module Harvest
   module API
     class Time < Base
       
-      def find(id)
-        response = request(:get, credentials, "/daily/show/#{id}")
+      def find(id, user = nil)
+        query = user.nil? ? {} : {"of_user" => user.to_i}
+        response = request(:get, credentials, "/daily/show/#{id.to_i}", :query => query)
         Harvest::TimeEntry.parse(response.body).first
       end
       
-      def all(date = ::Time.now)
+      def all(date = ::Time.now, user = nil)
         date = ::Time.parse(date) if String === date
-        response = request(:get, credentials, "/daily/#{date.yday}/#{date.year}")
+        query = user.nil? ? {} : {"of_user" => user.to_i}
+        response = request(:get, credentials, "/daily/#{date.yday}/#{date.year}", :query => query)
         Harvest::TimeEntry.parse(ActiveSupport::JSON.decode(response.body)["day_entries"])
       end
       
@@ -18,13 +20,15 @@ module Harvest
         Harvest::TimeEntry.parse(response.body).first
       end
       
-      def update(entry)
-        request(:put, credentials, "/daily/update/#{entry.to_i}", :body => entry.to_json)
-        find(entry.id)
+      def update(entry, user = nil)
+        query = user.nil? ? {} : {"of_user" => user.to_i}
+        request(:put, credentials, "/daily/update/#{entry.to_i}", :body => entry.to_json, :query => query)
+        find(entry.id, user)
       end
       
-      def delete(entry)
-        request(:delete, credentials, "/daily/delete/#{entry.to_i}")
+      def delete(entry, user = nil)
+        query = user.nil? ? {} : {"of_user" => user.to_i}
+        request(:delete, credentials, "/daily/delete/#{entry.to_i}", :query => query)
         entry.id
       end
     end
