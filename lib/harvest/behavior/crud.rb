@@ -5,7 +5,7 @@ module Harvest
       # @return [Array<Harvest::BaseModel>] an array of models depending on where you're calling it from (e.g. [Harvest::Client] from Harvest::Base#clients)
       def all(user = nil)
         response = request(:get, credentials, api_model.api_path, :query => of_user_query(user))
-        api_model.parse(response.body)
+        api_model.parse(response.parsed_response)
       end
       
       # Retrieves an item by id
@@ -19,7 +19,7 @@ module Harvest
       # @return [Harvest::BaseModel] the model depends on where you're calling it from (e.g. Harvest::Client from Harvest::Base#clients)
       def find(id, user = nil)
         response = request(:get, credentials, "#{api_model.api_path}/#{id}", :query => of_user_query(user))
-        api_model.parse(response.body).first
+        api_model.parse(response.parsed_response).first
       end
       
       # Creates an item

@@ -12,7 +12,7 @@ module Harvest
           request(:get, credentials, "/contacts")
         end
         
-        api_model.parse(response.body)
+        api_model.parse(response.parsed_response)
       end
     end
   end

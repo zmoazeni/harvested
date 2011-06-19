@@ -19,25 +19,25 @@ module Harvest
     property :invoice_id
     property :has_receipt
     property :receipt_url
-    
+
     def initialize(args = {})
-      args          = args.with_indifferent_access
-      self.spent_at = args.delete(:spent_at) if args[:spent_at]
+      args          = args.stringify_keys
+      self.spent_at = args.delete("spent_at") if args["spent_at"]
       super
     end
 
     def spent_at=(date)
-      self[:spent_at] = (String === date ? Time.parse(date) : date)
+      self["spent_at"] = (String === date ? Time.parse(date) : date)
     end
-    
+
     def as_json(args = {})
-      args = args.with_indifferent_access
-      args[:except] = args.fetch(:except, []) + %w(has_receipt receipt_url)
-      super(args).with_indifferent_access.tap do |hash| 
-        hash["expense"].update("spent_at" => spent_at.try(:xmlschema))
+      super(args).stringify_keys.tap do |hash|
+        hash[json_root].update("spent_at" => (spent_at.nil? ? nil : spent_at.to_time.xmlschema))
+        hash[json_root].delete("has_receipt")
+        hash[json_root].delete("receipt_url")
       end
     end
-    
+
     alias_method :billed?, :is_billed
     alias_method :closed?, :is_closed
     alias_method :has_receipt?, :has_receipt

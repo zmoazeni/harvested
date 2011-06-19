@@ -14,18 +14,18 @@ module Harvest
     property :estimate
     
     def initialize(args = {})
-      args = args.with_indifferent_access
-      self.user    = args.delete(:user) if args[:user]
-      self.project = args.delete(:project) if args[:project]
+      args = args.stringify_keys
+      self.user    = args.delete("user") if args["user"]
+      self.project = args.delete("project") if args["project"]
       super
     end
     
     def user=(user)
-      self[:user_id] = user.to_i
+      self["user_id"] = user.to_i
     end
     
     def project=(project)
-      self[:project_id] = project.to_i
+      self["project_id"] = project.to_i
     end
     
     def active?

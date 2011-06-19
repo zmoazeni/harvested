@@ -23,6 +23,10 @@ module HarvestedHelpers
   def self.clean_remote
     harvest = simple_harvest
     harvest.users.all.each do |u|
+      harvest.reports.expenses_by_user(u, Time.parse('01/01/2000'), Time.now).each do |expense|
+        harvest.expenses.delete(expense, u)
+      end
+      
       harvest.reports.time_by_user(u, Time.parse('01/01/2000'), Time.now).each do |time|
         harvest.time.delete(time, u)
       end

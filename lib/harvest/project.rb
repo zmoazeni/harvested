@@ -65,18 +65,21 @@ module Harvest
     alias_method :show_budget_to_all?, :show_budget_to_all
     
     def as_json(args = {})
-      super(args.update(:except => %w(hint_earliest_record_at hint_latest_record_at)))
+      super(args).tap do |json|
+        json[json_root].delete("hint_earliest_record_at")
+        json[json_root].delete("hint_latest_record_at")
+      end
     end
     
     def self.parse(json)
-      parsed = ActiveSupport::JSON.decode(json)
-      Array.wrap(parsed).each do |attrs| 
+      json = String === json ? JSON.parse(json) : json
+      Array.wrap(json).each do |attrs| 
         # need to cleanup some attributes
-        project_attrs = attrs.fetch(json_root, {})
+        project_attrs = attrs[json_root] || {}
         project_attrs["hint_latest_record_at"]   = project_attrs.delete("hint-latest-record-at")
         project_attrs["hint_earliest_record_at"] = project_attrs.delete("hint-earliest-record-at")
       end
-      super(parsed)
+      super(json)
     end
   end
 end

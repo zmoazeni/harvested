@@ -27,8 +27,7 @@ module Harvest
               "Content-Type" => "application/json; charset=utf-8", 
               "Authorization" => "Basic #{credentials.basic_auth}", 
               "User-Agent" => "Harvestable/#{Harvest::VERSION}"
-            }.update(options[:headers] || {}), 
-            :format => :plain
+            }.update(options[:headers] || {})
           )
           
           case response.code

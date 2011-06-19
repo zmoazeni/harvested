@@ -2,8 +2,12 @@ require 'httparty'
 require 'base64'
 require 'delegate'
 require 'hashie'
-require 'active_support'
-require 'active_support/all'
+require 'json'
+
+require 'ext/array'
+require 'ext/hash'
+require 'ext/date'
+require 'ext/time'
 
 require 'harvest/credentials'
 require 'harvest/errors'
@@ -11,11 +15,9 @@ require 'harvest/hardy_client'
 require 'harvest/timezones'
 
 require 'harvest/base'
-require 'harvest/model'
-
 
 %w(crud activatable).each {|a| require "harvest/behavior/#{a}"}
-%w(base_model client contact project task user rate_limit_status task_assignment user_assignment expense_category expense time_entry).each {|a| require "harvest/#{a}"}
+%w(model client contact project task user rate_limit_status task_assignment user_assignment expense_category expense time_entry).each {|a| require "harvest/#{a}"}
 %w(base account clients contacts projects tasks users task_assignments user_assignments expense_categories expenses time reports).each {|a| require "harvest/api/#{a}"}
 
 module Harvest

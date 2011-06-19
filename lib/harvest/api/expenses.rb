@@ -8,7 +8,7 @@ module Harvest
       def all(date = ::Time.now, user = nil)
         date = ::Time.parse(date) if String === date
         response = request(:get, credentials, "#{api_model.api_path}/#{date.yday}/#{date.year}", :query => of_user_query(user))
-        api_model.parse(response.body)
+        api_model.parse(response.parsed_response)
       end
       
       # This is currently broken, but will come back to it

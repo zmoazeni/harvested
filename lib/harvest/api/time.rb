@@ -4,18 +4,18 @@ module Harvest
       
       def find(id, user = nil)
         response = request(:get, credentials, "/daily/show/#{id.to_i}", :query => of_user_query(user))
-        Harvest::TimeEntry.parse(response.body).first
+        Harvest::TimeEntry.parse(response.parsed_response).first
       end
       
       def all(date = ::Time.now, user = nil)
         date = ::Time.parse(date) if String === date
         response = request(:get, credentials, "/daily/#{date.yday}/#{date.year}", :query => of_user_query(user))
-        Harvest::TimeEntry.parse(ActiveSupport::JSON.decode(response.body)["day_entries"])
+        Harvest::TimeEntry.parse(response.parsed_response["day_entries"])
       end
       
       def create(entry)
         response = request(:post, credentials, '/daily/add', :body => entry.to_json)
-        Harvest::TimeEntry.parse(response.body).first
+        Harvest::TimeEntry.parse(response.parsed_response).first
       end
       
       def update(entry, user = nil)

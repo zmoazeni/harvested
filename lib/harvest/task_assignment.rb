@@ -14,18 +14,18 @@ module Harvest
     property :updated_at
     
     def initialize(args = {})
-      args = args.with_indifferent_access
-      self.task    = args.delete(:task) if args[:task]
-      self.project = args.delete(:project) if args[:project]
+      args = args.stringify_keys
+      self.task    = args.delete("task") if args["task"]
+      self.project = args.delete("project") if args["project"]
       super
     end
     
     def task=(task)
-      self[:task_id] = task.to_i
+      self["task_id"] = task.to_i
     end
 
     def project=(project)
-      self[:project_id] = project.to_i
+      self["project_id"] = project.to_i
     end
 
     def active?

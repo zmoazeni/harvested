@@ -4,12 +4,12 @@ module Harvest
       
       def all(project)
         response = request(:get, credentials, "/projects/#{project.to_i}/user_assignments")
-        Harvest::UserAssignment.parse(response.body)
+        Harvest::UserAssignment.parse(response.parsed_response)
       end
       
       def find(project, id)
         response = request(:get, credentials, "/projects/#{project.to_i}/user_assignments/#{id}")
-        Harvest::UserAssignment.parse(response.body).first
+        Harvest::UserAssignment.parse(response.parsed_response).first
       end
       
       def create(user_assignment)

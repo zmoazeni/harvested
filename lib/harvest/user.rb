@@ -56,8 +56,8 @@ module Harvest
     alias_method :contractor?, :is_contractor
     
     def initialize(args = {})
-      args          = args.with_indifferent_access
-      self.timezone = args.delete(:timezone) if args[:timezone]
+      args          = args.stringify_keys
+      self.timezone = args.delete("timezone") if args["timezone"]
       super
     end
     
@@ -78,9 +78,9 @@ module Harvest
       when 'pst', 'pdt' then self.timezone = 'america/los_angeles'
       else
         if Harvest::Timezones::MAPPING[tz]
-          self[:timezone] = Harvest::Timezones::MAPPING[tz]
+          self["timezone"] = Harvest::Timezones::MAPPING[tz]
         else
-          self[:timezone] = timezone
+          self["timezone"] = timezone
         end
       end
     end
