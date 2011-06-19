@@ -21,7 +21,7 @@ require 'harvest/base'
 %w(base account clients contacts projects tasks users task_assignments user_assignments expense_categories expenses time reports).each {|a| require "harvest/api/#{a}"}
 
 module Harvest
-  VERSION = "0.3.1".freeze
+  VERSION = File.read(File.expand_path(File.join(File.dirname(__FILE__), '..', 'VERSION'))).strip
   
   class << self
     
