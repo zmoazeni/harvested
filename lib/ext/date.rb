@@ -2,7 +2,7 @@
 
 unless ::Date.respond_to?(:to_time)
   class ::Date
-    def to_time(form = :local)
+    def to_time(*)
       ::Time.utc(year, month, day)
     end
   end
