@@ -50,6 +50,7 @@ module Harvest
     property :email_after_submit
     property :default_expense_project_id
     property :identity_url
+    property :timestamp_timers
     
     alias_method :active?, :is_active
     alias_method :admin?, :is_admin
@@ -57,6 +58,7 @@ module Harvest
     
     def initialize(args = {})
       args          = args.stringify_keys
+      args["is_admin"] = args.delete("admin") if args["admin"]
       self.timezone = args.delete("timezone") if args["timezone"]
       super
     end
