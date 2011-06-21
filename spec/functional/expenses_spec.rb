@@ -45,7 +45,7 @@ describe 'harvest expenses' do
       expense                 = harvest.expenses.create(
         "notes"               => "Drive to Chicago",
         "total_cost"          => 75.0,
-        "spent_at"            => "12/28/2009",
+        "spent_at"            => Time.utc(2009, 12, 28),
         "expense_category_id" => category.id,
         "project_id"          => project.id
       )
@@ -56,7 +56,7 @@ describe 'harvest expenses' do
       expense.notes.should == "Off to Chicago"
       
       harvest.expenses.delete(expense)
-      harvest.expenses.all("12/28/2009").select {|e| e.notes == "Off to Chicago"}.should == []
+      harvest.expenses.all(Time.utc(2009, 12, 28)).select {|e| e.notes == "Off to Chicago"}.should == []
     end
   end
 end

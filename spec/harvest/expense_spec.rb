@@ -5,13 +5,14 @@ describe Harvest::Expense do
   
   describe "#spent_at" do
     it "should parse strings" do
-      expense = Harvest::Expense.new(:spent_at => "12/01/2009")
-      expense.spent_at.should == Time.parse("12/01/2009")
+      date = RUBY_VERSION =~ /1.8/ ? "12/01/2009" : "01/12/2009"
+      expense = Harvest::Expense.new(:spent_at => date)
+      expense.spent_at.should == Time.parse(date)
     end
     
     it "should accept times" do
-      expense = Harvest::Expense.new(:spent_at => Time.parse("12/01/2009"))
-      expense.spent_at.should == Time.parse("12/01/2009")
+      expense = Harvest::Expense.new(:spent_at => Time.utc(2009, 12, 1))
+      expense.spent_at.should == Time.utc(2009, 12, 1)
     end
   end
 end

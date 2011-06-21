@@ -3,6 +3,7 @@ require 'base64'
 require 'delegate'
 require 'hashie'
 require 'json'
+require 'time'
 
 require 'ext/array'
 require 'ext/hash'

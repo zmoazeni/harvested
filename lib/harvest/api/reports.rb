@@ -8,7 +8,7 @@ module Harvest
         query[:billable] = (options[:billable] ? "yes" : "no") unless options[:billable].nil?
         
         response = request(:get, credentials, "/projects/#{project.to_i}/entries", :query => query)
-        Harvest::TimeEntry.parse(response.parsed_response.map {|h| h["day_entry"]})
+        Harvest::TimeEntry.parse(JSON.parse(response.body).map {|h| h["day_entry"]})
       end
       
       def time_by_user(user, start_date, end_date, options = {})
@@ -17,7 +17,7 @@ module Harvest
         query[:billable] = (options[:billable] ? "yes" : "no") unless options[:billable].nil?
         
         response = request(:get, credentials, "/people/#{user.to_i}/entries", :query => query)
-        Harvest::TimeEntry.parse(response.parsed_response.map {|h| h["day_entry"]})
+        Harvest::TimeEntry.parse(JSON.parse(response.body).map {|h| h["day_entry"]})
       end
       
       def expenses_by_user(user, start_date, end_date)

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'harvest reporting' do
+describe 'harvest reporting' do  
   it 'project and people entry reporting' do
     cassette("reports1") do
       user = harvest.users.create(
@@ -23,23 +23,23 @@ describe 'harvest reporting' do
       entry1 = harvest.time.create("notes" => "billable entry1", "hours" => 3, "spent_at" => "12/28/2009", "task_id" => task1.id, "project_id" => project1.id, "of_user" => user.id)
       entry2 = harvest.time.create("notes" => "non billable entry2", "hours" => 6, "spent_at" => "12/28/2009", "task_id" => task2.id, "project_id" => project2.id, "of_user" => user.id)
 
-      harvest.reports.time_by_project(project1, Time.parse("12/20/2009"), Time.parse("12/30/2009")).should == [entry1]
+      harvest.reports.time_by_project(project1, Time.utc(2009, 12, 20), Time.utc(2009,12,30)).first.should == entry1
 
-      harvest.reports.time_by_project(project1, Time.parse("12/20/2009"), Time.parse("12/30/2009"), :user => user).should == [entry1]
+      harvest.reports.time_by_project(project1, Time.utc(2009, 12, 20), Time.utc(2009,12,30), :user => user).first.should == entry1
 
-      harvest.reports.time_by_project(project2, Time.parse("12/20/2009"), Time.parse("12/30/2009"), :user => user).should == [entry2]
+      harvest.reports.time_by_project(project2, Time.utc(2009, 12, 20), Time.utc(2009,12,30), :user => user).first.should == entry2
 
-      harvest.reports.time_by_project(project2, Time.parse("12/20/2009"), Time.parse("12/30/2009"), :billable => true).should == []
-      harvest.reports.time_by_project(project2, Time.parse("12/20/2009"), Time.parse("12/30/2009"), :billable => false).should == [entry2]
+      harvest.reports.time_by_project(project2, Time.utc(2009, 12, 20), Time.utc(2009,12,30), :billable => true).should == []
+      harvest.reports.time_by_project(project2, Time.utc(2009, 12, 20), Time.utc(2009,12,30), :billable => false).first.should == entry2
 
-      harvest.reports.time_by_user(user, Time.parse("12/20/2009"), Time.parse("12/30/2009")).map(&:id).should == [entry1, entry2].map(&:id)
+      harvest.reports.time_by_user(user, Time.utc(2009, 12, 20), Time.utc(2009,12,30)).map(&:id).should == [entry1, entry2].map(&:id)
 
-      harvest.reports.time_by_user(user, Time.parse("12/20/2009"), Time.parse("12/30/2009"), :project => project1).should == [entry1]
+      harvest.reports.time_by_user(user, Time.utc(2009, 12, 20), Time.utc(2009,12,30), :project => project1).first.should == entry1
 
-      harvest.reports.time_by_user(user, Time.parse("12/20/2009"), Time.parse("12/30/2009"), :project => project2).should == [entry2]
+      harvest.reports.time_by_user(user, Time.utc(2009, 12, 20), Time.utc(2009,12,30), :project => project2).first.should == entry2
 
-      harvest.reports.time_by_user(user, Time.parse("12/20/2009"), Time.parse("12/30/2009"), :billable => true).should == [entry1]
-      harvest.reports.time_by_user(user, Time.parse("12/20/2009"), Time.parse("12/30/2009"), :billable => false).should == [entry2]
+      harvest.reports.time_by_user(user, Time.utc(2009, 12, 20), Time.utc(2009,12,30), :billable => true).first.should == entry1
+      harvest.reports.time_by_user(user, Time.utc(2009, 12, 20), Time.utc(2009,12,30), :billable => false).first.should == entry2
     end
   end
 
@@ -61,17 +61,17 @@ describe 'harvest reporting' do
       expense                 = harvest.expenses.create(
         "notes"               => "Drive to Chicago",
         "total_cost"          => 75.0,
-        "spent_at"            => "12/28/2009",
+        "spent_at"            => Time.utc(2009, 12, 28),
         "expense_category_id" => category.id,
         "project_id"          => project.id,
         "user_id"             => user.id
       )
       
-      harvest.reports.expenses_by_user(user, Time.parse("12/20/2009"), Time.parse("12/30/2009")).should == [expense]
+      harvest.reports.expenses_by_user(user, Time.utc(2009, 12, 20), Time.utc(2009,12,30)).first.should == expense
       
       my_user = harvest.users.all.detect {|u| u.email == credentials["username"]}
       my_user.should_not be_nil
-      harvest.reports.expenses_by_user(my_user, Time.parse("12/20/2009"), Time.parse("12/30/2009")).should == []
+      harvest.reports.expenses_by_user(my_user, Time.utc(2009, 12, 20), Time.utc(2009,12,30)).should == []
     end
   end
 end

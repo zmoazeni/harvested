@@ -16,7 +16,7 @@ describe 'harvest time tracking' do
       entry.notes.should == "Upgraded to JSON"
       
       harvest.time.delete(entry)
-      harvest.time.all(Time.parse("12/28/2009")).should == []
+      harvest.time.all(Time.utc(2009, 12, 28)).should == []
     end
   end
   
@@ -35,7 +35,7 @@ describe 'harvest time tracking' do
       task = harvest.tasks.all.detect {|t| t.name == "A billable task for tuxes"}
       
       entry = harvest.time.create("notes" => "Test api support", "hours" => 3, "spent_at" => "12/28/2009", "task_id" => task.id, "project_id" => project.id, "of_user" => user.id)
-      harvest.time.all(Time.parse("12/28/2009"), user).should == [entry]
+      harvest.time.all(Time.utc(2009, 12, 28), user).should == [entry]
       
       entry.notes = "Updating notes"
       entry = harvest.time.update(entry, user)
@@ -45,7 +45,7 @@ describe 'harvest time tracking' do
       entry.notes.should == "Updating notes"
       
       harvest.time.delete(entry, user)
-      harvest.time.all(Time.parse("12/28/2009"), user).should == []
+      harvest.time.all(Time.utc(2009, 12, 28), user).should == []
     end
   end
   

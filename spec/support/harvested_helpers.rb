@@ -23,23 +23,19 @@ module HarvestedHelpers
   def self.clean_remote
     harvest = simple_harvest
     harvest.users.all.each do |u|
-      harvest.reports.expenses_by_user(u, Time.parse('01/01/2000'), Time.now).each do |expense|
+      harvest.reports.expenses_by_user(u, Time.utc(2000, 1, 1), Time.utc(2011, 6,21)).each do |expense|
         harvest.expenses.delete(expense, u)
       end
       
-      harvest.reports.time_by_user(u, Time.parse('01/01/2000'), Time.now).each do |time|
+      harvest.reports.time_by_user(u, Time.utc(2000, 1, 1), Time.utc(2011, 6,21)).each do |time|
         harvest.time.delete(time, u)
       end
       
       harvest.users.delete(u) if u.email != credentials["username"]
     end
 
-    # harvest.reports.expenses_by_user(my_user, Time.parse('01/01/2000'), Time.now).each do |time|
-    #   harvest.expenses.delete(time)
-    # end
-    
     # we store expenses on this date in the tests
-    harvest.expenses.all("12/28/2009").each {|e| harvest.expenses.delete(e) }
+    harvest.expenses.all(Time.utc(2009, 12, 28)).each {|e| harvest.expenses.delete(e) }
 
     %w(expense_categories projects contacts clients tasks).each do |collection|
       harvest.send(collection).all.each {|m| harvest.send(collection).delete(m) }

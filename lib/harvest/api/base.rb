@@ -2,11 +2,11 @@ module Harvest
   module API
     class Base
       attr_reader :credentials
-      
+
       def initialize(credentials)
         @credentials = credentials
       end
-      
+
       class << self
         def api_model(klass)
           class_eval <<-END
@@ -16,20 +16,21 @@ module Harvest
           END
         end
       end
-      
+
       protected
         def request(method, credentials, path, options = {})
-          response = HTTParty.send(method, "#{credentials.host}#{path}", 
-            :query => options[:query], 
-            :body => options[:body], 
+          response = HTTParty.send(method, "#{credentials.host}#{path}",
+            :query => options[:query],
+            :body => options[:body],
+            :format => :plain,
             :headers => {
-              "Accept" => "application/json", 
-              "Content-Type" => "application/json; charset=utf-8", 
-              "Authorization" => "Basic #{credentials.basic_auth}", 
-              "User-Agent" => "Harvestable/#{Harvest::VERSION}"
+              "Accept" => "application/json",
+              "Content-Type" => "application/json; charset=utf-8",
+              "Authorization" => "Basic #{credentials.basic_auth}",
+              "User-Agent" => "Harvestable/#{Harvest::VERSION}",
             }.update(options[:headers] || {})
           )
-          
+
           case response.code
           when 200..201
             response
@@ -47,7 +48,7 @@ module Harvest
             raise Harvest::InformHarvest.new(response)
           end
         end
-        
+
         def of_user_query(user)
           query = user.nil? ? {} : {"of_user" => user.to_i}
         end

@@ -59,7 +59,7 @@ module Harvest
           yield
         rescue Harvest::RateLimited => e
           seconds = if e.response.headers["retry-after"]
-            e.response.headers["retry-after"].first.to_i
+            e.response.headers["retry-after"].to_i
           else
             16
           end
