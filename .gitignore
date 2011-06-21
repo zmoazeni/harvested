@@ -24,6 +24,7 @@ doc
 features/support/harvest_credentials.yml
 spec/support/harvest_credentials.yml
 .cassettes
+.rbx
 
 ## RUBYGEMS
 *.gem
