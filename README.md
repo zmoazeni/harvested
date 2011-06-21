@@ -26,12 +26,15 @@ Using `Harvested#client` your code needs to handle all these situations. However
     harvest = Harvest.hardy_client('yoursubdomain', 'yourusername', 'yourpassword')
     harvest.projects() # This will wait for the Rate Limit reset if you have gone over your limit
 
+## Ruby support
+
+Harvested's tests are currently passing for 1.8.7, 1.9.2, JRuby 1.6.2, and Rubinius
+
 ## Links
 
 * [Harvested Documentation](http://rdoc.info/projects/zmoazeni/harvested)
 * [Harvest API Documentation](http://www.getharvest.com/api)
 * [Source Code for Harvested](http://github.com/zmoazeni/harvested)
-* [Pivotal Tracker for Harvested](http://www.pivotaltracker.com/projects/63260)
 * [Mailing List for Harvested](http://groups.google.com/group/harvested)
 
 ## How to Contribute
