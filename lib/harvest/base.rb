@@ -254,5 +254,13 @@ module Harvest
     def reports
       @reports ||= Harvest::API::Reports.new(credentials)
     end
+
+    def invoice_categories
+      @invoice_categories ||= Harvest::API::InvoiceCategories.new(credentials)
+    end
+
+    def invoices
+      @invoices ||= Harvest::API::Invoices.new(credentials)
+    end
   end
 end

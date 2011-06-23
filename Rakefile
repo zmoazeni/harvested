@@ -38,3 +38,6 @@ task 'clean_remote' do
   require "spec/support/harvested_helpers"
   HarvestedHelpers.clean_remote
 end
+
+task :foo do
+end

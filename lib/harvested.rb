@@ -4,6 +4,7 @@ require 'delegate'
 require 'hashie'
 require 'json'
 require 'time'
+require 'csv'
 
 require 'ext/array'
 require 'ext/hash'
@@ -18,8 +19,8 @@ require 'harvest/timezones'
 require 'harvest/base'
 
 %w(crud activatable).each {|a| require "harvest/behavior/#{a}"}
-%w(model client contact project task user rate_limit_status task_assignment user_assignment expense_category expense time_entry).each {|a| require "harvest/#{a}"}
-%w(base account clients contacts projects tasks users task_assignments user_assignments expense_categories expenses time reports).each {|a| require "harvest/api/#{a}"}
+%w(model client contact project task user rate_limit_status task_assignment user_assignment expense_category expense time_entry invoice_category line_item invoice).each {|a| require "harvest/#{a}"}
+%w(base account clients contacts projects tasks users task_assignments user_assignments expense_categories expenses time reports invoice_categories invoices).each {|a| require "harvest/api/#{a}"}
 
 module Harvest
   VERSION = File.read(File.expand_path(File.join(File.dirname(__FILE__), '..', 'VERSION'))).strip

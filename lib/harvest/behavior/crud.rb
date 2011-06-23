@@ -36,7 +36,8 @@ module Harvest
       # @param [Harvest::BaseModel] model the model you want to update
       # @return [Harvest::BaseModel] the created model depending on where you're calling it from (e.g. Harvest::Client from Harvest::Base#clients)
       def update(model, user = nil)
-        request(:put, credentials, "#{api_model.api_path}/#{model.to_i}", :body => api_model.wrap(model).to_json, :query => of_user_query(user))
+        model = api_model.wrap(model)
+        request(:put, credentials, "#{api_model.api_path}/#{model.to_i}", :body => model.to_json, :query => of_user_query(user))
         find(model.id)
       end
       
