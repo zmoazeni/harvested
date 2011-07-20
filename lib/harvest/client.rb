@@ -26,6 +26,7 @@ module Harvest
     property :created_at
     property :updated_at
     property :highrise_id
+    property :last_invoice_kind
     property :default_invoice_timeframe
     
     alias_method :active?, :active
