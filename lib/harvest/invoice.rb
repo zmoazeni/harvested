@@ -2,6 +2,8 @@ module Harvest
   class Invoice < Hashie::Dash
     include Harvest::Model
     
+    api_path '/invoices'
+    
     attr_reader :line_items
     
     property :id
@@ -58,11 +60,11 @@ module Harvest
       end
     end
     
-    # def as_json(*options)
-    #   json = super(*options)
-    #   json[json_root]["csv_line_items"] = encode_csv(@line_items)
-    #   json
-    # end
+    def as_json(*options)
+      json = super(*options)
+      json[json_root]["csv_line_items"] = encode_csv(@line_items)
+      json
+    end
     
     private
       def decode_csv(string)
