@@ -52,15 +52,20 @@ If you want to contribute an enhancement or a fix:
 3. Commit the changes without messing with the Rakefile, VERSION, or history
 4. Send me a pull request
 
-Note on running tests: most cucumber features run against a live Harvest account. To run the suite, sign up for a free trial account and fill out `/features/support/harvest_credentials.yml` *(a sample harvest_credentials.example.yml has been included)*. The tests use the hardy_client so they will wait for a rate limit reset when they detect the limit has been hit.
+Note on running tests: most specs run against a live Harvest account. To run the suite, sign up for a free trial account and fill out `/spec/support/harvest_credentials.yml` *(a sample harvest_credentials.example.yml has been included)*.
+
+The tests use [VCR](https://github.com/myronmarston/vcr) to cache the test responses. This is a great boon for running the tests offline. While uncommon, sometimes the Harvest API will send an erroneous response and VCR will cache it, then subsequent runs will use the incorrect cached response. In order to ignore VCR you can run the specs by passing CACHE=false (e.g. `CACHE=false bundle rake spec`).
+
+Using [rvm](https://rvm.beginrescueend.com/) you can run the tests against the popular ruby runtimes by running:
+  
+  ./spec/test_rubies
+
+Each runtime needs to be installed in rvm along with the bundler gem.
 
 ## TODO
 
 * Write Documentation
-* Implement Invoices
 * Allow Timer Toggling
-
-Other Roadmap items can be found on [Pivotal Tracker](http://www.pivotaltracker.com/projects/63260)
 
 ## Notes on Harvest Estimates
 
@@ -68,4 +73,4 @@ Estimates aren't currently supported due to lack of an API. If this opens up, ha
 
 ## Copyright
 
-Copyright (c) 2010 Zach Moazeni. See LICENSE for details.
+Copyright (c) 2010-2011 Zach Moazeni. See LICENSE for details.
