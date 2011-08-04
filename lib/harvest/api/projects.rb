@@ -17,6 +17,18 @@ module Harvest
         id = response.headers["location"].match(/\/.*\/(\d+)\/.*\/(\d+)/)[1]
         find(id)
       end
+
+      # Search by client
+      #
+      # == Examples
+      #  client = harvest.clients.find(123)
+      #  harvest.projects.find_by_client(client)
+      #
+      # @return [Harvest::Project]
+      def find_all_by_client(client)
+        response = request(:get, credentials, "/projects?client=#{client.to_i}")
+        api_model.parse(response.parsed_response)
+      end
       
       # Deactivates the project. Does nothing if the project is already deactivated
       # 
