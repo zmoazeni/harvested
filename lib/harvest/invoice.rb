@@ -1,6 +1,8 @@
 module Harvest
   class Invoice < Hashie::Dash
     include Harvest::Model
+
+    api_path '/invoices'
     
     api_path '/invoices'
     
