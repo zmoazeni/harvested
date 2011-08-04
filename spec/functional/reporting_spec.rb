@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe 'harvest reporting' do  
-  it 'project and people entry reporting' do
+  it 'allows project and people entry reporting' do
     cassette("reports1") do
       user = harvest.users.create(
         "email"      => "jane@example.com",
@@ -40,11 +40,14 @@ describe 'harvest reporting' do
 
       harvest.reports.time_by_user(user, Time.utc(2009, 12, 20), Time.utc(2009,12,30), :billable => true).first.should == entry1
       harvest.reports.time_by_user(user, Time.utc(2009, 12, 20), Time.utc(2009,12,30), :billable => false).first.should == entry2
+      
+      client2 = harvest.clients.create("name" => "Phil's Sandwich Shop")
+      harvest.reports.projects_by_client(client).map(&:id).to_set.should == [project1, project2].map(&:id).to_set
+      harvest.reports.projects_by_client(client2).should == []
     end
   end
 
-
-  it 'expense reporting' do
+  it 'allows expense reporting' do
     cassette("reports2") do
       user = harvest.users.create(
         "email"      => "simon@example.com",

@@ -26,6 +26,11 @@ module Harvest
         response = request(:get, credentials, "/people/#{user.to_i}/expenses", :query => query)
         Harvest::Expense.parse(response.parsed_response)
       end
+      
+      def projects_by_client(client)
+        response = request(:get, credentials, "/projects?client=#{client.to_i}")
+        Harvest::Project.parse(response.parsed_response)
+      end
     end
   end
 end

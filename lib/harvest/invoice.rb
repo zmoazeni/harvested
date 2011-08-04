@@ -78,11 +78,23 @@ module Harvest
         if line_items.empty?
           ""
         else
-          CSV.generate do |csv|
-            header = %w(kind description quantity unit_price amount taxed taxed2 project_id)
-            csv << header
+          header = %w(kind description quantity unit_price amount taxed taxed2 project_id)
+          
+          # writing this in stdlib so we don't force 1.8 users to install FasterCSV and make gem dependencies wierd
+          if RUBY_VERSION =~ /1.8/
+            csv_data = ""
+            CSV.generate_row(header, header.size, csv_data)
             line_items.each do |item|
-              csv << header.inject([]) {|row, attr| row << item[attr] } 
+              row_data = header.inject([]) {|row, attr| row << item[attr] } 
+              CSV.generate_row(row_data, row_data.size, csv_data)
+            end
+            csv_data
+          else
+            CSV.generate do |csv|
+              csv << header
+              line_items.each do |item|
+                csv << header.inject([]) {|row, attr| row << item[attr] } 
+              end
             end
           end
         end
