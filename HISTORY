@@ -1,3 +1,12 @@
+0.4.0 - August 4, 2011
+  * Large rewrite of codebase
+  * Rewrite of library to use JSON instead of XML
+  * Rewrite of tests to use rspec instead of cucumber
+  * Brought in VCR to help cache test responses
+  * Implemented more reporting functionality
+  * Implemented most of the invoice functionality. Creating/Editing/Updating is disabled due to Harvest API issue
+  * Consolidated various forks (thanks Chris Ritterdorf, bricooke, Michelle Moon Lee, tkwong, Steve McKinney, and others that helped but aren't in the git log!)
+  * Tests passing against MRI 1.8, 1.9, JRuby, and Rubinius
 0.3.3 - January 27, 2010
   * Adding fields to TaskAssignment (Quilted)
 0.3.2 - January 27, 2010
