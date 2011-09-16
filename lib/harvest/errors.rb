@@ -22,4 +22,5 @@ module Harvest
   class InformHarvest < HTTPError; end
   class BadRequest < HTTPError; end
   class ServerError < HTTPError; end
+  class AuthenticationFailed < HTTPError ; end
 end
