@@ -43,6 +43,8 @@ module Harvest
             response
           when 400
             raise Harvest::BadRequest.new(response, params)
+          when 401
+            raise Harvest::AuthenticationFailed.new(response, params)
           when 404
             raise Harvest::NotFound.new(response, params)
           when 500
