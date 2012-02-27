@@ -2,6 +2,9 @@
 
 This is a Ruby wrapper for the [Harvest API](http://www.getharvest.com/).
 
+## **[Harvested is looking for a new maintainer!!](https://github.com/zmoazeni/harvested/issues/23)**
+
+
 ## Installation
 
     gem install harvested
