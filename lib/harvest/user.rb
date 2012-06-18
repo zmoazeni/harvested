@@ -51,6 +51,8 @@ module Harvest
     property :default_expense_project_id
     property :identity_url
     property :timestamp_timers
+    property :weekly_digest_sent_on
+    property :wants_weekly_digest
     
     alias_method :active?, :is_active
     alias_method :admin?, :is_admin
