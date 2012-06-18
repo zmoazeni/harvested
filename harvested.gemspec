@@ -4,14 +4,14 @@
 # -*- encoding: utf-8 -*-
 
 Gem::Specification.new do |s|
-  s.name = %q{harvested}
-  s.version = "0.4.0"
+  s.name = "harvested"
+  s.version = "0.5.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Zach Moazeni"]
-  s.date = %q{2011-08-04}
-  s.description = %q{Harvested wraps the Harvest API concisely without the use of Rails dependencies. More information about the Harvest API can be found on their website (http://www.getharvest.com/api). For support hit up the Mailing List (http://groups.google.com/group/harvested)}
-  s.email = %q{zach.moazeni@gmail.com}
+  s.date = "2012-06-18"
+  s.description = "Harvested wraps the Harvest API concisely without the use of Rails dependencies. More information about the Harvest API can be found on their website (http://www.getharvest.com/api). For support hit up the Mailing List (http://groups.google.com/group/harvested)"
+  s.email = "zach.moazeni@gmail.com"
   s.extra_rdoc_files = [
     "README.md",
     "TODO"
@@ -100,10 +100,10 @@ Gem::Specification.new do |s|
     "spec/support/json_examples.rb",
     "spec/test_rubies"
   ]
-  s.homepage = %q{http://github.com/zmoazeni/harvested}
+  s.homepage = "http://github.com/zmoazeni/harvested"
   s.require_paths = ["lib"]
-  s.rubygems_version = %q{1.6.2}
-  s.summary = %q{A Ruby Wrapper for the Harvest API http://www.getharvest.com/}
+  s.rubygems_version = "1.8.21"
+  s.summary = "A Ruby Wrapper for the Harvest API http://www.getharvest.com/"
 
   if s.respond_to? :specification_version then
     s.specification_version = 3
