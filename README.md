@@ -52,7 +52,9 @@ If you want to contribute an enhancement or a fix:
 3. Commit the changes without messing with the Rakefile, VERSION, or history
 4. Send me a pull request
 
-Note on running tests: most specs run against a live Harvest account. To run the suite, sign up for a free trial account and fill out `/spec/support/harvest_credentials.yml` *(a sample harvest_credentials.example.yml has been included)*.
+Note on running tests: most specs run against a live Harvest account. To run the suite, sign up for a free trial account and fill out `/spec/support/harvest_credentials.yml` *(a sample harvest_credentials.example.yml has been included)*. 
+
+**DO NOT USE YOUR NORMAL CREDENTIALS IN `/spec/support/harvest_credentials.yml`!!!** The test suite blasts all the data before running (similiar to DatabaseCleaner).
 
 The tests use [VCR](https://github.com/myronmarston/vcr) to cache the test responses. This is a great boon for running the tests offline. While uncommon, sometimes the Harvest API will send an erroneous response and VCR will cache it, then subsequent runs will use the incorrect cached response. In order to ignore VCR you can run the specs by passing CACHE=false (e.g. `CACHE=false bundle rake spec`).
 
