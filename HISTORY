@@ -1,3 +1,5 @@
+0.5.1 - June 27, 2012
+  * Updating README and harvested_credentials.example.yml with warnings about normal accounts
 0.5.0 - June 18, 2012
   * Bugfixes on User: https://github.com/zmoazeni/harvested/pull/26
   * Bugfixes on TimeEntry: https://github.com/zmoazeni/harvested/pull/25
