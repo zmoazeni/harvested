@@ -8,12 +8,14 @@ This is a Ruby wrapper for the [Harvest API](http://www.getharvest.com/).
 
 ## Examples
 
-    harvest = Harvest.client('yoursubdomain', 'yourusername', 'yourpassword')
-    harvest.projects() # list out projects
-    
-    client = Harvest::Client.new(:name => "Billable Company LTD.")
-    client = harvest.clients.create(client)
-    harvest.clients.find(client.id) # returns a Harvest::Client
+```ruby
+harvest = Harvest.client('yoursubdomain', 'yourusername', 'yourpassword')
+harvest.projects() # list out projects
+
+client = Harvest::Client.new(:name => "Billable Company LTD.")
+client = harvest.clients.create(client)
+harvest.clients.find(client.id) # returns a Harvest::Client
+```
 
 You can find more examples in `/examples` and in the documentation for Harvest::Base
 
@@ -23,8 +25,10 @@ The guys at Harvest built a great API, but there are always dangers in writing c
 
 Using `Harvested#client` your code needs to handle all these situations. However you can also use `Harvested#hardy_client` which will retry errors and wait for Rate Limit resets.
 
-    harvest = Harvest.hardy_client('yoursubdomain', 'yourusername', 'yourpassword')
-    harvest.projects() # This will wait for the Rate Limit reset if you have gone over your limit
+```ruby
+harvest = Harvest.hardy_client('yoursubdomain', 'yourusername', 'yourpassword')
+harvest.projects() # This will wait for the Rate Limit reset if you have gone over your limit
+```
 
 ## Ruby support
 
