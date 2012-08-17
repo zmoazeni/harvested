@@ -1,5 +1,5 @@
 module Harvest
-  
+
   # The model that contains information about a task
   #
   # == Fields
@@ -17,7 +17,7 @@ module Harvest
   # [+timezone+] the timezone for the user.
   class User < Hashie::Dash
     include Harvest::Model
-    
+
     api_path '/people'
     property :id
     property :email
@@ -53,25 +53,26 @@ module Harvest
     property :timestamp_timers
     property :weekly_digest_sent_on
     property :wants_weekly_digest
-    
+    property :password_change_required
+
     alias_method :active?, :is_active
     alias_method :admin?, :is_admin
     alias_method :contractor?, :is_contractor
-    
+
     def initialize(args = {})
       args          = args.stringify_keys
       args["is_admin"] = args.delete("admin") if args["admin"]
       self.timezone = args.delete("timezone") if args["timezone"]
       super
     end
-    
+
     # Sets the timezone for the user. This can be done in a variety of ways.
-    # 
+    #
     # == Examples
     #   user.timezone = :cst # the easiest way. CST, EST, MST, and PST are supported
-    #   
+    #
     #   user.timezone = 'america/chicago' # a little more verbose
-    #   
+    #
     #   user.timezone = 'Central Time (US & Canada)' # the most explicit way
     def timezone=(timezone)
       tz = timezone.to_s.downcase
