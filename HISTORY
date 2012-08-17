@@ -1,3 +1,5 @@
+0.5.2 - August 17, 2012
+  * Adding new field password_change_required to Users
 0.5.1 - June 27, 2012
   * Updating README and harvested_credentials.example.yml with warnings about normal accounts
 0.5.0 - June 18, 2012
@@ -34,4 +36,3 @@
   * Added account information
   * Added common errors
   * Added Harvest#hardy_client
-  
