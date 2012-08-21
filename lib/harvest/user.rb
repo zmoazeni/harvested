@@ -55,6 +55,7 @@ module Harvest
     property :wants_weekly_digest
     property :password_change_required
     property :has_timesheet_2012_beta
+    property :timesheet_2012_beta_control_group
 
     alias_method :active?, :is_active
     alias_method :admin?, :is_admin
