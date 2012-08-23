@@ -9,6 +9,8 @@ VCR.configure do |c|
   c.stub_with :webmock
 end
 
+FileUtils.rm(Dir["#{VCR.configuration.cassette_library_dir}/*"]) if ENV['VCR_REFRESH'] == 'true'
+
 RSpec.configure do |config|
   config.include HarvestedHelpers
 
