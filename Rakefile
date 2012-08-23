@@ -21,7 +21,7 @@ end
 require 'rspec/core/rake_task'
 RSpec::Core::RakeTask.new(:spec)
 
-task :default => %w(spec features)
+task :default => %w(spec)
 
 begin
   require 'yard'
@@ -37,7 +37,4 @@ task 'clean_remote' do
   require 'harvested'
   require "spec/support/harvested_helpers"
   HarvestedHelpers.clean_remote
-end
-
-task :foo do
 end
