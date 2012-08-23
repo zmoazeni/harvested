@@ -91,6 +91,3 @@ Each runtime needs to be installed in rvm along with the bundler gem.
 
 Estimates aren't currently supported due to lack of an API. If this opens up, harvested will include them.
 
-## Copyright
-
-Copyright (c) 2010-2011 Zach Moazeni. See LICENSE for details.
