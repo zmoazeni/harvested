@@ -53,7 +53,6 @@ Harvested's tests are currently passing for 1.8.7, 1.9.2, JRuby 1.6.2, and Rubin
 * [Harvested Documentation](http://rdoc.info/projects/zmoazeni/harvested)
 * [Harvest API Documentation](http://www.getharvest.com/api)
 * [Source Code for Harvested](http://github.com/zmoazeni/harvested)
-* [Mailing List for Harvested](http://groups.google.com/group/harvested)
 
 ## How to Contribute
 
