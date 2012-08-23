@@ -26,16 +26,6 @@ RSpec.configure do |config|
   end
 
   def cassette(*args)
-    if ENV['CACHE'] == "false"
-      if args.last.is_a?(Hash)
-        last = args.pop
-        last[:record] = :all
-        args << last
-      else
-        args << {:record => :all}
-      end
-    end
-
     VCR.use_cassette(*args) do
       yield
     end
