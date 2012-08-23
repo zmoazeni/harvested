@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'harvest reporting' do  
+describe 'harvest reporting' do
   it 'allows project and people entry reporting' do
     cassette("reports1") do
       user = harvest.users.create(
@@ -20,8 +20,8 @@ describe 'harvest reporting' do
       harvest.user_assignments.create("project" => project1, "user" => user)
       harvest.user_assignments.create("project" => project2, "user" => user)
 
-      entry1 = harvest.time.create("notes" => "billable entry1", "hours" => 3, "spent_at" => "12/28/2009", "task_id" => task1.id, "project_id" => project1.id, "of_user" => user.id)
-      entry2 = harvest.time.create("notes" => "non billable entry2", "hours" => 6, "spent_at" => "12/28/2009", "task_id" => task2.id, "project_id" => project2.id, "of_user" => user.id)
+      entry1 = harvest.time.create("notes" => "billable entry1", "hours" => 3, "spent_at" => "2009/12/28", "task_id" => task1.id, "project_id" => project1.id, "of_user" => user.id)
+      entry2 = harvest.time.create("notes" => "non billable entry2", "hours" => 6, "spent_at" => "2009/12/28", "task_id" => task2.id, "project_id" => project2.id, "of_user" => user.id)
 
       harvest.reports.time_by_project(project1, Time.utc(2009, 12, 20), Time.utc(2009,12,30)).first.should == entry1
 
@@ -40,7 +40,7 @@ describe 'harvest reporting' do
 
       harvest.reports.time_by_user(user, Time.utc(2009, 12, 20), Time.utc(2009,12,30), :billable => true).first.should == entry1
       harvest.reports.time_by_user(user, Time.utc(2009, 12, 20), Time.utc(2009,12,30), :billable => false).first.should == entry2
-      
+
       client2 = harvest.clients.create("name" => "Phil's Sandwich Shop")
       harvest.reports.projects_by_client(client).map(&:id).to_set.should == [project1, project2].map(&:id).to_set
       harvest.reports.projects_by_client(client2).should == []
@@ -69,9 +69,9 @@ describe 'harvest reporting' do
         "project_id"          => project.id,
         "user_id"             => user.id
       )
-      
+
       harvest.reports.expenses_by_user(user, Time.utc(2009, 12, 20), Time.utc(2009,12,30)).first.should == expense
-      
+
       my_user = harvest.users.all.detect {|u| u.email == credentials["username"]}
       my_user.should_not be_nil
       harvest.reports.expenses_by_user(my_user, Time.utc(2009, 12, 20), Time.utc(2009,12,30)).should == []
