@@ -1,3 +1,5 @@
+0.6.0 - August 22, 2012
+  * Replaces Dash with Mash
 0.5.3 - August 21, 2012
   * Adding new fields has_timesheet_2012_beta and timesheet_2012_beta_control_group to Users (thanks Aldric Giacomoni)
 0.5.2 - August 17, 2012
