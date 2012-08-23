@@ -6,7 +6,7 @@ Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each {|f| require File.expand_p
 
 VCR.configure do |c|
   c.cassette_library_dir = '.cassettes'
-  c.stub_with :webmock
+  c.hook_into :webmock
 end
 
 FileUtils.rm(Dir["#{VCR.configuration.cassette_library_dir}/*"]) if ENV['VCR_REFRESH'] == 'true'
