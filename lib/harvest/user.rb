@@ -15,51 +15,14 @@ module Harvest
   # [+contractor?+] whether the user is a contractor
   # [+contractor?+] whether the user is a contractor
   # [+timezone+] the timezone for the user.
-  class User < Hashie::Dash
+  class User < Hashie::Mash
     include Harvest::Model
 
     api_path '/people'
-    property :id
-    property :email
-    property :first_name
-    property :last_name
-    property :has_access_to_all_future_projects
-    property :default_hourly_rate
-    property :is_active
-    property :is_admin
-    property :is_contractor
-    property :telephone
-    property :department
-    property :timezone
-    property :password
-    property :first_timer
-    property :wants_newsletter
-    property :preferred_project_status_reports_screen
-    property :preferred_approval_screen
-    property :created_at
-    property :updated_at
-    property :twitter_username
-    property :preferred_entry_method
-    property :default_time_project_id
-    property :default_task_id
-    property :default_expense_category_id
-    property :opensocial_identifier
-    property :duplicate_timesheet_wants_notes
-    property :wants_timesheet_duplication
-    property :cache_version
-    property :email_after_submit
-    property :default_expense_project_id
-    property :identity_url
-    property :timestamp_timers
-    property :weekly_digest_sent_on
-    property :wants_weekly_digest
-    property :password_change_required
-    property :has_timesheet_2012_beta
-    property :timesheet_2012_beta_control_group
 
-    alias_method :active?, :is_active
-    alias_method :admin?, :is_admin
-    alias_method :contractor?, :is_contractor
+    delegate_methods(:active?     => :is_active,
+                     :admin?      => :is_admin,
+                     :contractor? => :is_contractor)
 
     def initialize(args = {})
       args          = args.stringify_keys

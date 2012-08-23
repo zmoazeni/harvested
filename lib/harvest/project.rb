@@ -22,58 +22,21 @@ module Harvest
   # [+active_task_assignments_count+] (READONLY) the number of active task assignments
   # [+created_at+] (READONLY) when the project was created
   # [+updated_at+] (READONLY) when the project was updated
-  class Project < Hashie::Dash
+  class Project < Hashie::Mash
     include Harvest::Model
 
     api_path '/projects'
 
-    property :id
-    property :client_id
-    property :name
-    property :code
-    property :notes
-    property :fees
-    property :active
-    property :billable
-    property :budget
-    property :budget_by
-    property :hourly_rate
-    property :bill_by
-    property :created_at
-    property :updated_at
-    property :notify_when_over_budget
-    property :over_budget_notification_percentage
-    property :show_budget_to_all
-    property :basecamp_id
-    property :highrise_deal_id
-    property :active_task_assignments_count
-    property :over_budget_notified_at
-    property :earliest_record_at
-    property :cost_budget
-    property :cost_budget_include_expenses
-    property :latest_record_at
-    property :estimate_by
-    property :hint_earliest_record_at
-    property :hint_latest_record_at
-    property :active_user_assignments_count
-    property :cache_version
-    property :estimate
-
-    alias_method :active?, :active
-    alias_method :billable?, :billable
-    alias_method :notify_when_over_budget?, :notify_when_over_budget
-    alias_method :show_budget_to_all?, :show_budget_to_all
-    
     def as_json(args = {})
       super(args).tap do |json|
         json[json_root].delete("hint_earliest_record_at")
         json[json_root].delete("hint_latest_record_at")
       end
     end
-    
+
     def self.parse(json)
       json = String === json ? JSON.parse(json) : json
-      Array.wrap(json).each do |attrs| 
+      Array.wrap(json).each do |attrs|
         # need to cleanup some attributes
         project_attrs = attrs[json_root] || {}
         project_attrs["hint_latest_record_at"]   = project_attrs.delete("hint-latest-record-at")

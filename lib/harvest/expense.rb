@@ -1,24 +1,10 @@
 module Harvest
-  class Expense < Hashie::Dash
+  class Expense < Hashie::Mash
     include Harvest::Model
 
     api_path '/expenses'
-
-    property :id
-    property :notes
-    property :units
-    property :total_cost
-    property :project_id
-    property :expense_category_id
-    property :user_id
-    property :spent_at
-    property :created_at
-    property :updated_at
-    property :is_billed
-    property :is_closed
-    property :invoice_id
-    property :has_receipt
-    property :receipt_url
+    delegate_methods(:billed? => :is_billed,
+                     :closed? => :is_closed)
 
     def initialize(args = {})
       args          = args.stringify_keys
@@ -37,9 +23,5 @@ module Harvest
         hash[json_root].delete("receipt_url")
       end
     end
-
-    alias_method :billed?, :is_billed
-    alias_method :closed?, :is_closed
-    alias_method :has_receipt?, :has_receipt
   end
 end

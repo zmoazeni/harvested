@@ -10,26 +10,13 @@ module Harvest
   # [+active?+] true|false on whether the client is active
   # [+highrise_id+] (READONLY) the highrise id associated with this client
   # [+update_at+] (READONLY) the last modification timestamp
-  class Client < Hashie::Dash
+  class Client < Hashie::Mash
     include Harvest::Model
-    
-    api_path '/clients'
-    
 
-    property :id
-    property :active
-    property :name
-    property :details
-    property :currency
-    property :currency_symbol
-    property :cache_version
-    property :created_at
-    property :updated_at
-    property :highrise_id
-    property :default_invoice_timeframe
-    property :last_invoice_kind
-    
-    alias_method :active?, :active
-    alias_method :is_active=, :active=
+    api_path '/clients'
+
+    def is_active=(val)
+      self.active = val
+    end
   end
 end
