@@ -4,8 +4,8 @@ module Harvest
 
     delegate_methods :project_manager? => :is_project_manager
 
-    def initialize(args = {})
-      args = args.stringify_keys
+    def initialize(args = {}, _ = nil)
+      args = args.to_hash.stringify_keys
       self.user    = args.delete("user") if args["user"]
       self.project = args.delete("project") if args["project"]
       super

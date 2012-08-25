@@ -9,9 +9,9 @@ module Harvest
     def self.json_root; "doc"; end
     # skip_json_root true
 
-    def initialize(args = {})
+    def initialize(args = {}, _ = nil)
       @line_items = []
-      args            = args.stringify_keys
+      args            = args.to_hash.stringify_keys
       self.line_items = args.delete("csv_line_items")
       self.line_items = args.delete("line_items")
       super

@@ -2,8 +2,8 @@ module Harvest
   class TaskAssignment < Hashie::Mash
     include Harvest::Model
 
-    def initialize(args = {})
-      args = args.stringify_keys
+    def initialize(args = {}, _ = nil)
+      args = args.to_hash.stringify_keys
       self.task    = args.delete("task") if args["task"]
       self.project = args.delete("project") if args["project"]
       super
