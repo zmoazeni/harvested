@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "harvested"
-  s.version = "0.6.1"
+  s.version = "0.6.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Zach Moazeni"]
-  s.date = "2012-08-23"
+  s.date = "2012-08-25"
   s.description = "Harvested wraps the Harvest API concisely without the use of Rails dependencies. More information about the Harvest API can be found on their website (http://www.getharvest.com/api). For support hit up the Mailing List (http://groups.google.com/group/harvested)"
   s.email = "zach.moazeni@gmail.com"
   s.extra_rdoc_files = [
