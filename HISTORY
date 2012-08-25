@@ -1,3 +1,5 @@
+0.6.2 - August 25, 2012
+  * Fixing Mash constructor errors
 0.6.1 - August 22, 2012
   * Adds options to "all" finder (thanks Mikel Lindsaar)
   * Adds Unauthorized error type (thanks @bcobb)
