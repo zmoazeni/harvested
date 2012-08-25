@@ -19,6 +19,7 @@ module Harvest
       #
       # @return [Harvest::BaseModel] the model depends on where you're calling it from (e.g. Harvest::Client from Harvest::Base#clients)
       def find(id, user = nil)
+        raise "id required" unless id
         response = request(:get, credentials, "#{api_model.api_path}/#{id}", :query => of_user_query(user))
         api_model.parse(response.parsed_response).first
       end
