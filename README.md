@@ -10,7 +10,7 @@ This is a Ruby wrapper for the [Harvest API](http://www.getharvest.com/api).
 
 ```ruby
 harvest = Harvest.client('yoursubdomain', 'yourusername', 'yourpassword')
-harvest.projects() # list out projects
+harvest.projects.all   # list out projects
 
 client = Harvest::Client.new(:name => "Billable Company LTD.")
 client = harvest.clients.create(client)
@@ -41,7 +41,7 @@ Using `Harvested#client` your code needs to handle all these situations. However
 
 ```ruby
 harvest = Harvest.hardy_client('yoursubdomain', 'yourusername', 'yourpassword')
-harvest.projects() # This will wait for the Rate Limit reset if you have gone over your limit
+harvest.projects.all   # This will wait for the Rate Limit reset if you have gone over your limit
 ```
 
 ## Ruby support
