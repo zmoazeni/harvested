@@ -22,7 +22,7 @@ describe 'harvest invoices' do
           project = harvest.projects.create("name" => "Invoiced Project1", "client_id" => client.id)
         end
       rescue Harvest::BadRequest
-        # Client has already been reated.
+        # Client has already been created.
         client = harvest.clients.all.select {|c| c.name == client.name}.first
       end
 

@@ -37,7 +37,7 @@ module HarvestedHelpers
     # we store expenses on this date in the tests
     harvest.expenses.all(Time.utc(2009, 12, 28)).each {|e| harvest.expenses.delete(e) }
 
-    %w(expense_categories projects contacts clients tasks).each do |collection|
+    %w(expense_categories projects invoices contacts clients tasks).each do |collection|
       harvest.send(collection).all.each {|m| harvest.send(collection).delete(m) }
     end
   end
