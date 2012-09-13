@@ -24,28 +24,36 @@ describe 'harvest expenses' do
   
   it "allows adding, updating, and removing expenses" do
     cassette("expenses2") do
-      category       = harvest.expense_categories.create(
-        "name"       => "Something Deductible",
-        "unit_price" => 100,
-        "unit_name"  => "deduction"
-      )
+      begin
+        category       = harvest.expense_categories.create(
+          "name"       => "Something Deductible",
+          "unit_price" => 100,
+          "unit_name"  => "deduction"
+        )
+      rescue Harvest::BadRequest
+        category = harvest.expense_categories.all.select {|e| e.name == "Something Deductible"}.first
+      end
 
       client      = harvest.clients.create(
         "name"    => "Tom's Butcher",
         "details" => "Building API Widgets across the country"
       )
 
-      project       = harvest.projects.create(
-        "name"      => "Expensing Project",
-        "active"    => true,
-        "notes"     => "project to test the api",
-        "client_id" => client.id
-      )
-      
+      begin
+        project       = harvest.projects.create(
+          "name"      => "Expensing Project",
+          "active"    => true,
+          "notes"     => "project to test the api",
+          "client_id" => client.id
+        )
+      rescue Harvest::BadRequest
+        project = harvest.projects.all.select {|p| p.name == "Expensing Project"}.first
+      end
+        
       expense                 = harvest.expenses.create(
         "notes"               => "Drive to Chicago",
         "total_cost"          => 75.0,
-        "spent_at"            => Time.utc(2009, 12, 28),
+        "spent_at"            => Date.today,
         "expense_category_id" => category.id,
         "project_id"          => project.id
       )
@@ -56,7 +64,7 @@ describe 'harvest expenses' do
       expense.notes.should == "Off to Chicago"
       
       harvest.expenses.delete(expense)
-      harvest.expenses.all(Time.utc(2009, 12, 28)).select {|e| e.notes == "Off to Chicago"}.should == []
+      harvest.expenses.all(Date.today).select {|e| e.notes == "Off to Chicago"}.should == []
     end
   end
 end
