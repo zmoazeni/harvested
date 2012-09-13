@@ -31,7 +31,7 @@ describe 'harvest expenses' do
           "unit_name"  => "deduction"
         )
       rescue Harvest::BadRequest
-        category = harvest.expense_categories.all.select {|e| e.name == "Something Deductible"}.first
+        category = harvest.expense_categories.all.detect {|e| e.name == "Something Deductible"}
       end
 
       client      = harvest.clients.create(
@@ -47,7 +47,7 @@ describe 'harvest expenses' do
           "client_id" => client.id
         )
       rescue Harvest::BadRequest
-        project = harvest.projects.all.select {|p| p.name == "Expensing Project"}.first
+        project = harvest.projects.all.detect {|p| p.name == "Expensing Project"}
       end
         
       expense                 = harvest.expenses.create(
