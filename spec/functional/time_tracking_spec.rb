@@ -10,9 +10,14 @@ describe 'harvest time tracking' do
         project = harvest.projects.all.detect {|p| p.name == "Tracking Project" && p.client_id = client.id}
       end
 
-      harvest.projects.create_task(project, "A billable task")
-      task = harvest.tasks.all.detect {|t| t.name == "A billable task"}
+      if task = harvest.tasks.all.detect {|t| t.name == "A billable task"}
+        harvest.tasks.delete(task.id)
+      else
+        task = harvest.tasks.create(:name => "A billable task")
+      end
+
       harvest.tasks.activate(task.id)
+      harvest.task_assignments.create("project" => project, "task" => task)
 
       entry = harvest.time.create("notes" => "Test api support", "hours" => 3, "spent_at" => "2009/12/28", "task_id" => task.id, "project_id" => project.id)
       entry.notes.should == "Test api support"
