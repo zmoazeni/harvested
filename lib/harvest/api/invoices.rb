@@ -16,6 +16,23 @@ module Harvest
 
         api_model.parse(response.parsed_response)
       end
+
+      def download(invoice, download_path='/tmp')
+        uri = URI.parse("#{credentials.host}/client/invoices/#{invoice.client_key}.pdf")
+        http = Net::HTTP.new(uri.host, uri.port)
+        http.use_ssl = true
+        http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+
+        request = Net::HTTP::Get.new(uri.request_uri)
+        download_path = "#{download_path}/#{invoice.client_key}.pdf"
+        
+        if response = http.request(request)
+          open(download_path, "wb") do |file|
+            file.write(response.body)
+          end
+        end
+        download_path
+      end
     end
   end
 end

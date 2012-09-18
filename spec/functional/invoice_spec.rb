@@ -33,13 +33,11 @@ describe 'harvest invoices' do
         "subject"              => "Invoice for Frannie's Widgets",
         "client_id"            => client.id,
         "issued_at"            => "2011-03-31",
-        "due_at"               => "2011-03-31",
+        "due_at"               => "2011-04-15",
         "due_at_human_format"  => "upon receipt",        
         "currency"             => "United States Dollars - USD",
         "number"               => 1000,
         "notes"                => "Some notes go here",
-        "period_end"           => "2011-03-31",
-        "period_start"         => "2011-02-26",
         "kind"                 => "free_form",
         "state"                => "draft",
         "purchase_order"       => nil,
@@ -51,6 +49,8 @@ describe 'harvest invoices' do
         "line_items"           => [Harvest::LineItem.new("kind" => "Service", "description" => "One item", "quantity" => 200, "unit_price" => "12.00")]
       )
       invoice = harvest.invoices.create(invoice)
+
+      invoice.due_at.should == "2011-04-15"
 
       invoice.subject.should == "Invoice for Frannie's Widgets"
       invoice.amount.should == "2400.0"
@@ -138,6 +138,53 @@ describe 'harvest invoices' do
 
       invoices = harvest.invoices.all(:updated_since => '21121231')
       invoices.count.should == 0
+
+      harvest.invoices.delete(invoice)
+      harvest.invoices.all.select {|p| p.number == "1000"}.should == []
+    end
+  end
+
+  it 'allows downloading of Harvest generated PDF of invoice' do
+    cassette('invoice4') do
+      begin
+        if client  = harvest.clients.create("name" => "Frannie's Factory")
+          project = harvest.projects.create("name" => "Invoiced Project1", "client_id" => client.id)
+        end
+      rescue Harvest::BadRequest
+        # Client has already been reated.
+        client = harvest.clients.all.select {|c| c.name == client.name}.first
+      end
+
+      # Delete any existing invoices.
+      harvest.invoices.all.each {|i| harvest.invoices.delete(i.id)}
+
+      invoice = Harvest::Invoice.new(
+        "subject"              => "Invoice for Frannie's Widgets",
+        "client_id"            => client.id,
+        "issued_at"            => "2011-03-31",
+        "due_at"               => "2011-04-15",
+        "due_at_human_format"  => "upon receipt",        
+        "currency"             => "United States Dollars - USD",
+        "number"               => 1000,
+        "notes"                => "Some notes go here",
+        "kind"                 => "free_form",
+        "state"                => "draft",
+        "purchase_order"       => nil,
+        "tax"                  => nil,
+        "tax2"                 => nil,
+        "kind"                 => "free_form",
+        "import_hours"         => "no",
+        "import_expenses"      => "no",
+        "line_items"           => [Harvest::LineItem.new("kind" => "Service", "description" => "One item", "quantity" => 200, "unit_price" => "12.00")]
+      )
+      invoice = harvest.invoices.create(invoice)
+
+      invoice.subject.should == "Invoice for Frannie's Widgets"
+      invoice.amount.should == "2400.0"
+      invoice.line_items.size.should == 1
+
+      invoice_file = harvest.invoices.download(invoice)
+      File.exists?(invoice_file).should == true
 
       harvest.invoices.delete(invoice)
       harvest.invoices.all.select {|p| p.number == "1000"}.should == []
