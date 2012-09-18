@@ -42,7 +42,7 @@ module Harvest
 
     api_path '/invoices'
 
-    attr_reader :line_items
+    attr_reader :line_items, :due_at, :issued_at
 
     def self.parse(json)
       parsed = String === json ? JSON.parse(json) : json
@@ -61,6 +61,8 @@ module Harvest
         self.line_items = args.delete("csv_line_items")
         self.line_items = args.delete("line_items")
         self.line_items = [] if self.line_items.nil?
+        self.due_at     = args.delete("due_at") if args["due_at"]
+        self.issued_at  = args.delete("issued_at") if args["issued_at"]
       end
       super
     end
@@ -76,9 +78,19 @@ module Harvest
       end
     end
 
+    def due_at=(date)
+      @due_at = (String === date ? Time.parse(date).to_date : date).to_s
+    end
+
+    def issued_at=(date)
+      @issued_at = (String === date ? Time.parse(date).to_date : date).to_s
+    end
+
     def as_json(*options)
       json = super(*options)
       json[json_root]["csv_line_items"] = encode_csv(@line_items)
+      json[json_root]["due_at"] = @due_at
+      json[json_root]["issued_at"] = @issued_at
       json
     end
 
