@@ -3,10 +3,7 @@ require 'spec_helper'
 describe 'harvest clients' do
   it 'allows adding, updating and removing clients' do
     cassette("client") do
-      client      = harvest.clients.create(
-        "name"    => "Joe's Steam Cleaning",
-        "details" => "Building API Widgets across the country"
-      )
+      client = harvest.clients.find_or_create_by_name("Joe's Steam Cleaning")
       client.name.should == "Joe's Steam Cleaning"
 
       client.name = "Joe and Frank's Steam Cleaning"
@@ -20,10 +17,7 @@ describe 'harvest clients' do
 
   it 'allows activating and deactivating clients' do
     cassette("client2") do
-      client      = harvest.clients.create(
-        "name"    => "Joe's Steam Cleaning",
-        "details" => "Building API Widgets across the country"
-      )
+      client = harvest.clients.find_or_create_by_name("Joe's Steam Cleaning")
       client.should be_active
 
       client = harvest.clients.deactivate(client)
@@ -37,10 +31,7 @@ describe 'harvest clients' do
   context "contacts" do
     it "allows adding, updating, and removing contacts" do
       cassette("client3") do
-        client      = harvest.clients.create(
-          "name"    => "Joe's Steam Cleaning",
-          "details" => "Building API Widgets across the country"
-        )
+        client         = harvest.clients.find_or_create_by_name("Joe's Steam Cleaning")
         contact        = harvest.contacts.create(
           "client_id"  => client.id,
           "email"      => "jane@doe.com",

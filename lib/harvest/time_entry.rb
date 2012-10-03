@@ -18,7 +18,7 @@ module Harvest
 
     def as_json(args = {})
       super(args).to_hash.stringify_keys.tap do |hash|
-        hash.update("spent_at" => (spent_at.nil? ? nil : spent_at.to_time.xmlschema))
+        hash.update("spent_at" => (spent_at.nil? ? nil : spent_at.to_time.to_s))
       end
     end
   end

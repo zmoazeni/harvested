@@ -29,3 +29,6 @@ spec/support/harvest_credentials.yml
 ## RUBYGEMS
 *.gem
 Gemfile.lock
+
+# RVM
+.rvmrc

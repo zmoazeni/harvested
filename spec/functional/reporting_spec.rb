@@ -9,7 +9,7 @@ describe 'harvest reporting' do
         "last_name"  => "Doe",
         "password"   => "secure"
       )
-      client   = harvest.clients.create("name" => "Tim's Dry Cleaning")
+      client = harvest.clients.find_or_create_by_name("Tim's Dry Cleaning")
       project1 = harvest.projects.create("name" => "Reporting Project1", "client_id" => client.id)
       project2 = harvest.projects.create("name" => "Reporting Project2", "client_id" => client.id)
       task1     = harvest.tasks.create("name" => "A billable task", "default_hourly_rate" => 120, "billable_by_default" => true)
@@ -41,7 +41,7 @@ describe 'harvest reporting' do
       harvest.reports.time_by_user(user, Time.utc(2009, 12, 20), Time.utc(2009,12,30), :billable => true).first.should == entry1
       harvest.reports.time_by_user(user, Time.utc(2009, 12, 20), Time.utc(2009,12,30), :billable => false).first.should == entry2
 
-      client2 = harvest.clients.create("name" => "Phil's Sandwich Shop")
+      client2 = harvest.clients.find_or_create_by_name("Phil's Sandwich Shop")
       harvest.reports.projects_by_client(client).map(&:id).to_set.should == [project1, project2].map(&:id).to_set
       harvest.reports.projects_by_client(client2).should == []
     end
@@ -57,8 +57,8 @@ describe 'harvest reporting' do
       )
 
       category = harvest.expense_categories.create("name" => "Reporting category", "unit_price" => 100, "unit_name"  => "deduction")
-      client  = harvest.clients.create("name" => "Philip's Butcher")
-      project = harvest.projects.create("name" => "Expense Reporting Project", "client_id" => client.id)
+      client   = harvest.clients.find_or_create_by_name("Philip's Butcher")
+      project  = harvest.projects.create("name" => "Expense Reporting Project", "client_id" => client.id)
       harvest.user_assignments.create("project" => project, "user" => user)
 
       expense                 = harvest.expenses.create(
