@@ -5,11 +5,13 @@ module Harvest
       include Harvest::Behavior::Crud
 
       def all(options = {})
-        status = "status=#{options[:status]}" if options[:status]
-        page = "page=#{options[:page]}" if options[:page]
+        status        = "status=#{options[:status]}" if options[:status]
+        page          = "page=#{options[:page]}" if options[:page]
         updated_since = "updated_since=#{options[:updated_since]}" if options[:updated_since]
-        timeframe = "from=#{options[:timeframe][:from]}&to=#{options[:timeframe][:to]}" if options[:timeframe]
-        params = [status,page,updated_since,timeframe].compact.join('&')
+        timeframe     = "from=#{options[:timeframe][:from]}&to=#{options[:timeframe][:to]}" if options[:timeframe]
+        client_id     = "client_id=#{options[:client_id]}" if options[:client_id]
+
+        params = [status,page,updated_since,timeframe,client_id].compact.join('&')
         params = "?#{params}" if params
 
         response = request(:get, credentials, "/invoices#{params}")
@@ -25,7 +27,7 @@ module Harvest
 
         request = Net::HTTP::Get.new(uri.request_uri)
         download_path = "#{download_path}/#{invoice.client_key}.pdf"
-        
+
         if response = http.request(request)
           open(download_path, "wb") do |file|
             file.write(response.body)

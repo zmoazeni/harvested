@@ -24,9 +24,9 @@ require 'harvest/base'
 
 module Harvest
   VERSION = File.read(File.expand_path(File.join(File.dirname(__FILE__), '..', 'VERSION'))).strip
-  
+
   class << self
-    
+
     # Creates a standard client that will raise all errors it encounters
     #
     # == Options
@@ -38,7 +38,7 @@ module Harvest
     def client(subdomain, username, password, options = {})
       Harvest::Base.new(subdomain, username, password, options)
     end
-    
+
     # Creates a hardy client that will retry common HTTP errors it encounters and sleep() if it determines it is over your rate limit
     #
     # == Options
