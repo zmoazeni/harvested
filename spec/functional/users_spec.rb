@@ -65,11 +65,8 @@ describe 'harvest users' do
   context "assignments" do
     it "allows adding, updating, and removing users from projects" do
       cassette('users4') do
-        client      = harvest.clients.create(
-          "name"    => "Joe's Steam Cleaning w/Users",
-          "details" => "Building API Widgets across the country"
-        )
-
+        client = harvest.clients.find_or_create_by_name("Joe's Steam Cleaning w/Users")
+        
         project       = harvest.projects.create(
           "name"      => "Test Project w/User",
           "active"    => true,

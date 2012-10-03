@@ -34,10 +34,7 @@ describe 'harvest expenses' do
         category = harvest.expense_categories.all.detect {|e| e.name == "Something Deductible"}
       end
 
-      client      = harvest.clients.create(
-        "name"    => "Tom's Butcher",
-        "details" => "Building API Widgets across the country"
-      )
+      client = harvest.clients.find_or_create_by_name("Tom's Butcher")
 
       begin
         project       = harvest.projects.create(

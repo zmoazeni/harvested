@@ -17,13 +17,8 @@ describe 'harvest invoices' do
   
   it 'allows adding, updating and removing invoices' do
     cassette('invoice2') do
-      begin
-        if client  = harvest.clients.create("name" => "Frannie's Factory")
-          project = harvest.projects.create("name" => "Invoiced Project1", "client_id" => client.id)
-        end
-      rescue Harvest::BadRequest
-        # Client has already been created.
-        client = harvest.clients.all.select {|c| c.name == client.name}.first
+      if client = harvest.clients.find_or_create_by_name("Frannie's Factory")
+        project = harvest.projects.create("name" => "Invoiced Project1", "client_id" => client.id)
       end
 
       # Delete any existing invoices.
@@ -71,13 +66,8 @@ describe 'harvest invoices' do
 
   it 'allows finding one invoice or all invoices with parameters' do
     cassette('invoice3') do
-      begin
-        if client  = harvest.clients.create("name" => "Frannie's Factory")
-          project = harvest.projects.create("name" => "Invoiced Project1", "client_id" => client.id)
-        end
-      rescue Harvest::BadRequest
-        # Client has already been reated.
-        client = harvest.clients.all.select {|c| c.name == client.name}.first
+      if client = harvest.clients.find_or_create_by_name("Frannie's Factory")
+        project = harvest.projects.create("name" => "Invoiced Project1", "client_id" => client.id)
       end
 
       # Delete any existing invoices.
@@ -144,13 +134,8 @@ describe 'harvest invoices' do
 
   it 'allows downloading of Harvest generated PDF of invoice' do
     cassette('invoice4') do
-      begin
-        if client  = harvest.clients.create("name" => "Frannie's Factory")
-          project = harvest.projects.create("name" => "Invoiced Project1", "client_id" => client.id)
-        end
-      rescue Harvest::BadRequest
-        # Client has already been reated.
-        client = harvest.clients.all.select {|c| c.name == client.name}.first
+      if client = harvest.clients.find_or_create_by_name("Frannie's Factory")
+        project = harvest.projects.create("name" => "Invoiced Project1", "client_id" => client.id)
       end
 
       # Delete any existing invoices.
@@ -191,15 +176,10 @@ describe 'harvest invoices' do
 
   it 'allows custom due at values on invoices' do
     cassette('invoice5') do
-      begin
-        if client  = harvest.clients.create("name" => "Frannie's Factory")
-          project = harvest.projects.create("name" => "Invoiced Project1", "client_id" => client.id)
-        end
-      rescue Harvest::BadRequest
-        # Client has already been created.
-        client = harvest.clients.all.select {|c| c.name == client.name}.first
+      if client = harvest.clients.find_or_create_by_name("Frannie's Factory")
+        project = harvest.projects.create("name" => "Invoiced Project1", "client_id" => client.id)
       end
-
+  
       # Delete any existing invoices.
       harvest.invoices.all.each {|i| harvest.invoices.delete(i.id)}
 

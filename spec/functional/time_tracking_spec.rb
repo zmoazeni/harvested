@@ -3,7 +3,7 @@ require 'spec_helper'
 describe 'harvest time tracking' do
   it 'allows adding, updating and removing entries' do
     cassette("time_tracking1") do
-      client = harvest.clients.create("name" => "Jane's Car Shop")
+      client = harvest.clients.find_or_create_by_name("Jane's Car Shop")
       begin
         project = harvest.projects.create("name" => "Tracking Project", "client_id" => client.id)
       rescue Harvest::BadRequest
@@ -43,8 +43,8 @@ describe 'harvest time tracking' do
       rescue Harvest::BadRequest
         user = harvest.users.all.detect {|u| u.email == "frank@example.com"}
       end
-      
-      client = harvest.clients.create("name" => "Kim's Tux Shop")
+
+      client = harvest.clients.find_or_create_by_name("Kim's Tux Shop")
 
       begin
         project = harvest.projects.create("name" => "Other User Tracking Project", "client_id" => client.id)

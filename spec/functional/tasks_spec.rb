@@ -23,11 +23,8 @@ describe 'harvest tasks' do
   context "task assignments" do
     it "allows adding, updating, and removing tasks from projects" do
       cassette('tasks2') do
-        client      = harvest.clients.create(
-          "name"    => "Joe's Steam Cleaning",
-          "details" => "Building API Widgets across the country"
-        )
-
+        client = harvest.clients.find_or_create_by_name("Joe's Steam Cleaning")
+        
         begin
           project       = harvest.projects.create(
             "name"      => "Test Project2",
@@ -71,10 +68,7 @@ describe 'harvest tasks' do
 
     it "allows creating and assigning the task at the same time" do
       cassette('tasks3') do
-        client      = harvest.clients.create(
-          "name"    => "Joe's Steam Cleaning 2",
-          "details" => "Building API Widgets across the country"
-        )
+        client = harvest.clients.find_or_create_by_name("Joe's Steam Cleaning 2")
 
         begin
           project       = harvest.projects.create(
