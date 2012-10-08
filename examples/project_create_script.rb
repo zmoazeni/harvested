@@ -14,6 +14,10 @@ cname = gets.chomp
 client_search_results = harvest.clients.all.select { |c| c.name.downcase.include?(cname) }
 
 case client_search_results.length
+when 0
+	puts "No client found.  Please try again."
+	puts
+	abort
 when 1
 	#Result is exactly 1. We got the client.
 	client_index = 0
@@ -26,12 +30,8 @@ when 1..15
 	end
 
 	client_index = gets.chomp.to_i - 1	
-when 16..(1.0 / 0.0) #16 to infinity
-	puts "Too many client matches. Please try a more specific search term."
-	puts
-	abort
 else
-	puts "No client found.  Please try again."
+	puts "Too many client matches. Please try a more specific search term."
 	puts
 	abort
 end
