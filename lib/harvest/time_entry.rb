@@ -13,12 +13,12 @@ module Harvest
     end
 
     def spent_at=(date)
-      self["spent_at"] = (String === date ? Time.parse(date) : date)
+      self["spent_at"] = Date.parse(date.to_s)
     end
 
     def as_json(args = {})
       super(args).to_hash.stringify_keys.tap do |hash|
-        hash.update("spent_at" => (spent_at.nil? ? nil : spent_at.to_time.xmlschema))
+        hash.update("spent_at" => (spent_at.nil? ? nil : spent_at.xmlschema))
       end
     end
   end
