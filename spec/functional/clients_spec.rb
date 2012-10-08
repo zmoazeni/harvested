@@ -2,12 +2,11 @@ require 'spec_helper'
 
 describe 'harvest clients' do
   it 'allows adding, updating and removing clients' do
+    client_attributes = FactoryGirl.attributes_for(:client)
+
     cassette("client") do
-      client      = harvest.clients.create(
-        "name"    => "Joe's Steam Cleaning",
-        "details" => "Building API Widgets across the country"
-      )
-      client.name.should == "Joe's Steam Cleaning"
+      client = harvest.clients.create(client_attributes)
+      client.name.should == client_attributes[:name]
 
       client.name = "Joe and Frank's Steam Cleaning"
       client = harvest.clients.update(client)
@@ -20,10 +19,7 @@ describe 'harvest clients' do
 
   it 'allows activating and deactivating clients' do
     cassette("client2") do
-      client      = harvest.clients.create(
-        "name"    => "Joe's Steam Cleaning",
-        "details" => "Building API Widgets across the country"
-      )
+      client = harvest.clients.create(FactoryGirl.attributes_for(:client))
       client.should be_active
 
       client = harvest.clients.deactivate(client)
@@ -37,21 +33,19 @@ describe 'harvest clients' do
   context "contacts" do
     it "allows adding, updating, and removing contacts" do
       cassette("client3") do
-        client      = harvest.clients.create(
-          "name"    => "Joe's Steam Cleaning",
-          "details" => "Building API Widgets across the country"
-        )
+        client = harvest.clients.create(FactoryGirl.attributes_for(:client))
+
         contact        = harvest.contacts.create(
           "client_id"  => client.id,
-          "email"      => "jane@doe.com",
+          "email"      => "jane@example.com",
           "first_name" => "Jane",
           "last_name"  => "Doe"
         )
         contact.client_id.should == client.id
-        contact.email.should == "jane@doe.com"
+        contact.email.should == "jane@example.com"
 
         harvest.contacts.delete(contact)
-        harvest.contacts.all.select {|e| e.email == "jane@doe.com" }.should == []
+        harvest.contacts.all.select {|e| e.email == "jane@example.com" }.should == []
       end
     end
   end

@@ -1,6 +1,7 @@
 require 'harvested'
 require 'webmock/rspec'
 require 'vcr'
+require 'factory_girl'
 
 Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each {|f| require File.expand_path(f) }
 
@@ -10,6 +11,8 @@ VCR.configure do |c|
 end
 
 FileUtils.rm(Dir["#{VCR.configuration.cassette_library_dir}/*"]) if ENV['VCR_REFRESH'] == 'true'
+
+FactoryGirl.find_definitions
 
 RSpec.configure do |config|
   config.include HarvestedHelpers
