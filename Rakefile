@@ -1,3 +1,5 @@
+$:.unshift(File.dirname(__FILE__))
+
 require 'rubygems'
 require 'rake'
 require "bundler/setup"
