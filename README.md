@@ -73,7 +73,7 @@ Note on running tests: most specs run against a live Harvest account. To run the
 
 **DO NOT USE YOUR NORMAL CREDENTIALS IN `/spec/support/harvest_credentials.yml`!!!** The test suite blasts all the data before running (similiar to DatabaseCleaner).
 
-The tests use [VCR](https://github.com/myronmarston/vcr) to cache the test responses. This is a great boon for running the tests offline. While uncommon, sometimes the Harvest API will send an erroneous response and VCR will cache it, then subsequent runs will use the incorrect cached response. In order to ignore VCR you can run the specs by passing CACHE=false (e.g. `CACHE=false bundle rake spec`).
+The tests use [VCR](https://github.com/myronmarston/vcr) to cache the API responses. This is a great boon for running the tests offline. While uncommon, sometimes the Harvest API will send an erroneous response, VCR will cache it, and subsequent runs will use the incorrect cached response. In order to clear the cached responses, you can run the specs with the `VCR_REFRESH` environmental variable set to true (e.g. `VCR_REFRESH=true bundle exec rake spec`).
 
 Using [rvm](https://rvm.beginrescueend.com/) you can run the tests against the popular ruby runtimes by running:
 
