@@ -45,7 +45,7 @@ client = client_search_results[client_index]
 
 puts "\nClient found: #{client.name}\n"
 puts "Please enter the project name:"
-pname = gets.chomp
+project_name = gets.chomp
 
 puts "\nIs this project billable? (y/n)"
 billable = gets.chomp.downcase == "y"
@@ -68,8 +68,8 @@ end
 tasks = harvest.tasks.all.select { |t| use_tasks.include?(t.name) }
 
 # Create the project
-puts "Creating new project: \"#{pname}\" for client: #{client.name}\n"
-project = Harvest::Project.new(:name => pname, :client_id => client.id, :billable => billable, :notes => notes)
+puts "Creating new project: \"#{project_name}\" for client: #{client.name}\n"
+project = Harvest::Project.new(:name => project_name, :client_id => client.id, :billable => billable, :notes => notes)
 project = harvest.projects.create(project)
 
 # Add all the project tasks to the project
@@ -91,4 +91,3 @@ end
 
 puts "\nProject successfully created."
 puts "You can find the project here: http://#{subdomain}.harvestapp.com/projects/#{project.id}/edit\n\n"
-
