@@ -1,3 +1,12 @@
+# File: project_create_script.rb
+# Date Created: 2012-10-08
+# Author(s): Mark Rickert (mjar81@gmail.com) / Skookum Digital Works - http://skookum.com
+#
+# Description: This example script takes user input from the command line and
+# creates a project based the selected options. It then assigns tasks from Harvest
+# to the project based on an array. After the tasks are added, it addes all the
+# currently active users to the project.
+
 require "harvested"
 
 subdomain = 'yoursubdomain'
