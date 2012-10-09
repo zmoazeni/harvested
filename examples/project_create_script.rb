@@ -54,32 +54,16 @@ puts "Any project notes? (hit 'return' for none)"
 notes = gets.chomp
 puts
 
-# These are names of tasks that should already exist in Harvest
-project_tasks = [];
-project_tasks << "Client Communication"
-project_tasks << "Planning"
-project_tasks << "Design"
-project_tasks << "Development"
-project_tasks << "Testing/QA"
-project_tasks << "Documentation"
-project_tasks << "Deployment"
-
-# These are names of tasks that should already exist in Harvest
-sales_tasks = []
-sales_tasks << "Sales Calls"
-sales_tasks << "Client Meetings"
-sales_tasks << "Travel"
-sales_tasks << "Estimating"
-
 puts "What sorts of tasks does this project need? Type \"p\" for project tasks or \"s\" for sales tasks."
 task_types = gets.chomp
 puts
 
 # Determine what task list to use based on the project type.
 if task_types.downcase == "p"
-	use_tasks = project_tasks
+	# These are names of tasks that should already exist in Harvest
+	use_tasks = ["Client Communication", "Planning", "Design", "Development", "Testing/QA", "Documentation", "Deployment"]
 else
-	use_tasks = sales_tasks
+	use_tasks = ["Sales Calls", "Client Meetings", "Travel", "Estimating"]
 end
 
 # Filter the list of actual tasks we want to add to the project.
