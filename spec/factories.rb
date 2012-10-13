@@ -3,9 +3,41 @@ FactoryGirl.define do
     "Joe's Steam Cleaning #{n}"
   end
 
+  sequence :description do |n|
+    "Item #{n}"
+  end
+
   factory :client, class: Harvest::Client do
     name
-    details "Building API Widgets across the country"
+    details "Steam Cleaning across the country"
+  end
+
+  factory :invoice, class: Harvest::Invoice do
+    subject "Invoice for Joe's Stream Cleaning"
+    issued_at "2011-03-31"
+    due_at "2011-03-31"
+    due_at_human_format "upon receipt"
+
+    currency "United States Dollars - USD"
+    number "1000"
+    notes "Some notes go here"
+    period_end "2011-03-31"
+    period_start "2011-02-26"
+    kind "free_form"
+    state "draft"
+    purchase_order nil
+    tax nil
+    tax2 nil
+    import_hours "no"
+    import_expenses "no"
+    line_items { [FactoryGirl.build(:line_item)] }
+  end
+
+  factory :line_item, class: Harvest::LineItem do
+    kind "Service"
+    description
+    quantity 200
+    unit_price "12.00"
   end
 
   sequence :project_name do |n|
