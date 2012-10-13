@@ -19,14 +19,14 @@ require 'harvest/timezones'
 require 'harvest/base'
 
 %w(crud activatable).each {|a| require "harvest/behavior/#{a}"}
-%w(model client contact project task user rate_limit_status task_assignment user_assignment expense_category expense time_entry invoice_category line_item invoice).each {|a| require "harvest/#{a}"}
-%w(base account clients contacts projects tasks users task_assignments user_assignments expense_categories expenses time reports invoice_categories invoices).each {|a| require "harvest/api/#{a}"}
+%w(model client contact project task user rate_limit_status task_assignment user_assignment expense_category expense time_entry invoice_category line_item invoice invoice_payment).each {|a| require "harvest/#{a}"}
+%w(base account clients contacts projects tasks users task_assignments user_assignments expense_categories expenses time reports invoice_categories invoices invoice_payments).each {|a| require "harvest/api/#{a}"}
 
 module Harvest
   VERSION = File.read(File.expand_path(File.join(File.dirname(__FILE__), '..', 'VERSION'))).strip
-  
+
   class << self
-    
+
     # Creates a standard client that will raise all errors it encounters
     #
     # == Options
@@ -38,7 +38,7 @@ module Harvest
     def client(subdomain, username, password, options = {})
       Harvest::Base.new(subdomain, username, password, options)
     end
-    
+
     # Creates a hardy client that will retry common HTTP errors it encounters and sleep() if it determines it is over your rate limit
     #
     # == Options

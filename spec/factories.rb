@@ -7,6 +7,10 @@ FactoryGirl.define do
     "Item #{n}"
   end
 
+  sequence :project_name do |n|
+    "Joe's Steam Cleaning Project #{n}"
+  end
+
   factory :client, class: Harvest::Client do
     name
     details "Steam Cleaning across the country"
@@ -14,12 +18,13 @@ FactoryGirl.define do
 
   factory :invoice, class: Harvest::Invoice do
     subject "Invoice for Joe's Stream Cleaning"
+    client_id nil
     issued_at "2011-03-31"
     due_at "2011-03-31"
     due_at_human_format "upon receipt"
 
     currency "United States Dollars - USD"
-    number "1000"
+    sequence(:number)
     notes "Some notes go here"
     period_end "2011-03-31"
     period_start "2011-02-26"
@@ -40,8 +45,10 @@ FactoryGirl.define do
     unit_price "12.00"
   end
 
-  sequence :project_name do |n|
-    "Joe's Steam Cleaning Project #{n}"
+  factory :invoice_payment, class: Harvest::InvoicePayment do
+    paid_at Time.now
+    amount "0.00"
+    notes "Payment received"
   end
 
   factory :project, class: Harvest::Project do
