@@ -43,8 +43,17 @@ module Harvest
 
     attr_reader :line_items
 
-    def self.json_root; "invoice"; end
-    
+    def self.parse(json)
+      parsed   = String === json ? JSON.parse(json) : json
+      invoices = Array.wrap(parsed).map {|attrs| new(attrs["invoices"])}
+      invoice  = Array.wrap(parsed).map {|attrs| new(attrs["invoice"])}
+      if invoices.first && invoices.first.length > 0
+        invoices
+      else
+        invoice
+      end
+    end
+
     def initialize(args = {}, _ = nil)
       if args
         args            = args.to_hash.stringify_keys
