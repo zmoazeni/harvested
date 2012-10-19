@@ -1,4 +1,41 @@
 module Harvest
+
+  # == Fields
+  # [+due_at+] when the invoice is due
+  # [+due_at_human_format+] when the invoice is due in human representation (e.g., due upon receipt) overrides +due_at+
+  # [+client_id+] (REQUIRED) the client id of the invoice
+  # [+currency+] the invoice currency
+  # [+issued_at+] when the invoice was issued
+  # [+subject+] subject line for the invoice
+  # [+notes+] notes on the invoice
+  # [+number+] invoice number
+  # [+kind+] (REQUIRED) the type of the invoice +free_form|project|task|people|detailed+
+  # [+projects_to_invoice+] comma separated project ids to gather data from
+  # [+import_hours+] import hours from +project|task|people|detailed+ one of +yes|no+
+  # [+import_expenses+] import expenses from +project|task|people|detailed+ one of +yes|no+
+  # [+period_start+] start of the invoice period
+  # [+period_end+] end of the invoice period
+  # [+expense_period_start+] start of the invoice expense period
+  # [+expense_period_end+] end of the invoice expense period
+  # [+csv_line_items+] csv formatted line items for the invoice +kind,description,quantity,unit_price,amount,taxed,taxed2,project_id+
+  # [+created_at+] (READONLY) when the invoice was created
+  # [+updated_at+] (READONLY) when the invoice was updated
+  # [+id+] (READONLY) the id of the invoice
+  # [+amount+] (READONLY) the amount of the invoice
+  # [+due_amount+] (READONLY) the amount due on the invoice
+  # [+created_by_id+] who created the invoice
+  # [+purchase_order+] purchase order number/text
+  # [+client_key+] unique client key
+  # [+state+] (READONLY) state of the invoice
+  # [+tax+] applied tax percentage
+  # [+tax2+] applied tax 2 percentage
+  # [+tax_amount+] amount to tax
+  # [+tax_amount2+] amount to tax 2
+  # [+discount_amount+] discount amount to apply to invoice
+  # [+discount_type+] discount type
+  # [+recurring_invoice_id+] the id of the original invoice
+  # [+estimate_id+] id of the related estimate
+  # [+retainer_id+] id of the related retainer
   class Invoice < Hashie::Mash
     include Harvest::Model
 
@@ -6,14 +43,15 @@ module Harvest
 
     attr_reader :line_items
 
-    def self.json_root; "doc"; end
-    # skip_json_root true
-
+    def self.json_root; "invoice"; end
+    
     def initialize(args = {}, _ = nil)
-      @line_items = []
-      args            = args.to_hash.stringify_keys
-      self.line_items = args.delete("csv_line_items")
-      self.line_items = args.delete("line_items")
+      if args
+        args            = args.to_hash.stringify_keys
+        self.line_items = args.delete("csv_line_items")
+        self.line_items = args.delete("line_items")
+        self.line_items = [] if self.line_items.nil?
+      end
       super
     end
 
@@ -48,21 +86,10 @@ module Harvest
         else
           header = %w(kind description quantity unit_price amount taxed taxed2 project_id)
 
-          # writing this in stdlib so we don't force 1.8 users to install FasterCSV and make gem dependencies wierd
-          if RUBY_VERSION =~ /1.8/
-            csv_data = ""
-            CSV.generate_row(header, header.size, csv_data)
+          CSV.generate do |csv|
+            csv << header
             line_items.each do |item|
-              row_data = header.inject([]) {|row, attr| row << item[attr] }
-              CSV.generate_row(row_data, row_data.size, csv_data)
-            end
-            csv_data
-          else
-            CSV.generate do |csv|
-              csv << header
-              line_items.each do |item|
-                csv << header.inject([]) {|row, attr| row << item[attr] }
-              end
+              csv << header.inject([]) {|row, attr| row << item[attr] }
             end
           end
         end
