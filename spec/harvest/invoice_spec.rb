@@ -41,7 +41,7 @@ describe Harvest::Invoice do
       invoice.line_items.count.should == 2
       invoice.line_items.first.kind.should == "Service"
       
-      invoice.as_json["doc"]["csv_line_items"].should == "kind,description,quantity,unit_price,amount,taxed,taxed2,project_id\nService,Abc,200,12.00,2400.0,false,false,\nService,def,1.00,20.00,20.0,false,false,\n"
+      invoice.as_json["invoice"]["csv_line_items"].should == "kind,description,quantity,unit_price,amount,taxed,taxed2,project_id\nService,Abc,200,12.00,2400.0,false,false,\nService,def,1.00,20.00,20.0,false,false,\n"
     end
   end
 end
