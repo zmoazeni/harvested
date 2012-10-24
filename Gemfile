@@ -3,8 +3,6 @@ source :rubygems
 gem 'httparty'
 gem 'hashie', '~> 1'
 gem 'json'
-gem 'yard'
-gem 'redcarpet'
 
 group :development, :test do
   gem 'rspec', '~> 2'
@@ -14,4 +12,6 @@ group :development, :test do
   gem 'jeweler', :require => false
   gem 'debugger'
   gem 'factory_girl'
+  gem 'yard'
+  gem 'redcarpet'
 end
