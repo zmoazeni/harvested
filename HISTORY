@@ -1,5 +1,7 @@
 0.6.3 - pre-release
   * Adds task activation (Thanks Mark Rickert - @markrickert)
+  * Adds basic invoice support (Thanks Jeffrey Lee - @jlee42)
+  * Adds basic invoice payment support (Thanks Adam Doeler - @reload)
 0.6.2 - August 25, 2012
   * Fixes Mash constructor errors
 0.6.1 - August 22, 2012
