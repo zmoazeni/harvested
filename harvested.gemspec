@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = "harvested"
-  s.version = "0.6.3"
+  s.version = "0.6.4"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Zach Moazeni"]
@@ -118,8 +118,6 @@ Gem::Specification.new do |s|
       s.add_runtime_dependency(%q<httparty>, [">= 0"])
       s.add_runtime_dependency(%q<hashie>, ["~> 1"])
       s.add_runtime_dependency(%q<json>, [">= 0"])
-      s.add_runtime_dependency(%q<yard>, [">= 0"])
-      s.add_runtime_dependency(%q<redcarpet>, [">= 0"])
       s.add_development_dependency(%q<rspec>, ["~> 2"])
       s.add_development_dependency(%q<jruby-openssl>, [">= 0"])
       s.add_development_dependency(%q<webmock>, [">= 0"])
@@ -127,12 +125,12 @@ Gem::Specification.new do |s|
       s.add_development_dependency(%q<jeweler>, [">= 0"])
       s.add_development_dependency(%q<debugger>, [">= 0"])
       s.add_development_dependency(%q<factory_girl>, [">= 0"])
+      s.add_development_dependency(%q<yard>, [">= 0"])
+      s.add_development_dependency(%q<redcarpet>, [">= 0"])
     else
       s.add_dependency(%q<httparty>, [">= 0"])
       s.add_dependency(%q<hashie>, ["~> 1"])
       s.add_dependency(%q<json>, [">= 0"])
-      s.add_dependency(%q<yard>, [">= 0"])
-      s.add_dependency(%q<redcarpet>, [">= 0"])
       s.add_dependency(%q<rspec>, ["~> 2"])
       s.add_dependency(%q<jruby-openssl>, [">= 0"])
       s.add_dependency(%q<webmock>, [">= 0"])
@@ -140,13 +138,13 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<jeweler>, [">= 0"])
       s.add_dependency(%q<debugger>, [">= 0"])
       s.add_dependency(%q<factory_girl>, [">= 0"])
+      s.add_dependency(%q<yard>, [">= 0"])
+      s.add_dependency(%q<redcarpet>, [">= 0"])
     end
   else
     s.add_dependency(%q<httparty>, [">= 0"])
     s.add_dependency(%q<hashie>, ["~> 1"])
     s.add_dependency(%q<json>, [">= 0"])
-    s.add_dependency(%q<yard>, [">= 0"])
-    s.add_dependency(%q<redcarpet>, [">= 0"])
     s.add_dependency(%q<rspec>, ["~> 2"])
     s.add_dependency(%q<jruby-openssl>, [">= 0"])
     s.add_dependency(%q<webmock>, [">= 0"])
@@ -154,6 +152,8 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<jeweler>, [">= 0"])
     s.add_dependency(%q<debugger>, [">= 0"])
     s.add_dependency(%q<factory_girl>, [">= 0"])
+    s.add_dependency(%q<yard>, [">= 0"])
+    s.add_dependency(%q<redcarpet>, [">= 0"])
   end
 end
 
