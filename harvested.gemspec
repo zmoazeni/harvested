@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "harvested"
-  s.version = "0.6.2"
+  s.version = "0.6.3"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Zach Moazeni"]
-  s.date = "2012-10-05"
+  s.date = "2012-10-24"
   s.description = "Harvested wraps the Harvest API concisely without the use of Rails dependencies. More information about the Harvest API can be found on their website (http://www.getharvest.com/api). For support hit up the Mailing List (http://groups.google.com/group/harvested)"
   s.email = "zach.moazeni@gmail.com"
   s.extra_rdoc_files = [
@@ -27,6 +27,7 @@ Gem::Specification.new do |s|
     "VERSION",
     "examples/basics.rb",
     "examples/clear_account.rb",
+    "examples/project_create_script.rb",
     "examples/task_assignments.rb",
     "examples/user_assignments.rb",
     "harvested.gemspec",
@@ -41,6 +42,7 @@ Gem::Specification.new do |s|
     "lib/harvest/api/expense_categories.rb",
     "lib/harvest/api/expenses.rb",
     "lib/harvest/api/invoice_categories.rb",
+    "lib/harvest/api/invoice_payments.rb",
     "lib/harvest/api/invoices.rb",
     "lib/harvest/api/projects.rb",
     "lib/harvest/api/reports.rb",
@@ -61,6 +63,7 @@ Gem::Specification.new do |s|
     "lib/harvest/hardy_client.rb",
     "lib/harvest/invoice.rb",
     "lib/harvest/invoice_category.rb",
+    "lib/harvest/invoice_payment.rb",
     "lib/harvest/line_item.rb",
     "lib/harvest/model.rb",
     "lib/harvest/project.rb",
@@ -72,11 +75,13 @@ Gem::Specification.new do |s|
     "lib/harvest/user.rb",
     "lib/harvest/user_assignment.rb",
     "lib/harvested.rb",
+    "spec/factories.rb",
     "spec/functional/account_spec.rb",
     "spec/functional/clients_spec.rb",
     "spec/functional/errors_spec.rb",
     "spec/functional/expenses_spec.rb",
     "spec/functional/hardy_client_spec.rb",
+    "spec/functional/invoice_payments_spec.rb",
     "spec/functional/invoice_spec.rb",
     "spec/functional/project_spec.rb",
     "spec/functional/reporting_spec.rb",
@@ -87,6 +92,7 @@ Gem::Specification.new do |s|
     "spec/harvest/credentials_spec.rb",
     "spec/harvest/expense_category_spec.rb",
     "spec/harvest/expense_spec.rb",
+    "spec/harvest/invoice_payment_spec.rb",
     "spec/harvest/invoice_spec.rb",
     "spec/harvest/project_spec.rb",
     "spec/harvest/task_assignment_spec.rb",
@@ -112,6 +118,8 @@ Gem::Specification.new do |s|
       s.add_runtime_dependency(%q<httparty>, [">= 0"])
       s.add_runtime_dependency(%q<hashie>, ["~> 1"])
       s.add_runtime_dependency(%q<json>, [">= 0"])
+      s.add_runtime_dependency(%q<yard>, [">= 0"])
+      s.add_runtime_dependency(%q<redcarpet>, [">= 0"])
       s.add_development_dependency(%q<rspec>, ["~> 2"])
       s.add_development_dependency(%q<jruby-openssl>, [">= 0"])
       s.add_development_dependency(%q<webmock>, [">= 0"])
@@ -123,6 +131,8 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<httparty>, [">= 0"])
       s.add_dependency(%q<hashie>, ["~> 1"])
       s.add_dependency(%q<json>, [">= 0"])
+      s.add_dependency(%q<yard>, [">= 0"])
+      s.add_dependency(%q<redcarpet>, [">= 0"])
       s.add_dependency(%q<rspec>, ["~> 2"])
       s.add_dependency(%q<jruby-openssl>, [">= 0"])
       s.add_dependency(%q<webmock>, [">= 0"])
@@ -135,6 +145,8 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<httparty>, [">= 0"])
     s.add_dependency(%q<hashie>, ["~> 1"])
     s.add_dependency(%q<json>, [">= 0"])
+    s.add_dependency(%q<yard>, [">= 0"])
+    s.add_dependency(%q<redcarpet>, [">= 0"])
     s.add_dependency(%q<rspec>, ["~> 2"])
     s.add_dependency(%q<jruby-openssl>, [">= 0"])
     s.add_dependency(%q<webmock>, [">= 0"])
