@@ -3,17 +3,18 @@ module Harvest
     class Invoices < Base
       api_model Harvest::Invoice
       include Harvest::Behavior::Crud
-      
-      def all(options = {})
-        status = "status=#{options[:status]}" if options[:status]
-        page = "page=#{options[:page]}" if options[:page]
-        updated_since = "updated_since=#{options[:updated_since]}" if options[:updated_since]
-        timeframe = "from=#{options[:timeframe][:from]}&to=#{options[:timeframe][:to]}" if options[:timeframe]
-        params = [status,page,updated_since,timeframe].compact.join('&')
-        params = "?#{params}" if params
-        
-        response = request(:get, credentials, "/invoices#{params}")
 
+      def all(options = {})
+        query = {}
+        query[:status]        = options[:status]        if options[:status]
+        query[:page]          = options[:page]          if options[:page]
+        query[:updated_since] = options[:updated_since] if options[:updated_since]
+        if options[:timeframe]
+          query[:from] = options[:timeframe][:from]
+          query[:to]   = options[:timeframe][:to]
+        end
+
+        response = request(:get, credentials, "/invoices", :query => query)
         api_model.parse(response.parsed_response)
       end
     end
