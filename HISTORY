@@ -1,4 +1,4 @@
-0.6.3 - pre-release
+0.6.3 - October 24, 2012
   * Adds task activation (Thanks Mark Rickert - @markrickert)
   * Adds basic invoice support (Thanks Jeffrey Lee - @jlee42)
   * Adds basic invoice payment support (Thanks Adam Doeler - @releod)
