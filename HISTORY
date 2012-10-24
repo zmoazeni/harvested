@@ -1,3 +1,5 @@
+0.6.4 - October 24, 2012
+  * Removes yard and redcarpet dependencies (added on accident)
 0.6.3 - October 24, 2012
   * Adds task activation (Thanks Mark Rickert - @markrickert)
   * Adds basic invoice support (Thanks Jeffrey Lee - @jlee42)
