@@ -3,8 +3,21 @@ module Harvest
     class Base
       attr_reader :credentials
 
+      class ProxyParty
+        include HTTParty
+      end
+
       def initialize(credentials)
         @credentials = credentials
+        proxy = @credentials.proxy
+        if proxy.nil?
+          @httparty = HTTParty
+        else
+          ProxyParty.module_eval do
+            http_proxy proxy[:host], proxy[:port]
+          end
+          @httparty = ProxyParty
+        end
       end
 
       class << self
@@ -24,7 +37,7 @@ module Harvest
           params[:options] = options
           params[:method] = method
 
-          response = HTTParty.send(method, "#{credentials.host}#{path}",
+          response = @httparty.send(method, "#{credentials.host}#{path}",
             :query => options[:query],
             :body => options[:body],
             :format => :plain,

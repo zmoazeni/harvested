@@ -9,12 +9,24 @@ module HarvestedHelpers
     Harvest.client(credentials["subdomain"], credentials["username"], credentials["password"], :ssl => true)
   end
 
+  def self.proxied_harvest
+    if !credentials.has_key?('proxyhost')
+      return HarvestedHelpers.simple_harvest
+    else
+      return Harvest.client(credentials["subdomain"], credentials["username"], credentials["password"], {
+        :ssl => true,
+        :proxy => {:host => credentials['proxyhost'], :port => credentials['proxyport']}
+      })
+    end
+  end
+
   # def connect_to_harvest
   #   @harvest = Harvest.hardy_client(credentials["subdomain"], credentials["username"], credentials["password"], :ssl => true)
   # end
 
   # def harvest; @harvest; end
-  def harvest; @harvest ||= HarvestedHelpers.simple_harvest; end
+
+  def harvest; @harvest ||= HarvestedHelpers.proxied_harvest; end
 
   def hardy_harvest
     Harvest.hardy_client(credentials["subdomain"], credentials["username"], credentials["password"], :ssl => true)
