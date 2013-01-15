@@ -1,9 +1,9 @@
 module Harvest
   class Credentials
-    attr_accessor :subdomain, :username, :password, :ssl
+    attr_accessor :subdomain, :username, :password, :ssl, :proxy
     
-    def initialize(subdomain, username, password, ssl = true)
-      @subdomain, @username, @password, @ssl = subdomain, username, password, ssl
+    def initialize(subdomain, username, password, ssl = true, proxy = nil)
+      @subdomain, @username, @password, @ssl, @proxy = subdomain, username, password, ssl, proxy
     end
     
     def valid?
