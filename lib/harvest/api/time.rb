@@ -8,9 +8,11 @@ module Harvest
       end
       
       def all(date = ::Time.now, user = nil)
-        date = ::Time.parse(date) if String === date
-        response = request(:get, credentials, "/daily/#{date.yday}/#{date.year}", :query => of_user_query(user))
-        Harvest::TimeEntry.parse(JSON.parse(response.body)["day_entries"])
+        Harvest::TimeEntry.parse(daily(date, user)["day_entries"])
+      end
+
+      def trackable_projects(date = ::Time.now, user = nil)
+        Harvest::TrackableProject.parse(daily(date, user)["projects"])
       end
       
       def toggle(id, user = nil)
@@ -31,6 +33,15 @@ module Harvest
       def delete(entry, user = nil)
         request(:delete, credentials, "/daily/delete/#{entry.to_i}", :query => of_user_query(user))
         entry.id
+      end
+
+
+      private
+
+      def daily(date, user)
+        date = ::Time.parse(date) if String === date
+        response = request(:get, credentials, "/daily/#{date.yday}/#{date.year}", :query => of_user_query(user))
+        JSON.parse(response.body)
       end
     end
   end

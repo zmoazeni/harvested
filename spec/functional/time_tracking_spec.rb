@@ -67,4 +67,31 @@ describe 'harvest time tracking' do
       stopped_entry.timer_started_at.should be_nil
     end
   end
+
+  it 'allows retrieving trackable projects and tasks' do
+    cassette("time_tracking4") do
+      client = harvest.clients.create("name" => "Bobby's Coffee Shop")
+      project = harvest.projects.create("name" => "Bobby's Trackable Project", "client_id" => client.id)
+      harvest.projects.create_task(project, "A billable task for Bobby")
+
+      trackable_projects = harvest.time.trackable_projects
+      trackable_project = trackable_projects.find {|p| p.name == "Bobby's Trackable Project" }
+      trackable_projects.first.client.should == "Bobbys Coffee Shop"
+      trackable_projects.first.tasks.first.name.should == "A billable task for Bobby"
+    end
+  end
+
+  it 'allows for absence of trackable projects' do
+    cassette("time_tracking5") do
+      user = harvest.users.create(
+        "email"      => "gary@example.com",
+        "first_name" => "Gary",
+        "last_name"  => "Doe",
+        "password"   => "secure"
+      )
+
+      trackable_projects = harvest.time.trackable_projects(Time.now, user)
+      trackable_projects.should == []
+    end
+  end
 end
