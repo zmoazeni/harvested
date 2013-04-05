@@ -22,7 +22,7 @@ method, for example to find all the projects for client ID 12345:
 
 ```ruby
 harvest = Harvest.client('yoursubdomain', 'yourusername', 'yourpassword')
-harvest.projects.harvest.projects.all(nil, :client => 12345)
+harvest.projects.all(nil, :client => 12345)
 ```
 
 Note, the second parameter is a User ID field that is optional, but needs to be specified
