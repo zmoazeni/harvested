@@ -54,6 +54,12 @@ Harvested's tests are currently passing for 1.8.7, 1.9.2, JRuby 1.6.2, and Rubin
 * [Harvest API Documentation](http://www.getharvest.com/api)
 * [Source Code for Harvested](http://github.com/zmoazeni/harvested)
 
+## Who are you? ##
+
+My name is [Zach Moazeni](https://twitter.com/zmoazeni). I work for [an
+awesome company](http://www.getharvest.com/). And [we're
+hiring!](http://www.getharvest.com/careers)
+
 ## How to Contribute
 
 If you find what looks like a bug:
