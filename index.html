@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <title>Harvested by zmoazeni</title>
+  </head>
+
+  <body>
+    <header>
+      <div class="inner">
+        <h1>Harvested</h1>
+        <h2>A Ruby Wrapper for the Harvest API http://www.getharvest.com/api</h2>
+        <a href="https://github.com/zmoazeni/harvested" class="button"><small>View project on</small>GitHub</a>
+      </div>
+    </header>
+
+    <div id="content-wrapper">
+      <div class="inner clearfix">
+        <section id="main-content">
+          <h1>Harvested: A Ruby Harvest API</h1>
+
+<p>This is a Ruby wrapper for the <a href="http://www.getharvest.com/api">Harvest API</a>.</p>
+
+<h2>Installation</h2>
+
+<pre><code>gem install harvested
+</code></pre>
+
+<h2>Examples</h2>
+
+<div class="highlight"><pre><span class="n">harvest</span> <span class="o">=</span> <span class="no">Harvest</span><span class="o">.</span><span class="n">client</span><span class="p">(</span><span class="s1">'yoursubdomain'</span><span class="p">,</span> <span class="s1">'yourusername'</span><span class="p">,</span> <span class="s1">'yourpassword'</span><span class="p">)</span>
+<span class="n">harvest</span><span class="o">.</span><span class="n">projects</span><span class="o">.</span><span class="n">all</span>   <span class="c1"># list out projects</span>
+
+<span class="n">client</span> <span class="o">=</span> <span class="ss">Harvest</span><span class="p">:</span><span class="ss">:Client</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="ss">:name</span> <span class="o">=&gt;</span> <span class="s2">"Billable Company LTD."</span><span class="p">)</span>
+<span class="n">client</span> <span class="o">=</span> <span class="n">harvest</span><span class="o">.</span><span class="n">clients</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">client</span><span class="p">)</span>
+<span class="n">harvest</span><span class="o">.</span><span class="n">clients</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">client</span><span class="o">.</span><span class="n">id</span><span class="p">)</span> <span class="c1"># returns a Harvest::Client</span>
+</pre></div>
+
+<p>You can also pass query options in as the last parameter on any objects <code>all</code> finder
+method, for example to find all the projects for client ID 12345:</p>
+
+<div class="highlight"><pre><span class="n">harvest</span> <span class="o">=</span> <span class="no">Harvest</span><span class="o">.</span><span class="n">client</span><span class="p">(</span><span class="s1">'yoursubdomain'</span><span class="p">,</span> <span class="s1">'yourusername'</span><span class="p">,</span> <span class="s1">'yourpassword'</span><span class="p">)</span>
+<span class="n">harvest</span><span class="o">.</span><span class="n">projects</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="kp">nil</span><span class="p">,</span> <span class="ss">:client</span> <span class="o">=&gt;</span> <span class="mi">12345</span><span class="p">)</span>
+</pre></div>
+
+<p>Note, the second parameter is a User ID field that is optional, but needs to be specified
+as nil if not included.</p>
+
+<p>You can pass in any hash of query attributes you wish as per the
+<a href="http://www.getharvest.com/api">Harvest API</a> page.</p>
+
+<p>You can find more examples in <code>/examples</code> and in the documentation for Harvest::Base</p>
+
+<h2>Hardy Client</h2>
+
+<p>The guys at Harvest built a great API, but there are always dangers in writing code that depends on an API. For example, HTTP Timeouts, Occasional Bad Gateways, and Rate Limiting issues need to be accounted for.</p>
+
+<p>Using <code>Harvested#client</code> your code needs to handle all these situations. However you can also use <code>Harvested#hardy_client</code> which will retry errors and wait for Rate Limit resets.</p>
+
+<div class="highlight"><pre><span class="n">harvest</span> <span class="o">=</span> <span class="no">Harvest</span><span class="o">.</span><span class="n">hardy_client</span><span class="p">(</span><span class="s1">'yoursubdomain'</span><span class="p">,</span> <span class="s1">'yourusername'</span><span class="p">,</span> <span class="s1">'yourpassword'</span><span class="p">)</span>
+<span class="n">harvest</span><span class="o">.</span><span class="n">projects</span><span class="o">.</span><span class="n">all</span>   <span class="c1"># This will wait for the Rate Limit reset if you have gone over your limit</span>
+</pre></div>
+
+<h2>Ruby support</h2>
+
+<p>Harvested's tests are currently passing for 1.8.7, 1.9.2, JRuby 1.6.2, and Rubinius</p>
+
+<h2>Links</h2>
+
+<ul>
+<li><a href="http://rdoc.info/projects/zmoazeni/harvested">Harvested Documentation</a></li>
+<li><a href="http://www.getharvest.com/api">Harvest API Documentation</a></li>
+<li><a href="http://github.com/zmoazeni/harvested">Source Code for Harvested</a></li>
+</ul><h2>Who are you?</h2>
+
+<p>My name is <a href="https://twitter.com/zmoazeni">Zach Moazeni</a>. I work for <a href="http://www.getharvest.com/">an
+awesome company</a>. And <a href="http://www.getharvest.com/careers">we're
+hiring!</a></p>
+
+<h2>How to Contribute</h2>
+
+<p>If you find what looks like a bug:</p>
+
+<ol>
+<li>Check the GitHub issue tracker to see if anyone else has had the same issue.
+<a href="http://github.com/zmoazeni/harvested/issues/">http://github.com/zmoazeni/harvested/issues/</a>
+</li>
+<li>If you don’t see anything, create an issue with information on how to reproduce it.</li>
+</ol><p>If you want to contribute an enhancement or a fix:</p>
+
+<ol>
+<li>Fork the project on github <a href="http://github.com/zmoazeni/harvested">http://github.com/zmoazeni/harvested</a>
+</li>
+<li>Make your changes with tests</li>
+<li>Commit the changes without messing with the Rakefile, VERSION, or history</li>
+<li>Send me a pull request</li>
+</ol><p>Note on running tests: most specs run against a live Harvest account. To run the suite, sign up for a free trial account and fill out <code>/spec/support/harvest_credentials.yml</code> <em>(a sample harvest_credentials.example.yml has been included)</em>.</p>
+
+<p><strong>DO NOT USE YOUR NORMAL CREDENTIALS IN <code>/spec/support/harvest_credentials.yml</code>!!!</strong> The test suite blasts all the data before running (similiar to DatabaseCleaner).</p>
+
+<p>The tests use <a href="https://github.com/myronmarston/vcr">VCR</a> to cache the API responses. This is a great boon for running the tests offline. While uncommon, sometimes the Harvest API will send an erroneous response, VCR will cache it, and subsequent runs will use the incorrect cached response. In order to clear the cached responses, you can run the specs with the <code>VCR_REFRESH</code> environmental variable set to true (e.g. <code>VCR_REFRESH=true bundle exec rake spec</code>).</p>
+
+<p>Using <a href="https://rvm.beginrescueend.com/">rvm</a> you can run the tests against the popular ruby runtimes by running:</p>
+
+<p>./spec/test_rubies</p>
+
+<p>Each runtime needs to be installed in rvm along with the bundler gem.</p>
+
+<h2>TODO</h2>
+
+<ul>
+<li>Write Documentation</li>
+<li>Allow Timer Toggling</li>
+</ul><h2>Notes on Harvest Estimates</h2>
+
+<p>Estimates aren't currently supported due to lack of an API. If this opens up, harvested will include them.</p>
+        </section>
+
+        <aside id="sidebar">
+          <a href="https://github.com/zmoazeni/harvested/zipball/master" class="button">
+            <small>Download</small>
+            .zip file
+          </a>
+          <a href="https://github.com/zmoazeni/harvested/tarball/master" class="button">
+            <small>Download</small>
+            .tar.gz file
+          </a>
+
+          <p class="repo-owner"><a href="https://github.com/zmoazeni/harvested"></a> is maintained by <a href="https://github.com/zmoazeni">zmoazeni</a>.</p>
+
+          <p>This page was generated by <a href="pages.github.com">GitHub Pages</a> using the Architect theme by <a href="http://twitter.com/jasonlong">Jason Long</a>.</p>
+        </aside>
+      </div>
+    </div>
+
+  
+  </body>
+</html>
