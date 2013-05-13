@@ -25,7 +25,7 @@ harvest = Harvest.client('yoursubdomain', 'yourusername', 'yourpassword')
 harvest.projects.all(nil, :client => 12345)
 ```
 
-Note, the second parameter is a User ID field that is optional, but needs to be specified
+Note, the first parameter is a User ID field that is optional, but needs to be specified
 as nil if not included.
 
 You can pass in any hash of query attributes you wish as per the
