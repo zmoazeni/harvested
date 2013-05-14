@@ -27,6 +27,13 @@ module Harvest
         Harvest::Expense.parse(response.parsed_response)
       end
       
+      def expenses_by_project(project, start_date, end_date)
+        query = {:from => start_date.strftime("%Y%m%d"), :to => end_date.strftime("%Y%m%d")}
+
+        response = request(:get, credentials, "/projects/#{project.to_i}/expenses", :query => query)
+        Harvest::Expense.parse(response.parsed_response)
+      end
+
       def projects_by_client(client)
         response = request(:get, credentials, "/projects?client=#{client.to_i}")
         Harvest::Project.parse(response.parsed_response)
