@@ -32,6 +32,8 @@ describe 'harvest reporting' do
       harvest.reports.time_by_project(project2, Time.utc(2009, 12, 20), Time.utc(2009,12,30), :billable => true).should == []
       harvest.reports.time_by_project(project2, Time.utc(2009, 12, 20), Time.utc(2009,12,30), :billable => false).first.should == entry2
 
+      harvest.reports.time_by_project(project1, Time.utc(2009, 12, 10), Time.utc(2009,12,30), {:updated_since => Time.now.utc}).should == []
+
       harvest.reports.time_by_user(user, Time.utc(2009, 12, 20), Time.utc(2009,12,30)).map(&:id).should == [entry1, entry2].map(&:id)
 
       harvest.reports.time_by_user(user, Time.utc(2009, 12, 20), Time.utc(2009,12,30), :project => project1).first.should == entry1
@@ -40,6 +42,12 @@ describe 'harvest reporting' do
 
       harvest.reports.time_by_user(user, Time.utc(2009, 12, 20), Time.utc(2009,12,30), :billable => true).first.should == entry1
       harvest.reports.time_by_user(user, Time.utc(2009, 12, 20), Time.utc(2009,12,30), :billable => false).first.should == entry2
+
+      entry3_time = Time.now.utc
+      entry3  = harvest.time.create("notes" => "test entry for checking updated_since", "hours" => 5, "spent_at" => "2009/12/15", "task_id" => task1.id, "project_id" => project1.id, "of_user" => user.id)
+      entries = harvest.reports.time_by_user(user, Time.utc(2009, 12, 10), Time.utc(2009,12,30), {:project => project1, :updated_since => entry3_time})
+      entries.first.should == entry3
+      entries.size.should  == 1
 
       client2 = harvest.clients.create("name" => "Phil's Sandwich Shop")
       harvest.reports.projects_by_client(client).map(&:id).to_set.should == [project1, project2].map(&:id).to_set
@@ -71,6 +79,8 @@ describe 'harvest reporting' do
       )
 
       harvest.reports.expenses_by_user(user, Time.utc(2009, 12, 20), Time.utc(2009,12,30)).first.should == expense
+
+      harvest.reports.expenses_by_user(user, Time.utc(2009, 12, 20), Time.utc(2009,12,30), {:updated_since => Time.now.utc}).should == []
 
       my_user = harvest.users.all.detect {|u| u.email == credentials["username"]}
       my_user.should_not be_nil
