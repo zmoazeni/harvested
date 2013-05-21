@@ -27,9 +27,9 @@ module Harvest
       # Creates an item
       # @param [Harvest::BaseModel] model the item you want to create
       # @return [Harvest::BaseModel] the created model depending on where you're calling it from (e.g. Harvest::Client from Harvest::Base#clients)
-      def create(model)
+      def create(model, user = nil)
         model = api_model.wrap(model)
-        response = request(:post, credentials, "#{api_model.api_path}", :body => model.to_json)
+        response = request(:post, credentials, "#{api_model.api_path}", :body => model.to_json, :query => of_user_query(user))
         id = response.headers["location"].match(/\/.*\/(\d+)/)[1]
         find(id, model.impersonated_user_id)
       end
