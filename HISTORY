@@ -1,3 +1,6 @@
+1.0.1 - May 23, 2013
+  * Adds ability to pass updated_since paramter to report methods (thanks Pete McWilliams)
+  * Adds abiilty to create time entries for a given user
 1.0.0 - April 26, 2013
   * Same as 0.6.4 - This should have been v1.0 long ago.
 0.6.4 - October 24, 2012

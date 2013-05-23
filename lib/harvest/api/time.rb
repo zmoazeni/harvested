@@ -13,11 +13,11 @@ module Harvest
         Harvest::TimeEntry.parse(JSON.parse(response.body)["day_entries"])
       end
       
-      def create(entry)
-        response = request(:post, credentials, '/daily/add', :body => entry.to_json)
+      def create(entry, user = nil)
+        response = request(:post, credentials, '/daily/add', :body => entry.to_json, :query => of_user_query(user))
         Harvest::TimeEntry.parse(response.parsed_response).first
       end
-      
+
       def update(entry, user = nil)
         request(:put, credentials, "/daily/update/#{entry.to_i}", :body => entry.to_json, :query => of_user_query(user))
         find(entry.id, user)
