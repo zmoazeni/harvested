@@ -49,5 +49,22 @@ describe 'harvest time tracking' do
     end
   end
 
-  it 'allows toggling of timers'
+  it 'allows toggling of timers' do
+    cassette("time_tracking3") do
+      client = harvest.clients.create("name" => "Jane's Car Shop")
+      project = harvest.projects.create("name" => "Tracking Project", "client_id" => client.id)
+      harvest.projects.create_task(project, "A billable task")
+      task = harvest.tasks.all.detect {|t| t.name == "A billable task"}
+
+      entry = harvest.time.create("notes" => "Test api support", "hours" => 3, "spent_at" => "2009/12/28", "task_id" => task.id, "project_id" => project.id)
+
+      # start existing timer
+      started_entry = harvest.time.toggle(entry.id)
+      started_entry.timer_started_at.should_not == nil
+
+      # stop started timer
+      stopped_entry = harvest.time.toggle(started_entry.id)
+      stopped_entry.timer_started_at.should == nil
+    end
+  end
 end
