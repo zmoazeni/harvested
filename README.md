@@ -87,11 +87,6 @@ Using [rvm](https://rvm.beginrescueend.com/) you can run the tests against the p
 
 Each runtime needs to be installed in rvm along with the bundler gem.
 
-## TODO
-
-* Write Documentation
-* Allow Timer Toggling
-
 ## Notes on Harvest Estimates
 
 Estimates aren't currently supported due to lack of an API. If this opens up, harvested will include them.

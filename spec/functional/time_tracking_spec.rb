@@ -60,11 +60,11 @@ describe 'harvest time tracking' do
 
       # start existing timer
       started_entry = harvest.time.toggle(entry.id)
-      started_entry.timer_started_at.should_not == nil
+      started_entry.timer_started_at.should_not be_nil
 
       # stop started timer
       stopped_entry = harvest.time.toggle(started_entry.id)
-      stopped_entry.timer_started_at.should == nil
+      stopped_entry.timer_started_at.should be_nil
     end
   end
 end
