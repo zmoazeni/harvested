@@ -1,4 +1,4 @@
-(Unreleased)
+1.1.0 - December 13, 2013
   * Adds ability to toggle timers (thanks Eli Fatsi - @efatsi)
 1.0.1 - June 21, 2013
   * Adds ability to pass updated_since paramter to report methods (thanks Pete McWilliams)
