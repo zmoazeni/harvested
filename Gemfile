@@ -10,7 +10,7 @@ group :development, :test do
   gem 'webmock'
   gem 'vcr'
   gem 'jeweler', :require => false
-  gem 'byebug'
+  gem 'debugger'
   gem 'factory_girl'
   gem 'yard'
   gem 'redcarpet'
