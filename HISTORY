@@ -1,3 +1,6 @@
+1.2.0 - February 21, 2014
+  * Adds time.trackable_projects: projects that the current user can create entries for
+  * Show hint on error for projects.all as unprivileged user
 1.1.0 - December 13, 2013
   * Adds ability to toggle timers (thanks Eli Fatsi - @efatsi)
 1.0.1 - June 21, 2013
