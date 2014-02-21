@@ -4,6 +4,14 @@ module Harvest
       api_model Harvest::Project
       
       include Harvest::Behavior::Crud
+
+      # Retrieves all projects. Note: this requires project manager or administrator authorization.
+      # @return [Harvest::Project]
+      def all(*)
+        super
+      rescue NotFound => e
+        raise NotFound.new(e.response, e.params, "Do you have sufficient priveleges? If not, consider using time.trackable_projects instead.")
+      end
       
       # Creates and Assigns a task to the project
       #
