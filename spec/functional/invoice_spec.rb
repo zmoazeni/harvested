@@ -23,7 +23,7 @@ describe 'harvest invoices' do
       invoice = harvest.invoices.create(invoice)
 
       invoice.subject.should == "Invoice for Joe's Stream Cleaning"
-      invoice.amount.should == "2400.0"
+      invoice.amount.should == 2400.0
       invoice.line_items.size.should == 1
 
       invoice.subject    = "Updated Invoice for Joe"
@@ -31,7 +31,7 @@ describe 'harvest invoices' do
 
       invoice = harvest.invoices.update(invoice)
       invoice.subject.should == "Updated Invoice for Joe"
-      invoice.amount.should == "4800.0"
+      invoice.amount.should == 4800.0
       invoice.line_items.size.should == 2
 
       harvest.invoices.delete(invoice)
@@ -75,13 +75,13 @@ describe 'harvest invoices' do
       invoice = harvest.invoices.create(invoice)
 
       invoice.subject.should == "Invoice for Frannie's Widgets"
-      invoice.amount.should == "2400.0"
+      invoice.amount.should == 2400.0
       invoice.line_items.size.should == 1
       invoice.due_at.should == "2011-05-31"
 
       invoice = harvest.invoices.find(invoice.id)
       invoice.subject.should == "Invoice for Frannie's Widgets"
-      invoice.amount.should == "2400.0"
+      invoice.amount.should == 2400.0
       invoice.line_items.size.should == 1
 
       invoices = harvest.invoices.all

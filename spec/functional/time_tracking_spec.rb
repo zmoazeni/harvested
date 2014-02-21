@@ -51,7 +51,7 @@ describe 'harvest time tracking' do
 
   it 'allows toggling of timers' do
     cassette("time_tracking3") do
-      client = harvest.clients.create("name" => "Jane's Car Shop")
+      client = harvest.clients.create("name" => "Jane's Used Car Shop")
       project = harvest.projects.create("name" => "Tracking Project", "client_id" => client.id)
       harvest.projects.create_task(project, "A billable task")
       task = harvest.tasks.all.detect {|t| t.name == "A billable task"}

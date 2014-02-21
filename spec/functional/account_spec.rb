@@ -4,7 +4,7 @@ describe 'account information' do
   it 'returns the rate limit when requested' do
     cassette('account1') do
       status = harvest.account.rate_limit_status
-      status.max_calls.should == 100
+      status.max_calls.should == 500
     end
   end
   

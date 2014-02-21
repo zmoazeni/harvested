@@ -92,7 +92,7 @@ describe 'harvest users' do
 
         assignment.hourly_rate = 100
         assignment = harvest.user_assignments.update(assignment)
-        assignment.hourly_rate.should == "100.0"
+        assignment.hourly_rate.should == 100.0
 
         harvest.user_assignments.delete(assignment)
         all_assignments = harvest.user_assignments.all(project)

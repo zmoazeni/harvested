@@ -8,11 +8,11 @@ describe 'harvest tasks' do
         "billable_by_default"    => true,
         "default_hourly_rate"    => 120
       )
-      task.default_hourly_rate.should == "120.0"
+      task.default_hourly_rate.should == 120.0
 
       task.default_hourly_rate = 140
       task = harvest.tasks.update(task)
-      task.default_hourly_rate.should == "140.0"
+      task.default_hourly_rate.should == 140.0
 
       harvest.tasks.delete(task)
       harvest.tasks.all.select {|t| t.name == "A crud task"}.should == []
@@ -53,7 +53,7 @@ describe 'harvest tasks' do
         
         assignment1.hourly_rate = 100
         assignment1 = harvest.task_assignments.update(assignment1)
-        assignment1.hourly_rate.should == "100.0"
+        assignment1.hourly_rate.should == 100.0
 
         harvest.task_assignments.delete(assignment1)
         all_assignments = harvest.task_assignments.all(project)
