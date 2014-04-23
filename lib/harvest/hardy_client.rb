@@ -61,13 +61,13 @@ module Harvest
           seconds = if e.response.headers["retry-after"]
             e.response.headers["retry-after"].to_i
           else
-            16
+            22
           end
           sleep(seconds)
           retry
         rescue Harvest::Unavailable, Harvest::InformHarvest => e
           would_retry = retry_func.call(e)
-          sleep(16) if @client.account.rate_limit_status.over_limit?
+          sleep(22) if @client.account.rate_limit_status.over_limit?
           retry if would_retry
         rescue Net::HTTPError, Net::HTTPFatalError => e
           retry if retry_func.call(e)

@@ -78,6 +78,7 @@ describe 'harvest reporting' do
         "user_id"             => user.id
       )
 
+      harvest.reports.expenses_by_project(project, Time.utc(2009, 12, 20), Time.utc(2009,12,30)).first.should == expense
       harvest.reports.expenses_by_user(user, Time.utc(2009, 12, 20), Time.utc(2009,12,30)).first.should == expense
 
       harvest.reports.expenses_by_user(user, Time.utc(2009, 12, 20), Time.utc(2009,12,30), {:updated_since => Time.now.utc}).should == []
@@ -85,6 +86,9 @@ describe 'harvest reporting' do
       my_user = harvest.users.all.detect {|u| u.email == credentials["username"]}
       my_user.should_not be_nil
       harvest.reports.expenses_by_user(my_user, Time.utc(2009, 12, 20), Time.utc(2009,12,30)).should == []
+
+      my_project = harvest.projects.create("name" => "Travel Expense Project", "client_id" => client.id)
+      harvest.reports.expenses_by_project(my_project, Time.utc(2009, 12, 20), Time.utc(2009,12,30)).should == []
     end
   end
 end
