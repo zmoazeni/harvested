@@ -1,6 +1,13 @@
 module Harvest
   module API
     class Base
+      HTTP_METHODS = {
+        :get => Net::HTTP::Get,
+        :post => Net::HTTP::Post,
+        :put => Net::HTTP::Put,
+        :delete => Net::HTTP::Delete
+      }
+
       attr_reader :credentials
 
       def initialize(credentials)
@@ -24,17 +31,22 @@ module Harvest
           params[:options] = options
           params[:method] = method
 
-          response = HTTParty.send(method, "#{credentials.host}#{path}",
+          url = "#{credentials.host}#{path}"
+
+          request = HTTParty::Request.new(HTTP_METHODS[method], url,
             :query => options[:query],
             :body => options[:body],
             :format => :plain,
             :headers => {
               "Accept" => "application/json",
               "Content-Type" => "application/json; charset=utf-8",
-              "Authorization" => "Basic #{credentials.basic_auth}",
               "User-Agent" => "Harvestable/#{Harvest::VERSION}",
             }.update(options[:headers] || {})
           )
+
+          credentials.authenticate_request!(request)
+
+          response = request.perform
 
           params[:response] = response.inspect.to_s
 

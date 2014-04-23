@@ -4,9 +4,13 @@ module Harvest
 
     # @see Harvest.client
     # @see Harvest.hardy_client
-    def initialize(subdomain, username, password, options = {})
-      options[:ssl] = true if options[:ssl].nil?
-      @credentials = Credentials.new(subdomain, username, password, options[:ssl])
+    def initialize(*args)
+      @credentials = if args.length == 4
+        Credentials.new(*args[0..2], args[3][:ssl])
+      else
+        Credentials.new(*args)
+      end
+
       raise InvalidCredentials unless credentials.valid?
     end
 

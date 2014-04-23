@@ -13,10 +13,4 @@ describe Harvest::Credentials do
       Harvest::Credentials.new(nil, nil, nil).should_not be_valid
     end
   end
-  
-  describe "#basic_auth" do
-    it "should base64 encode the credentials" do
-      Harvest::Credentials.new("some-domain", "username", "password").basic_auth.should == "dXNlcm5hbWU6cGFzc3dvcmQ="
-    end
-  end
 end
