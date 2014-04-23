@@ -1,16 +1,16 @@
 source 'https://rubygems.org'
 
-gem 'httparty'
-gem 'hashie', '~> 1'
-gem 'json'
+gemspec
 
 group :development, :test do
+  gem 'bundler', '>= 1.6.2'
+  gem 'rake'
+
   gem 'rspec', '~> 2'
   gem 'jruby-openssl', :platform => [:jruby], :require => false
   gem 'webmock'
   gem 'vcr'
-  gem 'jeweler', :require => false
-  gem 'debugger'
+  gem 'byebug'
   gem 'factory_girl'
   gem 'yard'
   gem 'redcarpet'

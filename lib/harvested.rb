@@ -23,8 +23,6 @@ require 'harvest/base'
 %w(base account clients contacts projects tasks users task_assignments user_assignments expense_categories expenses time reports invoice_categories invoices invoice_payments).each {|a| require "harvest/api/#{a}"}
 
 module Harvest
-  VERSION = File.read(File.expand_path(File.join(File.dirname(__FILE__), '..', 'VERSION'))).strip
-
   class << self
 
     # Creates a standard client that will raise all errors it encounters

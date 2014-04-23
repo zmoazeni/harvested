@@ -2,6 +2,7 @@ require 'harvested'
 require 'webmock/rspec'
 require 'vcr'
 require 'factory_girl'
+require 'byebug'
 
 Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each {|f| require File.expand_path(f) }
 
