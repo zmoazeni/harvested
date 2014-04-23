@@ -55,13 +55,13 @@ describe 'harvest invoices' do
       invoice = Harvest::Invoice.new(
         "subject"              => "Invoice for Frannie's Widgets",
         "client_id"            => client.id,
-        "issued_at"            => "2011-03-31",
-        "due_at"               => "2011-05-31",
+        "issued_at"            => "2014-01-01",
+        "due_at_human_format"  => "NET 10",
         "currency"             => "United States Dollars - USD",
         "number"               => 1000,
         "notes"                => "Some notes go here",
-        "period_end"           => "2011-03-31",
-        "period_start"         => "2011-02-26",
+        "period_end"           => "2013-03-31",
+        "period_start"         => "2013-02-26",
         "kind"                 => "free_form",
         "state"                => "draft",
         "purchase_order"       => nil,
@@ -77,12 +77,12 @@ describe 'harvest invoices' do
       invoice.subject.should == "Invoice for Frannie's Widgets"
       invoice.amount.should == 2400.0
       invoice.line_items.size.should == 1
-      invoice.due_at.should == "2011-05-31"
 
       invoice = harvest.invoices.find(invoice.id)
       invoice.subject.should == "Invoice for Frannie's Widgets"
       invoice.amount.should == 2400.0
       invoice.line_items.size.should == 1
+      invoice.due_at.should == "2014-01-11"
 
       invoices = harvest.invoices.all
       invoices.count.should == 1
@@ -105,7 +105,7 @@ describe 'harvest invoices' do
       invoices = harvest.invoices.all(:updated_since => Date.today)
       invoices.count.should == 1
 
-      invoices = harvest.invoices.all(:updated_since => '21121231')
+      invoices = harvest.invoices.all(:updated_since => '2112-12-31')
       invoices.count.should == 0
 
       harvest.invoices.delete(invoice)

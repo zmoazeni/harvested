@@ -69,14 +69,13 @@ describe 'harvest reporting' do
       project = harvest.projects.create("name" => "Expense Reporting Project", "client_id" => client.id)
       harvest.user_assignments.create("project" => project, "user" => user)
 
-      expense                 = harvest.expenses.create(
+      expense                 = harvest.expenses.create({
         "notes"               => "Drive to Chicago",
         "total_cost"          => 75.0,
         "spent_at"            => Time.utc(2009, 12, 28),
         "expense_category_id" => category.id,
-        "project_id"          => project.id,
-        "user_id"             => user.id
-      )
+        "project_id"          => project.id
+      }, user.id)
 
       harvest.reports.expenses_by_user(user, Time.utc(2009, 12, 20), Time.utc(2009,12,30)).first.should == expense
 

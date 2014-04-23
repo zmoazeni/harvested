@@ -31,7 +31,11 @@ module Harvest
         model = api_model.wrap(model)
         response = request(:post, credentials, "#{api_model.api_path}", :body => model.to_json, :query => of_user_query(user))
         id = response.headers["location"].match(/\/.*\/(\d+)/)[1]
-        find(id, model.impersonated_user_id)
+        if user
+          find(id, user)
+        else
+          find(id)
+        end
       end
 
       # Updates an item
