@@ -1,3 +1,5 @@
+2.0.0 - April 23, 2014
+  * Every connection must be SSL
 1.2.0 - February 21, 2014
   * Adds time.trackable_projects: projects that the current user can create entries for
   * Show hint on error for projects.all as unprivileged user

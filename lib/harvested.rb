@@ -34,7 +34,7 @@ module Harvest
     #
     # @return [Harvest::Base]
     def client(subdomain, username, password, options = {})
-      Harvest::Base.new(subdomain, username, password, options)
+      Harvest::Base.new(subdomain, username, password)
     end
 
     # Creates a hardy client that will retry common HTTP errors it encounters and sleep() if it determines it is over your rate limit
@@ -61,7 +61,7 @@ module Harvest
     # @see Harvest::Base
     def hardy_client(subdomain, username, password, options = {})
       retries = options.delete(:retry)
-      Harvest::HardyClient.new(client(subdomain, username, password, options), (retries || 5))
+      Harvest::HardyClient.new(client(subdomain, username, password), (retries || 5))
     end
   end
 end

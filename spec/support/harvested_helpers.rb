@@ -6,18 +6,13 @@ module HarvestedHelpers
   def credentials; HarvestedHelpers.credentials; end
 
   def self.simple_harvest
-    Harvest.client(credentials["subdomain"], credentials["username"], credentials["password"], :ssl => true)
+    Harvest.client(credentials["subdomain"], credentials["username"], credentials["password"])
   end
 
-  # def connect_to_harvest
-  #   @harvest = Harvest.hardy_client(credentials["subdomain"], credentials["username"], credentials["password"], :ssl => true)
-  # end
-
-  # def harvest; @harvest; end
   def harvest; @harvest ||= HarvestedHelpers.simple_harvest; end
 
   def hardy_harvest
-    Harvest.hardy_client(credentials["subdomain"], credentials["username"], credentials["password"], :ssl => true)
+    Harvest.hardy_client(credentials["subdomain"], credentials["username"], credentials["password"])
   end
 
   def self.clean_remote
