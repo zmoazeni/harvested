@@ -18,11 +18,11 @@ module HarvestedHelpers
   def self.clean_remote
     harvest = simple_harvest
     harvest.users.all.each do |u|
-      harvest.reports.expenses_by_user(u, Time.utc(2000, 1, 1), Time.utc(2013, 6,21)).each do |expense|
+      harvest.reports.expenses_by_user(u, Time.utc(2000, 1, 1), Time.utc(2014, 6, 21)).each do |expense|
         harvest.expenses.delete(expense, u)
       end
 
-      harvest.reports.time_by_user(u, Time.utc(2000, 1, 1), Time.utc(2013, 6,21)).each do |time|
+      harvest.reports.time_by_user(u, Time.utc(2000, 1, 1), Time.utc(2014, 6, 21)).each do |time|
         harvest.time.delete(time, u)
       end
 

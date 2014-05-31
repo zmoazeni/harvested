@@ -1,6 +1,8 @@
 3.0.0 - Unreleased
   * Require Ruby 2.0+
   * Allow OAuth authentication
+  * Allow expenses_by_project to be retrieved
+  * Reports now pass through any remaining options
 2.0.0 - April 23, 2014
   * Every connection must be SSL
 1.2.0 - February 21, 2014
