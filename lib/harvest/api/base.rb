@@ -32,7 +32,7 @@ module Harvest
             headers: {
               "Accept"       => "application/json",
               "Content-Type" => "application/json; charset=utf-8",
-              "User-Agent"   => "Harvestable/#{Harvest::VERSION}"
+              "User-Agent"   => "Harvested/#{Harvest::VERSION}"
             }.update(options[:headers] || {})
           }
 
