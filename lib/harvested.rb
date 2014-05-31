@@ -29,23 +29,38 @@ module Harvest
     # Creates a standard client that will raise all errors it encounters
     #
     # == Options
-    # * +:ssl+ - Whether or not to use SSL when connecting to Harvest. This is dependent on whether your account supports it. Set to +true+ by default
+    # * Basic Authentication
+    #   * +:subdomain+ - Your Harvest subdomain
+    #   * +:username+ - Your Harvest username
+    #   * +:password+ - Your Harvest password
+    # * OAuth
+    #   * +:access_token+ - An OAuth 2.0 access token
+    #
     # == Examples
-    #   Harvest.client('mysubdomain', 'myusername', 'mypassword', :ssl => false)
+    #   Harvest.client(subdomain: 'mysubdomain', username: 'myusername', password: 'mypassword')
+    #   Harvest.client(access_token: 'myaccesstoken')
     #
     # @return [Harvest::Base]
-    def client(subdomain, username, password, options = {})
-      Harvest::Base.new(subdomain, username, password)
+    def client(subdomain: nil, username: nil, password: nil, access_token: nil)
+      Harvest::Base.new(subdomain: subdomain, username: username, password: password, access_token: access_token)
     end
 
     # Creates a hardy client that will retry common HTTP errors it encounters and sleep() if it determines it is over your rate limit
     #
     # == Options
-    # * +:ssl+ - Whether or not to use SSL when connecting to Harvest. This is dependent on whether your account supports it. Set to +true+ by default
+    # * Basic Authentication
+    #   * +:subdomain+ - Your Harvest subdomain
+    #   * +:username+ - Your Harvest username
+    #   * +:password+ - Your Harvest password
+    # * OAuth
+    #   * +:access_token+ - An OAuth 2.0 access token
+    #
     # * +:retry+ - How many times the hardy client should retry errors. Set to +5+ by default.
     #
     # == Examples
-    #   Harvest.hardy_client('mysubdomain', 'myusername', 'mypassword', :ssl => true, :retry => 3)
+    #   Harvest.hardy_client(subdomain: 'mysubdomain', username: 'myusername', password: 'mypassword', retry: 3)
+    #
+    #   Harvest.hardy_client(access_token: 'myaccesstoken', retries: 3)
     #
     # == Errors
     # The hardy client will retry the following errors
@@ -60,9 +75,8 @@ module Harvest
     #
     # @return [Harvest::HardyClient] a Harvest::Base wrapped in a Harvest::HardyClient
     # @see Harvest::Base
-    def hardy_client(subdomain, username, password, options = {})
-      retries = options.delete(:retry)
-      Harvest::HardyClient.new(client(subdomain, username, password), (retries || 5))
+    def hardy_client(subdomain: nil, username: nil, password: nil, access_token: nil, retries: 5)
+      Harvest::HardyClient.new(client(subdomain: subdomain, username: username, password: password, access_token: access_token), retries)
     end
   end
 end

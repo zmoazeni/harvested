@@ -19,23 +19,25 @@ module Harvest
 
       protected
         def request(method, credentials, path, options = {})
-          params = {}
-          params[:path] = path
-          params[:options] = options
-          params[:method] = method
+          params = {
+            path:    path,
+            options: options,
+            method:  method
+          }
 
-          response = HTTParty.send(method, "#{credentials.host}#{path}",
-            :query => options[:query],
-            :body => options[:body],
-            :format => :plain,
-            :headers => {
-              "Accept" => "application/json",
+          httparty_options = {
+            query:  options[:query],
+            body:   options[:body],
+            format: :plain,
+            headers: {
+              "Accept"       => "application/json",
               "Content-Type" => "application/json; charset=utf-8",
-              "Authorization" => "Basic #{credentials.basic_auth}",
-              "User-Agent" => "Harvestable/#{Harvest::VERSION}",
+              "User-Agent"   => "Harvestable/#{Harvest::VERSION}"
             }.update(options[:headers] || {})
-          )
+          }
 
+          credentials.set_authentication(httparty_options)
+          response = HTTParty.send(method, "#{credentials.host}#{path}", httparty_options)
           params[:response] = response.inspect.to_s
 
           case response.code

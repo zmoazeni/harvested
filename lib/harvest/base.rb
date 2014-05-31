@@ -4,9 +4,14 @@ module Harvest
 
     # @see Harvest.client
     # @see Harvest.hardy_client
-    def initialize(subdomain, username, password)
-      @credentials = Credentials.new(subdomain, username, password)
-      raise InvalidCredentials unless credentials.valid?
+    def initialize(subdomain: nil, username: nil, password: nil, access_token: nil)
+      @credentials = if subdomain && username && password
+        BasicAuthCredentials.new(subdomain: subdomain, username: username, password: password)
+      elsif access_token
+        OAuthCredentials.new(access_token)
+      else
+        fail 'You must provide either :subdomain, :username, and :password or an oauth :access_token'
+      end
     end
 
     # All API actions surrounding accounts
