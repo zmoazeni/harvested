@@ -23,7 +23,7 @@ module Harvest
       def to_i; id; end
 
       def ==(other)
-        id == other.id
+        other.kind_of?(self.class) && id == other.id
       end
 
       def impersonated_user_id
