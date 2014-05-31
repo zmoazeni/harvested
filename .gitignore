@@ -31,3 +31,5 @@ spec/support/harvest_credentials.yml
 Gemfile.lock
 .bundle
 vendor/bundle
+
+tmp
