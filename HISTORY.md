@@ -1,4 +1,4 @@
-## 3.0.0 - Unreleased
+## 3.0.0.rc1 - May 30, 2014
   * Require Ruby 2.0+
   * Allow OAuth authentication (Thanks Brendan Loudermilk - @bloudermilk)
   * Allow expenses_by_project to be retrieved (Thanks Jordan Yeo - @jordanyeo)
