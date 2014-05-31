@@ -13,7 +13,7 @@ subdomain = 'yoursubdomain'
 username = 'yourusername'
 password = 'yourpassword'
 
-harvest = Harvest.hardy_client(subdomain, username, password)
+harvest = Harvest.hardy_client(subdomain: subdomain, username: username, password: password)
 
 puts "\nPlease search for a client by typing part of their name:"
 cname = gets.chomp
@@ -35,7 +35,7 @@ when 1..15
 		puts "  #{i+1}. #{c.name}"
 	end
 
-	client_index = gets.chomp.to_i - 1	
+	client_index = gets.chomp.to_i - 1
 else
 	puts "Too many client matches. Please try a more specific search term.\n"
 	abort
@@ -69,13 +69,13 @@ tasks = harvest.tasks.all.select { |t| use_tasks.include?(t.name) }
 
 # Create the project
 puts "Creating new project: \"#{project_name}\" for client: #{client.name}\n"
-project = Harvest::Project.new(:name => project_name, :client_id => client.id, :billable => billable, :notes => notes)
+project = Harvest::Project.new(name: project_name, client_id: client.id, billable: billable, notes: notes)
 project = harvest.projects.create(project)
 
 # Add all the project tasks to the project
 tasks.each do |t|
 	puts "  Adding Task: #{t.name}"
-	task_assignment = Harvest::TaskAssignment.new(:task_id => t.id, :project_id => project.id)
+	task_assignment = Harvest::TaskAssignment.new(task_id: t.id, project_id: project.id)
 	task_assignment = harvest.task_assignments.create(task_assignment)
 end
 
@@ -85,7 +85,7 @@ harvest.users.all.each do |u|
 	next unless u.is_active?
 
 	puts "  Adding User: #{u.first_name} #{u.last_name}"
-	user_assignment = Harvest::UserAssignment.new(:user_id => u.id, :project_id => project.id)
+	user_assignment = Harvest::UserAssignment.new(user_id: u.id, project_id: project.id)
 	harvest.user_assignments.create(user_assignment)
 end
 
