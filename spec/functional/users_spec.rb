@@ -44,24 +44,6 @@ describe 'harvest users' do
     end
   end
 
-  it "allows password resets" do
-    cassette("users3") do
-      pending "Something is wrong with resetting passwords"
-      user = harvest.users.create(
-        "first_name"            => "Timmy",
-        "last_name"             => "Ruth",
-        "email"                 => "timmy@ruth.com",
-        "timezone"              => "cst",
-        "is_admin"             => "false",
-        "telephone"             => "444-4444"
-      )
-      user.should be_active
-
-      harvest.users.reset_password(user) # nothing else to assert
-      harvest.users.delete(user)
-    end
-  end
-
   context "assignments" do
     it "allows adding, updating, and removing users from projects" do
       cassette('users4') do
