@@ -48,7 +48,7 @@ module Harvest
           when 401
             raise Harvest::AuthenticationFailed.new(response, params)
           when 404
-            raise Harvest::NotFound.new(response, params)
+            raise Harvest::NotFound.new(response, params, "Do you have sufficient privileges?")
           when 500
             raise Harvest::ServerError.new(response, params)
           when 502

@@ -10,7 +10,7 @@ module Harvest
       def all(*)
         super
       rescue NotFound => e
-        raise NotFound.new(e.response, e.params, "Do you have sufficient priveleges? If not, consider using time.trackable_projects instead.")
+        raise NotFound.new(e.response, e.params, "Do you have sufficient privileges? If not, consider using time.trackable_projects instead.")
       end
       
       # Creates and Assigns a task to the project
