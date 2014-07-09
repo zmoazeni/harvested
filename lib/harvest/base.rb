@@ -288,5 +288,40 @@ module Harvest
     def invoice_payments
       @invoice_payments ||= Harvest::API::InvoicePayments.new(credentials)
     end
+
+    # All API Actions surrounding invoice messages
+    #
+    # == Examples
+    #
+    #  invoice = harvest.invoices.find(100)
+    #  harvest.invoice_messages.all(invoice) # returns all messages for the invoice (as Harvest::InvoicePayment)
+    #
+    #  invoice = harvest.invoices.find(100)
+    #  harvest.invoice_messages.find(invoice, 5) # returns the message with ID 5, assigned to the invoice
+    #
+    #  invoice = harvest.invoices.find(100)
+    #  message = Harvest::InvoiceMessage.new(:invoice_id => invoice.id)
+    #  saved_message = harvest.invoice_messages.create(message) # returns a saved version of the message
+    #
+    #  invoice = harvest.invoices.find(100)
+    #  message = harvest.invoice_messages.find(invoice, 5)
+    #  harvest.invoice_messages.delete(message) # returns 5
+    #
+    #  invoice = harvest.invoices.find(100)
+    #  message = Harvest::InvoiceMessage.new(:invoice_id => invoice.id)
+    #  harvest.invoice_messages.mark_as_sent(message)
+    #  
+    #  invoice = harvest.invoices.find(100)
+    #  message = Harvest::InvoiceMessage.new(:invoice_id => invoice.id)
+    #  harvest.invoice_messages.mark_as_closed(message)
+    #
+    #  invoice = harvest.invoices.find(100)
+    #  message = Harvest::InvoiceMessage.new(:invoice_id => invoice.id)
+    #  harvest.invoice_messages.re_open(message)
+    #
+    # @return [Harvest::API::InvoiceMessages]
+    def invoice_messages
+      @invoice_messages ||= Harvest::API::InvoiceMessages.new(credentials)
+    end
   end
 end
