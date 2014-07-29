@@ -21,7 +21,7 @@ You can also pass query options in as the last parameter on any objects `all` fi
 method, for example to find all the projects for client ID 12345:
 
 ```ruby
-harvest = Harvest.client(subdomain: 'yoursubdomain', username: 'yourusername', password: 'yourpassword')
+harvest = Harvest.client('yoursubdomain', 'yourusername', 'yourpassword')
 harvest.projects.all(nil, :client => 12345)
 ```
 
@@ -44,7 +44,7 @@ The guys at Harvest built a great API, but there are always dangers in writing c
 Using `Harvested#client` your code needs to handle all these situations. However you can also use `Harvested#hardy_client` which will retry errors and wait for Rate Limit resets.
 
 ```ruby
-harvest = Harvest.hardy_client(subdomain: 'yoursubdomain', username: 'yourusername', password: 'yourpassword')
+harvest = Harvest.hardy_client('yoursubdomain', 'yourusername', 'yourpassword')
 harvest.projects.all   # This will wait for the Rate Limit reset if you have gone over your limit
 ```
 
