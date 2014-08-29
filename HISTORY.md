@@ -1,3 +1,6 @@
+## 3.1.0 - Aug 29, 2014
+  * Allows Invoice Messages to be created (Thanks Thomas Balthazar - @tbalthazar)
+
 ## 3.0.0 - Aug 29, 2014
   * No longer requires Hashie v1 as a dependency
   * Fixes bug where project hints were not handled properly
