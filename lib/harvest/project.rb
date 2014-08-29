@@ -33,16 +33,5 @@ module Harvest
         json[json_root].delete("hint_latest_record_at")
       end
     end
-
-    def self.parse(json)
-      json = String === json ? JSON.parse(json) : json
-      Array.wrap(json).each do |attrs|
-        # need to cleanup some attributes
-        project_attrs = attrs[json_root] || {}
-        project_attrs["hint_latest_record_at"]   = project_attrs.delete("hint-latest-record-at")
-        project_attrs["hint_earliest_record_at"] = project_attrs.delete("hint-earliest-record-at")
-      end
-      super(json)
-    end
   end
 end
