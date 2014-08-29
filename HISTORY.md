@@ -1,10 +1,12 @@
+## 3.0.0 - Aug 29, 2014
+  * No longer requires Hashie v1 as a dependency
+  * Fixes bug where project hints were not handled properly
+
 ## 3.0.0.rc1 - May 30, 2014
   * Require Ruby 2.0+
   * Allow OAuth authentication (Thanks Brendan Loudermilk - @bloudermilk)
   * Allow expenses_by_project to be retrieved (Thanks Jordan Yeo - @jordanyeo)
   * Reports now pass through any remaining options (Thanks Philip Arndt - @parndt)
-  * No longer requires Hashie v1 as a dependency
-  * Fixes bug where project hints were not handled properly
 
 ## 2.0.0 - April 23, 2014
   * Every connection must be SSL
