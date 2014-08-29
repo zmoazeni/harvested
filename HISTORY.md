@@ -3,6 +3,7 @@
   * Allow OAuth authentication (Thanks Brendan Loudermilk - @bloudermilk)
   * Allow expenses_by_project to be retrieved (Thanks Jordan Yeo - @jordanyeo)
   * Reports now pass through any remaining options (Thanks Philip Arndt - @parndt)
+  * No longer requires Hashie v1 as a dependency
 
 ## 2.0.0 - April 23, 2014
   * Every connection must be SSL
