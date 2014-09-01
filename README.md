@@ -17,7 +17,7 @@ client = harvest.clients.create(client)
 harvest.clients.find(client.id) # returns a Harvest::Client
 ```
 
-You can also pass query options in as the last parameter on any objects `all` finder
+You can also pass query options in as the last parameter on any object's `all` finder
 method, for example to find all the projects for client ID 12345:
 
 ```ruby
@@ -25,7 +25,7 @@ harvest = Harvest.client(subdomain: 'yoursubdomain', username: 'yourusername', p
 harvest.projects.all(nil, :client => 12345)
 ```
 
-Note, the first parameter is a User ID field that is optional, but needs to be specified
+Note: the first parameter is a User ID field that is optional, but needs to be specified
 as nil if not included.
 
 You can pass in any hash of query attributes you wish as per the
@@ -35,11 +35,11 @@ You can find more examples in `/examples` and in the documentation for Harvest::
 
 ## Permissions
 
-For most operations you need to be an Admin on the Harvest account. You can do few select things as normal users and project managers, but you will likely get errors.
+For most operations you need to be an Admin on the Harvest account. You can do a few select things as a normal user or a project manager, but you will likely get errors.
 
 ## Hardy Client
 
-The guys at Harvest built a great API, but there are always dangers in writing code that depends on an API. For example, HTTP Timeouts, Occasional Bad Gateways, and Rate Limiting issues need to be accounted for.
+The team at Harvest built a great API, but there are always dangers in writing code that depends on an API. For example: HTTP Timeouts, Occasional Bad Gateways, and Rate Limiting issues need to be accounted for.
 
 Using `Harvested#client` your code needs to handle all these situations. However you can also use `Harvested#hardy_client` which will retry errors and wait for Rate Limit resets.
 
@@ -50,7 +50,7 @@ harvest.projects.all   # This will wait for the Rate Limit reset if you have gon
 
 ## Ruby support
 
-Harvested's tests are currently supports ruby 2.0+
+Harvested's tests currently support Ruby version 2.0+
 
 ## Links
 
@@ -88,5 +88,5 @@ The tests use [VCR](https://github.com/myronmarston/vcr) to cache the API respon
 
 ## Notes on Harvest Estimates
 
-Estimates aren't currently supported due to lack of an API. If this opens up, harvested will include them.
+Estimates aren't currently supported due to the lack of an API. If this opens up, harvested will include them.
 
