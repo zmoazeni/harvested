@@ -7,7 +7,7 @@ module Harvest
         Harvest::TimeEntry.parse(response.parsed_response).first
       end
 
-      def all(user = nil, max_days = 10)
+      def all(user = nil, max_days = 0)
         entries_by_day = (0..max_days).collect do |days_ago|
           Harvest::TimeEntry.parse(daily(days_ago.days.ago, user)["day_entries"])
         end
