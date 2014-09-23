@@ -6,8 +6,15 @@ module Harvest
         response = request(:get, credentials, "/daily/show/#{id.to_i}", :query => of_user_query(user))
         Harvest::TimeEntry.parse(response.parsed_response).first
       end
-      
-      def all(date = ::Time.now, user = nil)
+
+      def all(user = nil, max_days = 10)
+        entries_by_day = (0..max_days).collect do |days_ago|
+          Harvest::TimeEntry.parse(daily(days_ago.days.ago, user)["day_entries"])
+        end
+        entries_by_day.flatten
+      end
+
+      def by_date(date = ::Time.now, user = nil)
         Harvest::TimeEntry.parse(daily(date, user)["day_entries"])
       end
 
