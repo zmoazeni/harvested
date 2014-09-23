@@ -15,7 +15,7 @@ module Harvest
       end
 
       def recent(limit = 10, days = 7)
-        all(max_days = days)[0..limit]
+        all(max_days = days)[0...limit]
       end
 
       def by_date(date = ::Time.now, user = nil)
