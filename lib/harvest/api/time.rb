@@ -14,6 +14,10 @@ module Harvest
         entries_by_day.flatten
       end
 
+      def recent(limit = 10, days = 7)
+        all(max_days = days)[0..limit]
+      end
+
       def by_date(date = ::Time.now, user = nil)
         Harvest::TimeEntry.parse(daily(date, user)["day_entries"])
       end
