@@ -47,10 +47,12 @@ module Harvest
       when 'mst', 'mdt' then self.timezone = 'america/denver'
       when 'pst', 'pdt' then self.timezone = 'america/los_angeles'
       else
-        if Harvest::Timezones::MAPPING[tz]
-          self["timezone"] = Harvest::Timezones::MAPPING[tz]
+        self["timezone"] = if Harvest::Timezones::MAPPING[tz]
+          Harvest::Timezones::MAPPING[tz]
+        elsif Harvest::Timezones::MAPPING.key(tz)
+          Harvest::Timezones::MAPPING.key(tz)
         else
-          self["timezone"] = timezone
+          timezone
         end
       end
     end
