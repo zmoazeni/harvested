@@ -15,14 +15,6 @@ subdomain = ENV['HARVEST_DOMAIN']
 username = ENV['HARVEST_USERNAME']
 password = ENV['HARVEST_PASSWORD']
 
-subdomain = 'getchef'
-username = 'pburkholder'
-password = '?a(CM1g2.i'
-
-
-require 'pry'
-binding.pry
-
 harvest = Harvest.hardy_client(subdomain: subdomain, username: username, password: password)
 
 CsvEntry = Struct.new(
