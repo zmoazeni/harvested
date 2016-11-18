@@ -1,9 +1,9 @@
 module Harvest
   module API
     class UserAssignments < Base
-      
-      def all(project)
-        response = request(:get, credentials, "/projects/#{project.to_i}/user_assignments")
+
+      def all(project, query = {})
+        response = request(:get, credentials, "/projects/#{project.to_i}/user_assignments", {query: query})
         Harvest::UserAssignment.parse(response.parsed_response)
       end
       
