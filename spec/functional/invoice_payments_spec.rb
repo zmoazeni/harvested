@@ -18,7 +18,7 @@ describe 'harvest invoice payments' do
   it 'allows adding, and removing invoice payments' do
     cassette('invoice_payment2') do
       client  = harvest.clients.create(FactoryGirl.attributes_for(:client))
-      invoice = harvest.invoices.create(FactoryGirl.attributes_for(:invoice, :client_id => client.id))
+      invoice = harvest.invoices.create(FactoryGirl.attributes_for(:invoice, :client_id => client.id, update_line_items: true))
 
       half_amount = (invoice.amount.to_f / 2)
 

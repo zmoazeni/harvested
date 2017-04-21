@@ -19,7 +19,7 @@ describe 'harvest invoices' do
     cassette('invoice2') do
       client  = harvest.clients.create(FactoryGirl.attributes_for(:client))
 
-      invoice = Harvest::Invoice.new(FactoryGirl.attributes_for(:invoice, :client_id => client.id))
+      invoice = Harvest::Invoice.new(FactoryGirl.attributes_for(:invoice, :client_id => client.id, update_line_items: true))
       invoice = harvest.invoices.create(invoice)
 
       invoice.subject.should == "Invoice for Joe's Stream Cleaning"
@@ -28,6 +28,7 @@ describe 'harvest invoices' do
 
       invoice.subject    = "Updated Invoice for Joe"
       invoice.line_items << FactoryGirl.build(:line_item)
+      invoice.update_line_items = true
 
       invoice = harvest.invoices.update(invoice)
       invoice.subject.should == "Updated Invoice for Joe"
@@ -70,7 +71,8 @@ describe 'harvest invoices' do
         "kind"                 => "free_form",
         "import_hours"         => "no",
         "import_expenses"      => "no",
-        "line_items"           => [Harvest::LineItem.new("kind" => "Service", "description" => "One item", "quantity" => 200, "unit_price" => "12.00")]
+        "line_items"           => [Harvest::LineItem.new("kind" => "Service", "description" => "One item", "quantity" => 200, "unit_price" => "12.00")],
+        "update_line_items"   => true
       )
       invoice = harvest.invoices.create(invoice)
 

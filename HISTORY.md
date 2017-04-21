@@ -1,3 +1,6 @@
+## 4.0.0 - Apr 21, 2017
+  * Invoices need to be told explicitly to send line items to the server with a new attribute: `update_line_items`.
+
 ## 3.1.0 - Aug 29, 2014
   * Allows Invoice Messages to be created (Thanks Thomas Balthazar - @tbalthazar)
 

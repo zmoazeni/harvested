@@ -36,10 +36,13 @@ describe Harvest::Invoice do
   end
 
   context "as_json" do
-    it 'encodes line items csv' do
+    it 'only updates line items remotely if it the invoice is told to' do
       invoice = Harvest::Invoice.new(:line_items => "kind,description,quantity,unit_price,amount,taxed,taxed2,project_id\nService,Abc,200,12.00,2400.0,false,false,\nService,def,1.00,20.00,20.0,false,false,\n")
       invoice.line_items.count.should == 2
       invoice.line_items.first.kind.should == "Service"
+      invoice.as_json["invoice"].keys.should_not include("csv_line_items")
+
+      invoice.update_line_items = true
       invoice.as_json["invoice"]["csv_line_items"].should == "kind,description,quantity,unit_price,amount,taxed,taxed2,project_id\nService,Abc,200,12.00,2400.0,false,false,\nService,def,1.00,20.00,20.0,false,false,\n"
     end
   end

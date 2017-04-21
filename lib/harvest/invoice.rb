@@ -42,6 +42,7 @@ module Harvest
     api_path '/invoices'
 
     attr_reader :line_items
+    attr_accessor :update_line_items
 
     def self.parse(json)
       parsed   = String === json ? JSON.parse(json) : json
@@ -60,6 +61,7 @@ module Harvest
         self.line_items = args.delete("csv_line_items")
         self.line_items = args.delete("line_items")
         self.line_items = [] if self.line_items.nil?
+        self.update_line_items = args.delete("update_line_items")
       end
       super
     end
@@ -77,7 +79,7 @@ module Harvest
 
     def as_json(*options)
       json = super(*options)
-      json[json_root]["csv_line_items"] = encode_csv(@line_items)
+      json[json_root]["csv_line_items"] = encode_csv(@line_items) if update_line_items
       json
     end
 
