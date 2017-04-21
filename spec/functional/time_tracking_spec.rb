@@ -76,7 +76,7 @@ describe 'harvest time tracking' do
 
       trackable_projects = harvest.time.trackable_projects
       trackable_project = trackable_projects.find {|p| p.name == "Bobby's Trackable Project" }
-      trackable_projects.first.client.should == "Bobbys Coffee Shop"
+      trackable_projects.first.client.should == "Bobby's Coffee Shop"
       trackable_projects.first.tasks.first.name.should == "A billable task for Bobby"
     end
   end
