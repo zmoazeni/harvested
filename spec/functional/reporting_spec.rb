@@ -46,7 +46,7 @@ describe 'harvest reporting' do
 
       entry3_time = Time.now.utc
       entry3  = harvest.time.create(notes: "test entry for checking updated_since", hours: 5, spent_at: "2009/12/15", task_id: task1.id, project_id: project1.id, of_user: user.id)
-      entries = harvest.reports.time_by_user(user, Time.utc(2009, 12, 10), Time.utc(2009,12,30), {project: project1, updated_since: entry3_time})
+      entries = harvest.reports.time_by_user(user, Time.utc(2009, 12, 10), Time.utc(2009,12,30), {project: project1, updated_since: Time.parse(entry3.updated_at) - 1})
       entries.first.should == entry3
       entries.size.should  == 1
 
