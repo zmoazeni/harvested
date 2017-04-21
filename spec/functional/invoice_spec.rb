@@ -96,7 +96,7 @@ describe 'harvest invoices' do
       invoices = harvest.invoices.all(:status => 'draft', :page => 1)
       invoices.count.should == 1
 
-      invoices = harvest.invoices.all(:timeframe => {:from => Date.today, :to => Date.today})
+      invoices = harvest.invoices.all(:timeframe => {:from => '2014-01-01', :to => '2014-01-01'})
       invoices.count.should == 1
 
       invoices = harvest.invoices.all(:timeframe => {:from => '19690101', :to => '19690101'})
