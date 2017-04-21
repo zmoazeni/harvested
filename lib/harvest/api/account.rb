@@ -15,7 +15,10 @@ module Harvest
       # @return [Harvest::User]
       def who_am_i
         response = request(:get, credentials, '/account/who_am_i')
-        Harvest::User.parse(response.body).first
+        parsed = JSON.parse(response.body)
+        Harvest::User.parse(parsed).first.tap do |user|
+          user.company = parsed["company"]
+        end
       end
     end
   end
