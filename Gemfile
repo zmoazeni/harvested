@@ -4,7 +4,7 @@ gemspec
 
 group :development, :test do
   gem 'bundler', '>= 1.6.2'
-  gem 'rake'
+  gem 'rake', '< 11'
 
   gem 'rspec', '~> 2'
   gem 'jruby-openssl', :platform => [:jruby], :require => false
