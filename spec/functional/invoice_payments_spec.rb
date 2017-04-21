@@ -26,7 +26,7 @@ describe 'harvest invoice payments' do
       payment1 = harvest.invoice_payments.create(payment1)
 
       invoice = harvest.invoices.find(invoice.id)
-      invoice.state.should == 'partial'
+      invoice.state.should == 'draft'
 
       payment2 = Harvest::InvoicePayment.new(FactoryGirl.attributes_for(:invoice_payment, :invoice_id => invoice.id, :amount => half_amount))
       payment2 = harvest.invoice_payments.create(payment2)
@@ -38,7 +38,7 @@ describe 'harvest invoice payments' do
       harvest.invoice_payments.all(invoice).should be_empty
 
       invoice = harvest.invoices.find(invoice.id)
-      invoice.state.should == 'open'
+      invoice.state.should == 'draft'
     end
   end
 end
