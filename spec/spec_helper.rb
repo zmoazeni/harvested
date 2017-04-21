@@ -14,6 +14,7 @@ VCR.configure do |c|
     # force cassettes to re_record when we pass VCR_REFRESH=true
     re_record_interval: ENV['VCR_REFRESH'] == 'true' ? 0 : nil
   }
+  c.allow_http_connections_when_no_cassette = true
 end
 
 FactoryGirl.find_definitions
@@ -33,7 +34,11 @@ RSpec.configure do |config|
   end
 
   def cassette(*args)
-    VCR.use_cassette(*args) do
+    if ENV['USE_VCR']
+      VCR.use_cassette(*args) do
+        yield
+      end
+    else
       yield
     end
   end
