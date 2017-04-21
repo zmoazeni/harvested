@@ -1,3 +1,7 @@
+# Harvested needs maintainers!! If you are interested in maintaining Harvested, create an issue! Until someone volunteers to help, development and bugfixes will lag. #
+
+Current project status: abandoned
+
 # Harvested: A Ruby Harvest API
 
 This is a Ruby wrapper for the [Harvest API](http://www.getharvest.com/api).
