@@ -1,6 +1,8 @@
 ## 4.0.0 - Apr 21, 2017
   * Invoices need to be told explicitly to send line items to the server with a new attribute: `update_line_items`.
   * Task/UserAssignment endpoints can now be passed query params. (Thanks Brendan Loudermilk - @bloudermilk and Nick Giancola @patbenatar)
+  * Expense Attachments work again. (Thanks Peter - @toothfairy)
+  * Company information is now included when retreiving info from `who_am_i`. (Thanks André Arko - @indirect)
 
 ## 3.1.0 - Aug 29, 2014
   * Allows Invoice Messages to be created (Thanks Thomas Balthazar - @tbalthazar)
