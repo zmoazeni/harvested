@@ -110,6 +110,9 @@ describe 'harvest invoices' do
       invoices = harvest.invoices.all(:updated_since => '2112-12-31')
       invoices.count.should == 0
 
+      invoices = harvest.invoices.all(:client => client.id)
+      invoices.count.should == 1
+
       harvest.invoices.delete(invoice)
       harvest.invoices.all.select {|p| p.number == "1000"}.should == []
     end
