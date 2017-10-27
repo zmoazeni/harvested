@@ -22,6 +22,8 @@ module Harvest
         query[:status]        = options[:status]        if options[:status]
         query[:page]          = options[:page]          if options[:page]
         query[:updated_since] = options[:updated_since] if options[:updated_since]
+        query[:client]        = options[:client]        if options[:client]
+        
         if options[:timeframe]
           query[:from] = options[:timeframe][:from]
           query[:to]   = options[:timeframe][:to]
