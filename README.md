@@ -1,6 +1,6 @@
-# Harvested needs maintainers!! If you are interested in maintaining Harvested, create an issue! Until someone volunteers to help, development and bugfixes will lag. #
+# Harvested is feature frozen and will not accept new feature additions. It will not support the V2 API. #
 
-Current project status: abandoned
+For more information about the reasons for that decision, please read https://github.com/zmoazeni/harvested/issues/98
 
 # Harvested: A Ruby Harvest API
 
